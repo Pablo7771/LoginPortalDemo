@@ -1,26 +1,36 @@
-import Vue                        from "vue";
-import VueRouter, { RouteConfig } from "vue-router";
-import LoginView                  from "@/views/LoginView.vue";
-import Registro                   from "@/views/Registro.vue";
+import Vue from "vue";
+import VueRouter from "vue-router";
+import LoginForm from "@/components/LoginForm.vue";
+import RegisterForm from "@/components/RegisterForm.vue";
 
 Vue.use(VueRouter);
 
-const routes: Array<RouteConfig> = [
+const routes = [
   {
-    path: "/",
-    name: "login",
-    component: LoginView,
+    path: "/login",
+    component: LoginForm,
+    children: [
+      {
+        path: "",
+        name: "login-form",
+        component: LoginForm,
+      },
+      {
+        path: "/register-form",
+        name: "register-form",
+        component: RegisterForm,
+      },
+    ],
   },
   {
-    path: "/registro",
-    name: "registro",
-    component: Registro,
+    path: "*",
+    redirect: "/login",
   }
 ];
 
 const router = new VueRouter({
   mode: "history",
-  base: "/login",
+  base: "/",
   routes,
 });
 
