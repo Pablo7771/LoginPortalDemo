@@ -24,10 +24,3 @@ export default {
   },
 }
 </script>
-
-<style scoped>
-.login-layout {
-  display: flex;
-  height: 100vh;
-}
-</style>

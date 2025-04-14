@@ -28,7 +28,7 @@
                 {{ $t("login.loginButton") }}
             </v-btn>
 
-            <v-btn color="secondary" block class="login-btn" @click="$router.push('/auth/register')">
+            <v-btn color="secondary" block class="login-btn" @click="$router.push('/register')">
                 {{ $t("login.createAccount") }}
             </v-btn>
         </v-card-actions>

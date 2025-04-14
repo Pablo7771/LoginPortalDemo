@@ -1,14 +1,48 @@
 <template>
-    <v-app>
-      <router-view />
-    </v-app>
-  </template>
+	<v-app>
+		<div  class="login-layout">
+			<LanguageSelector />
+			<LoginLeft />
+			<LoginRight>
+				<router-view />
+				<NoSignedUp v-if="showNoSignedUpBtn">
+					
+				</NoSignedUp>
+			</LoginRight>
+
+		</div>
+	</v-app>
+</template>
   
-  <script lang="ts">
-  import { defineComponent } from "vue";
+<script lang="ts">
+import { defineComponent } from "vue";
+
+import LoginLeft from "@/components/LoginLeft.vue"
+import LoginRight from "@/components/LoginRight.vue"
+import NoSignedUp from "@/components/NoSignedUp.vue";
+import LanguageSelector from "@/components/LanguageSelector.vue";
+
+export default defineComponent({
+	name: "App",
+  components: {
+    LoginLeft,
+    LoginRight,
+    NoSignedUp,
+    LanguageSelector
+  },
+  computed: {
+
+    showNoSignedUpBtn() {
+		return this.$route.name === "login" || this.$route.name === "register";
+    }
+  }
+});
+</script>
   
-  export default defineComponent({
-    name: "App"
-  });
-  </script>
-  
+<style scoped>
+
+	.login-layout {
+	display: flex;
+	height: 100vh;
+	}
+</style>
