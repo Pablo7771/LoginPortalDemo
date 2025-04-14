@@ -1,45 +1,45 @@
 <template>
-    <v-card class="register-form-card" elevation="8">
-        <v-card-title class="headline font-weight-bold justify-center">{{ $t('register.title') }}</v-card-title>
+    <div class="register-form-wrapper">
+        <h2 class="headline font-weight-bold text-center mb-5">
+            {{ $t('register.title') }}
+        </h2>
 
-        <v-card-text>
-            <v-form ref="form" v-model="valid" lazy-validation>
-                <v-text-field v-model="name" :label="$t('register.fullName')"
-                    :rules="[v => !!v || $t('register.rules.name')]" required outlined dense prepend-icon="mdi-account"
-                    class="input-field" />
+        <form ref="form" @submit.prevent="submit" class="register-form">
+            <v-text-field v-model="name" :label="$t('register.fullName')" :rules="[v => !!v || $t('register.rules.name')]"
+                required outlined dense prepend-icon="mdi-account" class="input-field" />
 
-                <v-text-field v-model="email" :label="$t('register.email')" :rules="emailRules" required outlined dense
-                    prepend-icon="mdi-email" class="input-field" />
+            <v-text-field v-model="email" :label="$t('register.email')" :rules="emailRules" required outlined dense
+                prepend-icon="mdi-email" class="input-field" />
 
-                <v-text-field v-model="phone" :label="$t('register.phone')" :rules="phoneRules" required outlined dense
-                    prepend-icon="mdi-phone" class="input-field" />
+            <v-text-field v-model="phone" :label="$t('register.phone')" :rules="phoneRules" required outlined dense
+                prepend-icon="mdi-phone" class="input-field" />
 
-                <v-select v-model="region" :items="Object.keys(regiones)" :label="$t('register.region')" required outlined
-                    dense prepend-icon="mdi-earth" @change="loadCiudades" class="input-field" />
+            <v-select v-model="region" :items="Object.keys(regiones)" :label="$t('register.region')" required outlined dense
+                prepend-icon="mdi-earth" @change="loadCiudades" class="input-field" />
 
-                <v-select v-model="ciudad" :items="ciudades" :label="$t('register.city')" :disabled="!region" required
-                    outlined dense prepend-icon="mdi-city" class="input-field" />
+            <v-select v-model="ciudad" :items="ciudades" :label="$t('register.city')" :disabled="!region" required outlined
+                dense prepend-icon="mdi-city" class="input-field" />
 
-                <v-text-field v-model="password" :label="$t('register.password')" :rules="passwordRules" type="password"
-                    required outlined dense prepend-icon="mdi-lock" class="input-field" />
+            <v-text-field v-model="password" :label="$t('register.password')" :rules="passwordRules" type="password"
+                required outlined dense prepend-icon="mdi-lock" class="input-field" />
 
-                <v-text-field v-model="confirmPassword" :label="$t('register.confirmPassword')"
-                    :rules="[v => v === password || $t('register.rules.passwordMatch')]" type="password" required outlined
-                    dense prepend-icon="mdi-lock-check" class="input-field" />
+            <v-text-field v-model="confirmPassword" :label="$t('register.confirmPassword')"
+                :rules="[v => v === password || $t('register.rules.passwordMatch')]" type="password" required outlined dense
+                prepend-icon="mdi-lock-check" class="input-field" />
 
-                <v-btn color="primary" block class="submit-btn mt-4" @click="submit">
-                    {{ $t('register.submit') }}
-                </v-btn>
-            </v-form>
-        </v-card-text>
+            <v-btn type="submit" color="primary" block class="submit-btn mt-4">
+                {{ $t('register.submit') }}
+            </v-btn>
+        </form>
 
-        <v-card-actions class="justify-center">
+        <div class="text-center mt-4">
             <v-btn text color="grey" @click="$router.push('/')">
                 {{ $t('register.haveAccount') }}
             </v-btn>
-        </v-card-actions>
-    </v-card>
+        </div>
+    </div>
 </template>
+  
 <script>
 export default {
     data() {
@@ -115,10 +115,9 @@ export default {
     },
 };
 </script>
-
+  
 <style scoped>
-.register-form-card {
-
+.register-form-wrapper {
     max-width: 400px;
     width: 80%;
     padding: 24px;
@@ -127,6 +126,11 @@ export default {
     background-color: rgba(255, 255, 255, 0.1);
     color: #333;
     margin: 0 auto;
+}
+
+.register-form {
+    display: flex;
+    flex-direction: column;
 }
 
 .input-field {
@@ -144,8 +148,9 @@ export default {
     opacity: 0.9;
 }
 
-.register-form-card .v-btn {
+.v-btn {
     font-size: 14px;
     text-transform: none;
 }
 </style>
+  
