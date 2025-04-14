@@ -29,8 +29,8 @@
     name: "LanguageSelector",
     setup() { 
       const availableLanguages = [
-        { code: "ca", label: "Català" },
         { code: "es", label: "Español" },
+        { code: "ca", label: "Català" },
         { code: "fr", label: "Français" },
         { code: "en", label: "English" },
       ];

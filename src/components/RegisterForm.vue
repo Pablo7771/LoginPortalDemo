@@ -5,8 +5,8 @@
         </h2>
 
         <form ref="form" @submit.prevent="submit" class="register-form">
-            <v-text-field v-model="name" :label="$t('register.fullName')" :rules="[v => !!v || $t('register.rules.name')]"
-                required outlined dense prepend-icon="mdi-account" class="input-field" />
+            <v-text-field v-model="usercode" :label="$t('register.usercode')" :rules="usercodeRules"
+                required outlined dense prepend-icon="mdi-account-key" class="input-field" />
 
             <v-text-field v-model="email" :label="$t('register.email')" :rules="emailRules" required outlined dense
                 prepend-icon="mdi-email" class="input-field" />
@@ -39,13 +39,13 @@
         </div>
     </div>
 </template>
-  
+
 <script>
 export default {
     data() {
         return {
             valid: false,
-            name: '',
+            usercode: '',
             email: '',
             phone: '',
             region: '',
@@ -53,18 +53,6 @@ export default {
             password: '',
             confirmPassword: '',
             ciudades: [],
-            emailRules: [
-                v => !!v || this.$t('register.rules.email.required'),
-                v => /.+@.+\..+/.test(v) || this.$t('register.rules.email.invalid'),
-            ],
-            phoneRules: [
-                v => !!v || this.$t('register.rules.phone.required'),
-                v => /^\d{9}$/.test(v) || this.$t('register.rules.phone.invalid'),
-            ],
-            passwordRules: [
-                v => !!v || this.$t('register.rules.password.required'),
-                v => v.length >= 6 || this.$t('register.rules.password.min'),
-            ],
             regiones: {
                 "Andalucía": ["Sevilla", "Málaga", "Granada"],
                 "Cataluña": ["Barcelona", "Tarragona", "Girona"],
@@ -74,6 +62,32 @@ export default {
             }
         };
     },
+    computed: {
+        usercodeRules() {
+            return [
+                v => !!v || this.$t('register.rules.usercode.required'),
+                v => /^[a-zA-Z0-9]{6,20}$/.test(v) || this.$t('register.rules.usercode.invalid'),
+            ];
+        },
+        emailRules() {
+            return [
+                v => !!v || this.$t('register.rules.email.required'),
+                v => /.+@.+\..+/.test(v) || this.$t('register.rules.email.invalid'),
+            ];
+        },
+        phoneRules() {
+            return [
+                v => !!v || this.$t('register.rules.phone.required'),
+                v => /^\d{9}$/.test(v) || this.$t('register.rules.phone.invalid'),
+            ];
+        },
+        passwordRules() {
+            return [
+                v => !!v || this.$t('register.rules.password.required'),
+                v => v.length >= 6 || this.$t('register.rules.password.min'),
+            ];
+        },
+    },
     methods: {
         loadCiudades() {
             this.ciudades = this.regiones[this.region] || [];
@@ -82,7 +96,7 @@ export default {
         submit() {
             if (this.$refs.form.validate()) {
                 const payload = {
-                    name: this.name,
+                    usercode: this.usercode,
                     email: this.email,
                     phone: this.phone,
                     region: this.region,
@@ -113,44 +127,52 @@ export default {
             }
         },
     },
+    watch: {
+        '$i18n.locale': 'updateValidationRules',  // Observa el cambio de idioma
+    },
+    methods: {
+        updateValidationRules() {
+            // Este método fuerza la actualización de las reglas de validación
+            this.$forceUpdate();
+        },
+    }
 };
 </script>
-  
+
 <style scoped>
-.register-form-wrapper {
-    max-width: 400px;
-    width: 80%;
-    padding: 24px;
-    border-radius: 12px;
-    backdrop-filter: blur(10px);
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #333;
-    margin: 0 auto;
-}
+    .register-form-wrapper {
+        max-width: 400px;
+        width: 80%;
+        padding: 24px;
+        border-radius: 12px;
+        backdrop-filter: blur(10px);
+        background-color: rgba(255, 255, 255, 0.1);
+        color: #333;
+        margin: 0 auto;
+    }
 
-.register-form {
-    display: flex;
-    flex-direction: column;
-}
+    .register-form {
+        display: flex;
+        flex-direction: column;
+    }
 
-.input-field {
-    margin-bottom: 16px;
-}
+    .input-field {
+        margin-bottom: 16px;
+    }
 
-.submit-btn {
-    font-size: 16px;
-    font-weight: 600;
-    text-transform: none;
-    letter-spacing: 1px;
-}
+    .submit-btn {
+        font-size: 16px;
+        font-weight: 600;
+        text-transform: none;
+        letter-spacing: 1px;
+    }
 
-.submit-btn:hover {
-    opacity: 0.9;
-}
+    .submit-btn:hover {
+        opacity: 0.9;
+    }
 
-.v-btn {
-    font-size: 14px;
-    text-transform: none;
-}
+    .v-btn {
+        font-size: 14px;
+        text-transform: none;
+    }
 </style>
-  

@@ -5,9 +5,8 @@
 			<LoginLeft />
 			<LoginRight>
 				<router-view />
-				<NoSignedUp v-if="showNoSignedUpBtn">
-					
-				</NoSignedUp>
+				<NoSignedUp v-if="showNoSignedUpBtn"/>
+				<BackHome v-if="!showNoSignedUpBtn" />
 			</LoginRight>
 
 		</div>
@@ -21,6 +20,7 @@ import LoginLeft from "@/components/LoginLeft.vue"
 import LoginRight from "@/components/LoginRight.vue"
 import NoSignedUp from "@/components/NoSignedUp.vue";
 import LanguageSelector from "@/components/LanguageSelector.vue";
+import BackHome from "@/components/BackHome.vue";
 
 export default defineComponent({
 	name: "App",
@@ -28,8 +28,9 @@ export default defineComponent({
     LoginLeft,
     LoginRight,
     NoSignedUp,
-    LanguageSelector
-  },
+    LanguageSelector,
+    BackHome
+},
   computed: {
 
     showNoSignedUpBtn() {

@@ -8,15 +8,16 @@ const messages = {
         login: {
             title: "Log in",
             subtitle: "Fill the form to access your account:",
-            username: "Username",
+            usercode: "User code",
             password: "Password",
             loginButton: "LOG IN",
             createAccount: "Create new account",
-            unauthorized: "Unauthorized: incorrect user or password"
+            unauthorized: "Unauthorized: incorrect user or password",
+            guestContinue: "Continue Without Registering"
         },
         register: {
             title: "Create Account",
-            fullName: "Full Name",
+            usercode: "User code",
             email: "Email",
             phone: "Phone",
             region: "Region",
@@ -28,7 +29,7 @@ const messages = {
             submitSuccess: "✅ Registration Successful",
             submitError: "❌ There was an error during registration",
             rules: {
-                name: "Name is required",
+                usercode: "Name is required",
                 email: {
                     required: "Email is required",
                     invalid: "Invalid email"
@@ -43,21 +44,26 @@ const messages = {
                 },
                 passwordMatch: "Passwords do not match"
             }
-        }
+        },
+        "no-signed-up": {
+            
+        },
+
     },
     es: {
-      login: {
-        title: "Iniciar sesión",
-        subtitle: "Complete el formulario para iniciar sesión:",
-        username: "Código de usuario",
-        password: "Contraseña",
-        loginButton: "INICIAR SESIÓN",
-        createAccount: "Crear cuenta nueva",
-        unauthorized: "No autorizado: usuario o contraseña incorrectos"
-      },
-      register: {
+        login: {
+            title: "Iniciar sesión",
+            subtitle: "Complete el formulario para iniciar sesión:",
+            usercode: "Código de usuario",
+            password: "Contraseña",
+            loginButton: "INICIAR SESIÓN",
+            createAccount: "Crear cuenta nueva",
+            unauthorized: "No autorizado: usuario o contraseña incorrectos",
+            guestContinue: "Continuar Sin Registrarse"
+        },
+        register: {
             title: "Crear Cuenta",
-            fullName: "Nombre completo",
+            usercode: "Código de usuario",
             email: "Correo electrónico",
             phone: "Teléfono",
             region: "Región",
@@ -69,7 +75,7 @@ const messages = {
             submitSuccess: "✅ Registro exitoso",
             submitError: "❌ Hubo un error al registrarse",
             rules: {
-                name: "Nombre requerido",
+                usercode: "Nombre requerido",
                 email: {
                     required: "El correo es requerido",
                     invalid: "Correo inválido"
@@ -84,21 +90,25 @@ const messages = {
                 },
                 passwordMatch: "Las contraseñas no coinciden"
             }
-        }
+        },
+        "no-signed-up": {
+
+        },
     },
     ca: {
         login: {
             title: "Iniciar sessió",
             subtitle: "Completa el formulari per iniciar sessió:",
-            username: "Codi d'usuari",
+            usercode: "Codi d'usuari",
             password: "Contrasenya",
             loginButton: "INICIAR SESSIÓ",
             createAccount: "Crear un compte nou",
-            unauthorized: "No autoritzat: usuari o contrasenya incorrectes"
+            unauthorized: "No autoritzat: usuari o contrasenya incorrectes",
+            guestContinue: "Continuar Sense Registrar-se"
         },
         register: {
             title: "Crear Compte",
-            fullName: "Nom complet",
+            usercode: "Codi d'usuari",
             email: "Correu electrònic",
             phone: "Telèfon",
             region: "Regió",
@@ -110,7 +120,7 @@ const messages = {
             submitSuccess: "✅ Registre realitzat amb èxit",
             submitError: "❌ Hi ha hagut un error en registrar-se",
             rules: {
-                name: "Nom requerit",
+                usercode: "Nom requerit",
                 email: {
                     required: "El correu és requerit",
                     invalid: "Correu invàlid"
@@ -125,21 +135,25 @@ const messages = {
                 },
                 passwordMatch: "Les contrasenyes no coincideixen"
             }
+        },
+        "no-signed-up": {
+            
         }
     },
     fr: {
         login: {
             title: "Connexion",
             subtitle: "Remplissez le formulaire pour vous connecter :",
-            username: "Nom d'utilisateur",
+            usercode: "Nom d'utilisateur",
             password: "Mot de passe",
             loginButton: "SE CONNECTER",
             createAccount: "Créer un nouveau compte",
-            unauthorized: "Non autorisé : nom d'utilisateur ou mot de passe incorrect"
+            unauthorized: "Non autorisé : nom d'utilisateur ou mot de passe incorrect",
+            guestContinue: "Continuer Sans S'inscrire"
         },
         register: {
             title: "Créer un Compte",
-            fullName: "Nom Complet",
+            usercode: "Nom d'utilisateur",
             email: "Email",
             phone: "Téléphone",
             region: "Région",
@@ -151,7 +165,7 @@ const messages = {
             submitSuccess: "✅ Inscription réussie",
             submitError: "❌ Une erreur s'est produite lors de l'inscription",
             rules: {
-                name: "Le nom est requis",
+                usercode: "Le nom est requis",
                 email: {
                     required: "L'email est requis",
                     invalid: "Email invalide"
@@ -166,14 +180,17 @@ const messages = {
                 },
                 passwordMatch: "Les mots de passe ne correspondent pas"
             }
+        },
+        "no-signed-up": {
+            
         }
     }
 }
 
 const i18n = new VueI18n({
-  locale: 'ca', // predeterminado
-  fallbackLocale: 'es', // idioma de reserva
-  messages,
+    locale: 'es', // predeterminado
+    fallbackLocale: 'ca', // idioma de reserva
+    messages,
 });
 
 export default i18n;

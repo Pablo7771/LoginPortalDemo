@@ -1,6 +1,6 @@
 <template>
     <v-btn text class="mt-6" @click="goToTemplates">
-        Continuar sin registrarse
+        {{ $t('login.guestContinue') }}
     </v-btn>
 </template>
   
@@ -10,7 +10,7 @@ export default {
     methods: {
         goToTemplates() {
             // Navegación usando this.$router en Vue 2
-            this.$router.push("/no-signed");
+            this.$router.push("/no-signed-up");
         },
     },
 };
