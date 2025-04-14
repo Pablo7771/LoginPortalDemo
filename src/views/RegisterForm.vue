@@ -66,7 +66,7 @@ export default {
         usercodeRules() {
             return [
                 v => !!v || this.$t('register.rules.usercode.required'),
-                v => /^[a-zA-Z0-9]{6,20}$/.test(v) || this.$t('register.rules.usercode.invalid'),
+                v => /^[a-zA-Z0-9._-]{6,20}$/.test(v) || this.$t('register.rules.usercode.invalid'),
             ];
         },
         emailRules() {
