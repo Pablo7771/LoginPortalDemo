@@ -1,39 +1,48 @@
 <template>
     <v-container fluid>
-        <v-row align="center" justify="center" class="fill-height">
-            <v-col cols="12" md="6" lg="4">
-                <h1 class="text-center mb-6 text-white">¿Qué deseas hacer?</h1>
-
-                <!-- Card 1: Pedir Delivery -->
-                <v-card class="fancy-card mb-4" @click="goTo('delivery')" elevation="10" :style="{
-                    backgroundImage: 'url(https://images.unsplash.com/photo-1507525428034-b723cf961d3e)',
-                }">
-                    <v-card-text class="card-text">Pedir delivery</v-card-text>
-                </v-card>
-
-                <!-- Card 2: Agendar cita médica -->
-                <v-card class="fancy-card mb-4" @click="goTo('cita')" elevation="10" :style="{
-                    backgroundImage: 'url(https://images.unsplash.com/photo-1521747116042-5a810fda9664)',
-                }">
-                    <v-card-text class="card-text">Agendar cita médica</v-card-text>
-                </v-card>
-            </v-col>
-        </v-row>
-    </v-container>
-</template>
+      <v-row align="center" justify="center" class="fill-height">
+        <v-col cols="12" md="6" lg="4">
+          <h1 class="text-center mb-6 text-white">{{ $t('templates.title') }}</h1>
   
-<script lang="ts">
-export default {
+          <!-- Card 1: Pedir Delivery -->
+          <v-card
+            class="fancy-card mb-4"
+            @click="goTo('delivery')"
+            elevation="10"
+            :style="{
+              backgroundImage: 'url(https://images.unsplash.com/photo-1507525428034-b723cf961d3e)',
+            }"
+          >
+            <v-card-text class="card-text">{{ $t('templates.delivery') }}</v-card-text>
+          </v-card>
+  
+          <!-- Card 2: Agendar cita médica -->
+          <v-card
+            class="fancy-card mb-4"
+            @click="goTo('cita')"
+            elevation="10"
+            :style="{
+              backgroundImage: 'url(https://images.unsplash.com/photo-1521747116042-5a810fda9664)',
+            }"
+          >
+            <v-card-text class="card-text">{{ $t('templates.medicalAppointment') }}</v-card-text>
+          </v-card>
+        </v-col>
+      </v-row>
+    </v-container>
+  </template>
+  
+  <script lang="ts">
+  export default {
     name: "Templates",
     methods: {
-        goTo(tipo: string) {
-            console.log("Elegido:", tipo);
-            // Aquí puedes redirigir a la vista correspondiente
-            // this.$router.push({ name: tipo })
-        },
+      goTo(tipo: string) {
+        console.log("Elegido:", tipo);
+        // this.$router.push({ name: tipo });
+      },
     },
-};
-</script>
+  };
+  </script>
   
 <style scoped>
 /* Eliminar fondo del main */

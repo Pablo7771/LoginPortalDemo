@@ -10,10 +10,10 @@ const messages = {
             subtitle: "Fill the form to access your account:",
             usercode: "User code",
             password: "Password",
-            loginButton: "LOG IN",
+            loginButton: "Sign in",
             createAccount: "Create new account",
             unauthorized: "Unauthorized: incorrect user or password",
-            guestContinue: "Continue Without Registering"
+            guestContinue: "Continue without registering"
         },
         register: {
             title: "Create Account",
@@ -45,9 +45,12 @@ const messages = {
                 passwordMatch: "Passwords do not match"
             }
         },
-        "no-signed-up": {
-            
-        },
+
+        templates: {
+             title: "What would you like to do?",
+             delivery: "Request delivery",
+             medicalAppointment: "Schedule a medical appointment"
+        }
 
     },
     es: {
@@ -56,10 +59,10 @@ const messages = {
             subtitle: "Complete el formulario para iniciar sesión:",
             usercode: "Código de usuario",
             password: "Contraseña",
-            loginButton: "INICIAR SESIÓN",
+            loginButton: "Iniciar sesión",
             createAccount: "Crear cuenta nueva",
             unauthorized: "No autorizado: usuario o contraseña incorrectos",
-            guestContinue: "Continuar Sin Registrarse"
+            guestContinue: "Continuar sin registrarse"
         },
         register: {
             title: "Crear Cuenta",
@@ -91,9 +94,11 @@ const messages = {
                 passwordMatch: "Las contraseñas no coinciden"
             }
         },
-        "no-signed-up": {
-
-        },
+        templates: {
+             title: "¿Qué deseas hacer?",
+             delivery: "Pedir delivery",
+             medicalAppointment: "Agendar cita médica"
+        }
     },
     ca: {
         login: {
@@ -101,10 +106,10 @@ const messages = {
             subtitle: "Completa el formulari per iniciar sessió:",
             usercode: "Codi d'usuari",
             password: "Contrasenya",
-            loginButton: "INICIAR SESSIÓ",
+            loginButton: "Iniciar sessió",
             createAccount: "Crear un compte nou",
             unauthorized: "No autoritzat: usuari o contrasenya incorrectes",
-            guestContinue: "Continuar Sense Registrar-se"
+            guestContinue: "Continuar sense registrar-se"
         },
         register: {
             title: "Crear Compte",
@@ -136,8 +141,11 @@ const messages = {
                 passwordMatch: "Les contrasenyes no coincideixen"
             }
         },
-        "no-signed-up": {
-            
+
+        templates: {
+             title: "Què vols fer?",
+             delivery: "Demanar repartiment",
+             medicalAppointment: "Programar cita mèdica"
         }
     },
     fr: {
@@ -146,10 +154,10 @@ const messages = {
             subtitle: "Remplissez le formulaire pour vous connecter :",
             usercode: "Nom d'utilisateur",
             password: "Mot de passe",
-            loginButton: "SE CONNECTER",
+            loginButton: "Se connecter",
             createAccount: "Créer un nouveau compte",
             unauthorized: "Non autorisé : nom d'utilisateur ou mot de passe incorrect",
-            guestContinue: "Continuer Sans S'inscrire"
+            guestContinue: "Continuer sans s'inscrire"
         },
         register: {
             title: "Créer un Compte",
@@ -181,8 +189,11 @@ const messages = {
                 passwordMatch: "Les mots de passe ne correspondent pas"
             }
         },
-        "no-signed-up": {
-            
+        templates: {
+             title: "Que souhaitez-vous faire ?",
+             delivery: "Commander une livraison",
+             medicalAppointment: "Prendre un rendez-vous médical"
+
         }
     }
 }

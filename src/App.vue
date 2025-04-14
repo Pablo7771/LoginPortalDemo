@@ -16,11 +16,11 @@
 <script lang="ts">
 import { defineComponent } from "vue";
 
-import LoginLeft from "@/components/LoginLeft.vue"
-import LoginRight from "@/components/LoginRight.vue"
-import NoSignedUp from "@/components/NoSignedUp.vue";
-import LanguageSelector from "@/components/LanguageSelector.vue";
-import BackHome from "@/components/BackHome.vue";
+import LoginLeft from "@/views/LoginLeft.vue"
+import LoginRight from "@/views/LoginRight.vue"
+import NoSignedUp from "@/views/NoSignedUp.vue";
+import LanguageSelector from "@/views/LanguageSelector.vue";
+import BackHome from "@/views/BackHome.vue";
 
 export default defineComponent({
 	name: "App",
@@ -40,10 +40,10 @@ export default defineComponent({
 });
 </script>
   
-<style scoped>
+<style>
 
 	.login-layout {
-	display: flex;
-	height: 100vh;
+		display: flex;
+		height: 100vh;
 	}
 </style>

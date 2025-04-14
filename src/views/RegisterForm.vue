@@ -4,9 +4,9 @@
             {{ $t('register.title') }}
         </h2>
 
-        <form ref="form" @submit.prevent="submit" class="register-form">
-            <v-text-field v-model="usercode" :label="$t('register.usercode')" :rules="usercodeRules"
-                required outlined dense prepend-icon="mdi-account-key" class="input-field" />
+        <v-form ref="form" @submit.prevent="submit" class="register-form">
+            <v-text-field v-model="usercode" :label="$t('register.usercode')" :rules="usercodeRules" required outlined dense
+                prepend-icon="mdi-account-key" class="input-field" />
 
             <v-text-field v-model="email" :label="$t('register.email')" :rules="emailRules" required outlined dense
                 prepend-icon="mdi-email" class="input-field" />
@@ -30,7 +30,7 @@
             <v-btn type="submit" color="primary" block class="submit-btn mt-4">
                 {{ $t('register.submit') }}
             </v-btn>
-        </form>
+        </v-form>
 
         <div class="text-center mt-4">
             <v-btn text color="grey" @click="$router.push('/')">
@@ -126,53 +126,50 @@ export default {
                     });
             }
         },
+        updateValidationRules() {
+            this.$forceUpdate();
+        }
     },
     watch: {
         '$i18n.locale': 'updateValidationRules',  // Observa el cambio de idioma
-    },
-    methods: {
-        updateValidationRules() {
-            // Este método fuerza la actualización de las reglas de validación
-            this.$forceUpdate();
-        },
     }
 };
 </script>
 
 <style scoped>
-    .register-form-wrapper {
-        max-width: 400px;
-        width: 80%;
-        padding: 24px;
-        border-radius: 12px;
-        backdrop-filter: blur(10px);
-        background-color: rgba(255, 255, 255, 0.1);
-        color: #333;
-        margin: 0 auto;
-    }
+.register-form-wrapper {
+    max-width: 400px;
+    width: 80%;
+    padding: 24px;
+    border-radius: 12px;
+    backdrop-filter: blur(10px);
+    background-color: rgba(255, 255, 255, 0.1);
+    color: #333;
+    margin: 0 auto;
+}
 
-    .register-form {
-        display: flex;
-        flex-direction: column;
-    }
+.register-form {
+    display: flex;
+    flex-direction: column;
+}
 
-    .input-field {
-        margin-bottom: 16px;
-    }
+.input-field {
+    margin-bottom: 16px;
+}
 
-    .submit-btn {
-        font-size: 16px;
-        font-weight: 600;
-        text-transform: none;
-        letter-spacing: 1px;
-    }
+.submit-btn {
+    font-size: 16px;
+    font-weight: 600;
+    text-transform: none;
+    letter-spacing: 1px;
+}
 
-    .submit-btn:hover {
-        opacity: 0.9;
-    }
+.submit-btn:hover {
+    opacity: 0.9;
+}
 
-    .v-btn {
-        font-size: 14px;
-        text-transform: none;
-    }
+.v-btn {
+    font-size: 14px;
+    text-transform: none;
+}
 </style>

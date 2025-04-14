@@ -1,5 +1,5 @@
 <template>
-    <v-btn text class="mt-6" @click="goToTemplates">
+    <v-btn text class="mt-6 btnGuest" @click="goToTemplates">
         {{ $t('login.guestContinue') }}
     </v-btn>
 </template>
@@ -15,3 +15,9 @@ export default {
     },
 };
 </script>
+
+<style scoped>
+.btnGuest {
+    text-transform: none;
+}
+</style>

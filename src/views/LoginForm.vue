@@ -31,7 +31,7 @@
 <script lang="ts">
 import { defineComponent, ref, computed } from "vue";
 import axios from "axios";
-import i18n from "@/i18n";
+import i18n from "@/plugins/i18n";
 
 export default defineComponent({
   name: "LoginForm",
