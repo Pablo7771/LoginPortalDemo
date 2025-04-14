@@ -21,6 +21,9 @@ export default {
         goTo(tipo: string) {
             console.log("Elegido:", tipo);
             //Falta llenar aquí
+
+
+            
         },
     },
 };
