@@ -10,7 +10,7 @@ export default {
     methods: {
         goToTemplates() {
             // Navegación usando this.$router en Vue 2
-            this.$router.push("/templates");
+            this.$router.push("/no-signed");
         },
     },
 };

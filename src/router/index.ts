@@ -1,43 +1,56 @@
-import Vue from "vue";
-import VueRouter from "vue-router";
-import LoginLayout from "@/layouts/LoginLayout.vue";
-import LoginForm from "@/components/LoginForm.vue";
-import RegisterForm from "@/components/RegisterForm.vue";
+import Vue from 'vue'
+import Router from 'vue-router'
 
-Vue.use(VueRouter);
+import LoginLayout from '@/layouts/LoginLayout.vue'
+import LoginForm from '@/components/LoginForm.vue'
+import RegisterForm from '@/components/RegisterForm.vue'
+import Templates from '@/views/Templates.vue'
 
-const routes = [
-  {
-    path: "/login",
-    component: LoginLayout,
-    children: [
-      {
-        path: "",
-        name: "login-layout",
-        component: LoginLayout,
-      }
-    ],
-  },
-  {
-    path: "*",
-    redirect: "/login",
-  },
-  {
-    path: "/register-form",
-    name: "register",
-    component: RegisterForm,
-  },
-  {
-    path: "/login-form",
-    name: "login",
-    component: LoginForm,
-  }
-];
+import Delivery from '@/components/Delivery.vue'
+import Citas from '@/components/Citas.vue'
 
-const router = new VueRouter({
-  mode: "history",
-  base: "/",
-  routes,
-});
+Vue.use(Router)
 
-export default router;
+export default new Router({
+  mode: 'history',
+  routes: [
+    {
+      path: '/auth',
+      component: LoginLayout,
+      children: [
+        {
+          path: '',
+          name: 'Login',
+          component: LoginForm,
+        },
+        {
+          path: 'register',
+          name: 'Register',
+          component: RegisterForm,
+        },
+      ],
+    },
+    {
+      path: '/no-signed',
+      name: 'NoSigned',
+      component: Templates,
+      children: [
+
+        {
+          path: '/delivery',
+          name: 'Delivery',
+          component: Delivery,
+        },
+        {
+          path: '/citas',
+          name: 'Citas',
+          component: Citas,
+        },
+      ]
+    },
+    {
+        path: '*',
+        redirect: '/auth',
+    }
+  ],
+})
