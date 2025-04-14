@@ -14,7 +14,7 @@ const routes: Array<RouteConfig> = [
   },
   {
     path: "/register",
-    name: "register-form",
+    name: "register",
     component: RegisterForm,
   },
   {
