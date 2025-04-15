@@ -104,7 +104,7 @@ export default {
                     password: this.password,
                 };
 
-                fetch('/api/service/rest/demo_portal/public_demo/v1/api/registro_demo', {
+                fetch(`${process.env.VUE_APP_API_URL}/registro_demo`, {
                     method: 'POST',
                     headers: {
                         'Content-Type': 'application/json',
