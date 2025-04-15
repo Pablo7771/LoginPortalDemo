@@ -85,145 +85,162 @@
 </template>
 
 <script>
-export default {
-    data() {
-        return {
-            step: 1,
-            pasos: ['Paciente', 'Especialidad', 'Médico', 'Fecha', 'Hora'],
-            formStep1: false,
-            paciente: {
-                nombre: '',
-                apellido: '',
-                email: '',
-                telefono: '',
-                fotoDni: null,
-            },
-            especialidades: [
-                { id: 1, nombre: "Cardiología" },
-                { id: 2, nombre: "Dermatología" },
-                { id: 3, nombre: "Pediatría" }
-            ],
-            selectedEspecialidad: null,
-            medicosDisponibles: [],
-            selectedMedico: null,
-            medicoDisponibilidad: {
-                1: { diasDisponibles: ['2025-04-15', '2025-04-16'] },
-                2: { diasDisponibles: ['2025-04-17', '2025-04-18'] },
-                3: { diasDisponibles: ['2025-04-20', '2025-04-22'] }
-            },
-            selectedDay: null,
-            horasDisponibles: [],
-            selectedHora: null
-        };
-    },
-    computed: {
-        puedeAvanzar() {
-            switch (this.step) {
-                case 1:
-                    return this.formStep1;
-                case 2:
-                    return !!this.selectedEspecialidad;
-                case 3:
-                    return !!this.selectedMedico;
-                case 4:
-                    return !!this.selectedDay;
-                default:
-                    return false;
-            }
-        },
-        formattedSelectedDay() {
-            if (!this.selectedDay) return '';
-            const [year, month, day] = this.selectedDay.split("-");
-            return `${day}-${month}-${year}`;
-        }
-    },
-    methods: {
-        pasoAnterior() {
-            this.step--;
-            if (this.step == 4) {
-                this.selectedDay = null;
-                this.selectedHora = null
-            }
-        },
-        siguientePaso() {
-            if (this.step === 1) {
-                this.$refs.form1.validate();
-                if (!this.formStep1) return;
-            }
+  const { VUE_APP_API_URL: API_URL, VUE_APP_JWT: JWT } = process.env;
 
-            this.step++;
+  export default {
+      data() {
+          return {
+              step: 1,
+              pasos: ['Paciente', 'Especialidad', 'Médico', 'Fecha', 'Hora'],
+              formStep1: false,
+              paciente: {
+                  nombre: '',
+                  apellido: '',
+                  email: '',
+                  telefono: '',
+                  fotoDni: null,
+              },
+              especialidades: [
+                  { id: 1, nombre: "Cardiología" },
+                  { id: 2, nombre: "Dermatología" },
+                  { id: 3, nombre: "Pediatría" }
+              ],
+              selectedEspecialidad: null,
+              medicosDisponibles: [],
+              selectedMedico: null,
+              medicoDisponibilidad: {
+                  1: { diasDisponibles: ['2025-04-15', '2025-04-16'] },
+                  2: { diasDisponibles: ['2025-04-17', '2025-04-18'] },
+                  3: { diasDisponibles: ['2025-04-20', '2025-04-22'] }
+              },
+              selectedDay: null,
+              horasDisponibles: [],
+              selectedHora: null
+          };
+      },
+      computed: {
+          puedeAvanzar() {
+              switch (this.step) {
+                  case 1:
+                      return this.formStep1;
+                  case 2:
+                      return !!this.selectedEspecialidad;
+                  case 3:
+                      return !!this.selectedMedico;
+                  case 4:
+                      return !!this.selectedDay;
+                  default:
+                      return false;
+              }
+          },
+          formattedSelectedDay() {
+              if (!this.selectedDay) return '';
+              const [year, month, day] = this.selectedDay.split("-");
+              return `${day}-${month}-${year}`;
+          }
+      },
+      methods: {
+          pasoAnterior() {
+              this.step--;
+              if (this.step == 4) {
+                  this.selectedDay = null;
+                  this.selectedHora = null
+              }
+          },
+          siguientePaso() {
+              if (this.step === 1) {
+                  this.$refs.form1.validate();
+                  if (!this.formStep1) return;
+              }
 
-            if (this.step == 4) {
-                this.selectedDay = null;
-                this.selectedHora = null
-            }
-        },
-        formatearEventosDelMedico() {
-            const dias = this.medicoDisponibilidad[this.selectedMedico]?.diasDisponibles || [];
-            return dias.map(d => ({
-                name: 'Disponible',
-                start: d,
-                end: d
-            }));
-        },
-        esFechaPermitida(date) {
-            const dias = this.medicoDisponibilidad[this.selectedMedico]?.diasDisponibles || [];
-            return dias.includes(date);
-        },
-        onDateClick(e) {
-            let date = e.date;
-            // No permitir la selección de fechas no disponibles
-            if (this.esFechaPermitida(date)) {
-                if (this.selectedDay === date) {
-                    this.selectedDay = null;  // Si clickea la misma fecha, deselecciona.
-                } else {
-                    this.selectedDay = date;  // Selecciona la nueva fecha.
+              this.step++;
 
-                    let button = e.nativeEvent.target.closest('button');
-                    let calendar = button.closest('.v-calendar');
+              if (this.step == 4) {
+                  this.selectedDay = null;
+                  this.selectedHora = null
+              }
+          },
+          formatearEventosDelMedico() {
+              const dias = this.medicoDisponibilidad[this.selectedMedico]?.diasDisponibles || [];
+              return dias.map(d => ({
+                  name: 'Disponible',
+                  start: d,
+                  end: d
+              }));
+          },
+          esFechaPermitida(date) {
+              const dias = this.medicoDisponibilidad[this.selectedMedico]?.diasDisponibles || [];
+              return dias.includes(date);
+          },
+          onDateClick(e) {
+              let date = e.date;
+              // No permitir la selección de fechas no disponibles
+              if (this.esFechaPermitida(date)) {
+                  if (this.selectedDay === date) {
+                      this.selectedDay = null;  // Si clickea la misma fecha, deselecciona.
+                  } else {
+                      this.selectedDay = date;  // Selecciona la nueva fecha.
 
-                    calendar.querySelectorAll('button.primary').forEach(btn => btn.classList.remove('primary'));
+                      let button = e.nativeEvent.target.closest('button');
+                      let calendar = button.closest('.v-calendar');
 
-                    button.classList.add('primary')
-                }
-            }
-        },
-        agendarCita() {
-            const cita = {
-                paciente: this.paciente,
-                especialidad: this.selectedEspecialidad,
-                medico: this.selectedMedico,
-                dia: this.selectedDay,
-                hora: this.selectedHora
-            };
-            console.log("Cita Agendada:", cita);
-            this.$emit('cita-agendada', cita);
-        }
-    },
-    watch: {
-        selectedEspecialidad(newValue) {
-            if (newValue === 1) {
-                this.medicosDisponibles = [
-                    { id: 1, nombre: 'Dra. López' },
-                    { id: 2, nombre: 'Dr. Ramírez' }
-                ];
-            } else if (newValue === 2) {
-                this.medicosDisponibles = [
-                    { id: 3, nombre: 'Dra. González' }
-                ];
-            } else {
-                this.medicosDisponibles = [];
-            }
-        },
-        selectedMedico(newValue) {
-            if (newValue) {
-                this.horasDisponibles = ['09:00', '10:30', '12:00', '15:00'];
-            } else {
-                this.horasDisponibles = [];
-            }
-        }
-    }
-};
+                      calendar.querySelectorAll('button.primary').forEach(btn => btn.classList.remove('primary'));
+
+                      button.classList.add('primary')
+                  }
+              }
+          },
+          async agendarCita() {
+
+              const fd = new FormData();
+              fd.append('especialidad', this.selectedEspecialidad);
+              fd.append('medico', this.selectedMedico);
+              fd.append('dia', this.formattedSelectedDay );
+              fd.append('hora', this.selectedHora);
+
+              fd.append('nombre', this.paciente.nombre);
+              fd.append('apellido', this.paciente.apellido);
+              fd.append('email', this.paciente.email);
+              fd.append('telefono', this.paciente.telefono);
+              fd.append('foto', this.paciente.fotoDni);
+
+              let response = await fetch(`${API_URL}/demo_cita`,{
+                  method : "POST",
+                  headers : {
+                      "Authorization" : `Bearer ${JWT}`
+                  },
+                  body : fd
+              });
+
+              let data = await response.json();
+              console.log(data)
+              // this.$emit('cita-agendada', cita);
+          }
+      },
+      watch: {
+          selectedEspecialidad(newValue) {
+              if (newValue === 1) {
+                  this.medicosDisponibles = [
+                      { id: 1, nombre: 'Dra. López' },
+                      { id: 2, nombre: 'Dr. Ramírez' }
+                  ];
+              } else if (newValue === 2) {
+                  this.medicosDisponibles = [
+                      { id: 3, nombre: 'Dra. González' }
+                  ];
+              } else {
+                  this.medicosDisponibles = [];
+              }
+          },
+          selectedMedico(newValue) {
+              if (newValue) {
+                  this.horasDisponibles = ['09:00:00', '10:30:00', '12:00:00', '15:00:00'];
+              } else {
+                  this.horasDisponibles = [];
+              }
+          }
+      }
+  };
 </script>
 
 <style scoped>
