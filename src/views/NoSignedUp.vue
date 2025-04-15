@@ -1,8 +1,10 @@
 <template>
     <v-btn text class="mt-6 btnGuest" @click="goToTemplates">
+        <v-icon left>mdi-list-box</v-icon>
         {{ $t('login.guestContinue') }}
     </v-btn>
 </template>
+  
   
 <script>
 export default {

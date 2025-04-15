@@ -28,6 +28,7 @@
                 prepend-icon="mdi-lock-check" class="input-field" />
 
             <v-btn type="submit" color="primary" block class="submit-btn mt-4">
+                <v-icon left>mdi-account-plus</v-icon>
                 {{ $t('register.submit') }}
             </v-btn>
         </v-form>
