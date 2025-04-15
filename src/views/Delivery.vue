@@ -1,5 +1,10 @@
 <template>
     <v-card style="min-height: 100%; width: 100%; margin: 0; padding: 30px">
+
+        <!-- Ícono de cierre arriba a la derecha -->
+        <v-btn icon small class="close-btn" @click="$emit('cerrar')">
+            <v-icon>mdi-close</v-icon>
+        </v-btn>
         <v-main>
             <v-container>
                 <v-row>
@@ -145,5 +150,13 @@ export default {
     left: 0;
     overflow-y: auto;
     overflow-x: hidden
+}
+
+/* Botón de cerrar */
+.close-btn {
+    position: absolute;
+    top: 25px;
+    right: 25px;
+    z-index: 2;
 }
 </style>

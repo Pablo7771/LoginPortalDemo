@@ -29,7 +29,10 @@ const messages = {
             submitSuccess: "✅ Registration Successful",
             submitError: "❌ There was an error during registration",
             rules: {
-                usercode: "Name is required",
+                usercode: {
+                    required:"Required name",
+                    invalid: "Invalid name",
+                },
                 email: {
                     required: "Email is required",
                     invalid: "Invalid email"
@@ -45,13 +48,11 @@ const messages = {
                 passwordMatch: "Passwords do not match"
             }
         },
-
         templates: {
-             title: "What would you like to do?",
-             delivery: "Request delivery",
-             medicalAppointment: "Schedule a medical appointment"
+            title: "What would you like to do?",
+            delivery: "Request delivery",
+            medicalAppointment: "Schedule a medical appointment"
         }
-
     },
     es: {
         login: {
@@ -78,7 +79,10 @@ const messages = {
             submitSuccess: "✅ Registro exitoso",
             submitError: "❌ Hubo un error al registrarse",
             rules: {
-                usercode: "Nombre requerido",
+                usercode: {
+                    required:"Nombre requerido",
+                    invalid: "Nombre inválido"
+                },
                 email: {
                     required: "El correo es requerido",
                     invalid: "Correo inválido"
@@ -95,9 +99,9 @@ const messages = {
             }
         },
         templates: {
-             title: "¿Qué deseas hacer?",
-             delivery: "Pedir delivery",
-             medicalAppointment: "Agendar cita médica"
+            title: "¿Qué deseas hacer?",
+            delivery: "Pedir delivery",
+            medicalAppointment: "Agendar cita médica"
         }
     },
     ca: {
@@ -125,7 +129,10 @@ const messages = {
             submitSuccess: "✅ Registre realitzat amb èxit",
             submitError: "❌ Hi ha hagut un error en registrar-se",
             rules: {
-                usercode: "Nom requerit",
+                usercode: {
+                    required:"Nom requerit",
+                    invalid: "Nom invàlid",
+                },
                 email: {
                     required: "El correu és requerit",
                     invalid: "Correu invàlid"
@@ -141,11 +148,10 @@ const messages = {
                 passwordMatch: "Les contrasenyes no coincideixen"
             }
         },
-
         templates: {
-             title: "Què vols fer?",
-             delivery: "Demanar repartiment",
-             medicalAppointment: "Programar cita mèdica"
+            title: "Què vols fer?",
+            delivery: "Demanar repartiment",
+            medicalAppointment: "Programar cita mèdica"
         }
     },
     fr: {
@@ -173,7 +179,10 @@ const messages = {
             submitSuccess: "✅ Inscription réussie",
             submitError: "❌ Une erreur s'est produite lors de l'inscription",
             rules: {
-                usercode: "Le nom est requis",
+                usercode: {
+                    required:"Nom requis",
+                    invalid: "Nom invalide"
+                },
                 email: {
                     required: "L'email est requis",
                     invalid: "Email invalide"
@@ -190,10 +199,9 @@ const messages = {
             }
         },
         templates: {
-             title: "Que souhaitez-vous faire ?",
-             delivery: "Commander une livraison",
-             medicalAppointment: "Prendre un rendez-vous médical"
-
+            title: "Que souhaitez-vous faire ?",
+            delivery: "Commander une livraison",
+            medicalAppointment: "Prendre un rendez-vous médical"
         }
     }
 }

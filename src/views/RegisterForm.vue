@@ -79,7 +79,7 @@ export default {
         phoneRules() {
             return [
                 v => !!v || this.$t('register.rules.phone.required'),
-                v => /^\d{9}$/.test(v) || this.$t('register.rules.phone.invalid'),
+                v => /^[0-9]{5,20}$/.test(v) || this.$t('register.rules.phone.invalid'),
             ];
         },
         passwordRules() {
