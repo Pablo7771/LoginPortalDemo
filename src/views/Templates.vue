@@ -17,7 +17,7 @@
 					</div>
 					<v-card-actions>
 						<v-btn color="primary" @click="deliveryDialog = true" depressed>
-							{{ $t('templates.delivery.title') }}
+							{{ $t('templates.delivery.button') }}
 						</v-btn>
 					</v-card-actions>
 				</v-card>
@@ -41,7 +41,7 @@
 					</div>
 					<v-card-actions>
 						<v-btn color="success" @click="citasDialog = true" depressed>
-							{{ $t('templates.medicalAppointment.title') }}
+							{{ $t('templates.medicalAppointment.button') }}
 						</v-btn>
 					</v-card-actions>
 				</v-card>
