@@ -35,7 +35,10 @@
                     ]" required></v-text-field>
 
                     <v-text-field v-model="paciente.telefono" label="Teléfono"
-                        :rules="[v => !!v || 'El teléfono es requerido']" required></v-text-field>
+                        :rules="[
+                          v => !!v || 'El teléfono es requerido',
+                          v => /^[0-9]{5,20}$/.test(v) || 'El teléfono debe contener solo números y tener entre 5 y 20 dígitos'
+                    ]" required></v-text-field>
 
                     <v-file-input v-model="paciente.fotoDni" label="Foto del DNI" accept="image/*"
                         :rules="[v => !!v || 'La foto del DNI es requerida']" required></v-file-input>
@@ -76,7 +79,7 @@
                     Siguiente
                 </v-btn>
 
-                <v-btn v-else color="success" :disabled="!selectedHora" @click="agendarCita">
+                <v-btn :loading="loading" v-else color="success" :disabled="!selectedHora" @click="agendarCita">
                     Confirmar Cita
                 </v-btn>
             </div>
@@ -90,6 +93,7 @@
   export default {
       data() {
           return {
+              loading: false,
               step: 1,
               pasos: ['Paciente', 'Especialidad', 'Médico', 'Fecha', 'Hora'],
               formStep1: false,
@@ -204,6 +208,8 @@
               fd.append('telefono', this.paciente.telefono);
               fd.append('foto', this.paciente.fotoDni);
 
+              this.loading = true;
+
               let response = await fetch(`${API_URL}/demo_cita`,{
                   method : "POST",
                   headers : {
@@ -214,7 +220,8 @@
 
               let data = await response.json();
               console.log(data)
-              // this.$emit('cita-agendada', cita);
+              this.loading = false;
+              this.$emit('cerrar');
           }
       },
       watch: {

@@ -46,7 +46,7 @@
 					</v-card-actions>
 				</v-card>
 
-				<v-dialog max-width="800" max-height="600" v-model="citasDialog">
+				<v-dialog max-width="800" max-height="600" v-model="citasDialog" v-if="citasDialog">
 					<Citas @cerrar="citasDialog = false" />
 				</v-dialog>
 			</v-col>
