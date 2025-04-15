@@ -1,5 +1,5 @@
 <template>
-    <v-app style="min-height: 100%; width: 100%; margin: 0;">
+    <v-card style="min-height: 100%; width: 100%; margin: 0; padding: 30px">
         <v-main>
             <v-container>
                 <v-row>
@@ -38,10 +38,10 @@
 
 
                     <!-- Productos -->
-                    <v-col cols="12" sm="6" md="12">
+                    <v-col cols="12" sm="12" md="12">
                         <h3 class="mb-4">{{ selectedCategory }}</h3>
                         <v-row style="display: flex; flex-wrap: wrap">
-                            <v-col v-for="item in filteredMenu" :key="item.id" sm="12" md="6" class="d-flex justify-center">
+                            <v-col v-for="item in filteredMenu" :key="item.id" sm="6" md="6" class="d-flex justify-center">
                                 <v-card class="hover-card" elevation="2" style="width: 100%">
                                     <v-img :src="item.image" height="260px" class="rounded-t object-fill" contain />
                                     <v-card-title class="text-wrap">{{ item.name }}</v-card-title>
@@ -75,7 +75,7 @@
                 </v-row>
             </v-container>
         </v-main>
-    </v-app>
+    </v-card>
 </template>
   
 <script>
