@@ -40,9 +40,9 @@
 						</v-btn>
 					</v-card-actions>
 				</v-card>
-				<v-dialog
+				<v-dialog max-width="800"
 					v-model="citasDialog">
-					<Citas/>
+					<Citas @cerrar="citasDialog = false" />
 				</v-dialog>
 
 			</v-col>

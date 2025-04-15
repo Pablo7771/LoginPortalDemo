@@ -1,5 +1,5 @@
 <template>
-    <v-card max-width="800" class="mx-auto my-10 pa-6">
+    <v-card class="mx-auto pa-6 pa-0">
         <!-- Ícono de cierre arriba a la derecha -->
         <v-btn icon small class="close-btn" @click="$emit('cerrar')">
             <v-icon>mdi-close</v-icon>
