@@ -70,7 +70,7 @@
 
             <!-- Navegación -->
             <div class="d-flex justify-space-between mt-6">
-                <v-btn text :disabled="step === 1" @click="pasoAnterior">Anterior</v-btn>
+                <v-btn text :disabled="step === 1" @click="pasoAnterior" outlined>Anterior</v-btn>
 
                 <v-btn v-if="step < 5" color="primary" :disabled="!puedeAvanzar" @click="siguientePaso">
                     Siguiente
@@ -142,7 +142,6 @@ export default {
             this.step--;
             if (this.step == 4) {
                 this.selectedDay = null;
-                this.horasDisponibles = [];
                 this.selectedHora = null
             }
         },
@@ -156,7 +155,6 @@ export default {
 
             if (this.step == 4) {
                 this.selectedDay = null;
-                this.horasDisponibles = [];
                 this.selectedHora = null
             }
         },
