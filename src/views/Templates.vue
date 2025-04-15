@@ -3,28 +3,28 @@
 		<!-- Título -->
 		<h1 class="text-center mb-6 text-white">{{ $t('templates.title') }}</h1>
 
-		<v-row justify="center" align="stretch" dense>
-
+		<v-row justify="center" align="stretch" dense class="card-wrapper">
 			<!-- Card: Pedir Delivery -->
 			<v-col cols="12" sm="6" class="d-flex">
 				<v-card class="pa-4 d-flex flex-column justify-space-between fill-height" width="100%" elevation="8">
 					<div>
 						<v-card-title class="headline font-weight-bold">
-							🛵 Pedir Delivery
+							🛵 {{ $t('templates.delivery.title') }}
 						</v-card-title>
 						<v-card-text>
-							Solicita tus productos a domicilio de forma rápida y segura.
+							{{ $t('templates.delivery.description') }}
 						</v-card-text>
 					</div>
 					<v-card-actions>
 						<v-btn color="primary" @click="deliveryDialog = true" depressed>
-							Pedir ahora
+							{{ $t('templates.delivery.title') }}
 						</v-btn>
 					</v-card-actions>
 				</v-card>
 
-				<v-dialog v-model="deliveryDialog"  max-width="1000">
-					<Delivery />
+				<v-dialog v-model="deliveryDialog" max-width="1000" v-if="deliveryDialog">
+					<Delivery @cerrar="deliveryDialog = false"/>
+
 				</v-dialog>
 			</v-col>
 
@@ -33,29 +33,28 @@
 				<v-card class="pa-4 d-flex flex-column justify-space-between fill-height" width="100%" elevation="8">
 					<div>
 						<v-card-title class="headline font-weight-bold">
-							📅 Agendar Cita
+							📅 {{ $t('templates.medicalAppointment.title') }}
 						</v-card-title>
 						<v-card-text>
-							Reserva una cita en el horario que más te convenga.
+							{{ $t('templates.medicalAppointment.description') }}
 						</v-card-text>
 					</div>
 					<v-card-actions>
 						<v-btn color="success" @click="citasDialog = true" depressed>
-							Agendar
+							{{ $t('templates.medicalAppointment.title') }}
 						</v-btn>
 					</v-card-actions>
 				</v-card>
 
-				<v-dialog max-width="800" max-height="600" v-model="citasDialog">
+				<v-dialog max-width="800" max-height="600" v-model="citasDialog" v-if="citasDialog">
 					<Citas @cerrar="citasDialog = false" />
 				</v-dialog>
 			</v-col>
 
 		</v-row>
-
 	</v-container>
 </template>
-  
+
 <script lang="ts">
 import Citas from "@/views/Citas.vue";
 import Delivery from "@/views/Delivery.vue";
@@ -74,4 +73,16 @@ export default {
 	},
 };
 </script>
-  
+
+<style scoped>
+.card-wrapper {
+  container-type: inline-size; /* Esto establece el contenedor como el que controla las container queries */
+}
+
+@container (max-width: 575px) {
+	.col-12 {
+		flex: 0 0 100%;
+		max-width: 100%;
+	}
+}
+</style>

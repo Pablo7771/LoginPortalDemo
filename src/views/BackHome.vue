@@ -1,7 +1,8 @@
 <template>
     <v-btn text class="mt-6 back-btn" @click="goHome">
         <v-icon left class="return-icon">mdi-keyboard-return</v-icon>
-        Volver al inicio
+        <!--Idiomático i18n-->        
+        {{ $t("templates.backHome") }}
     </v-btn>
 </template>
 

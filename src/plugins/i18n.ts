@@ -50,8 +50,17 @@ const messages = {
         },
         templates: {
             title: "What would you like to do?",
-            delivery: "Request delivery",
-            medicalAppointment: "Schedule a medical appointment"
+            delivery: {
+                title: "Request Delivery",
+                description: "Place an order for delivery to your location.",
+                button: "Order now"
+            },
+            medicalAppointment: {
+                title: "Schedule Appointment",
+                description: "Book an appointment with a healthcare provider.",
+                button: "Schedule now"
+            },
+            backHome : "Back to home"
         }
     },
     es: {
@@ -100,8 +109,17 @@ const messages = {
         },
         templates: {
             title: "¿Qué deseas hacer?",
-            delivery: "Pedir delivery",
-            medicalAppointment: "Agendar cita médica"
+            delivery: {
+                title: "Pedir Delivery",
+                description: "Realiza un pedido para que lo entreguen a tu ubicación.",
+                button: "Pedir ahora"
+            },
+            medicalAppointment: {
+                title: "Agendar Cita",
+                description: "Reserva una cita con un proveedor de salud.",
+                button: "Agendar ahora"
+            },
+            backHome : "Volver al inicio"
         }
     },
     ca: {
@@ -150,8 +168,17 @@ const messages = {
         },
         templates: {
             title: "Què vols fer?",
-            delivery: "Demanar repartiment",
-            medicalAppointment: "Programar cita mèdica"
+            delivery: {
+                title: "Demanar Repartiment",
+                description: "Fes una comanda perquè et portin el producte a la ubicació.",
+                button: "Demanar ara"
+            },
+            medicalAppointment: {
+                title: "Agendar Cita",
+                description: "Reserva una cita amb un professional de la salut.",
+                button: "Agendar ara"
+            },
+            backHome : "Tornar a l'inici"
         }
     },
     fr: {
@@ -200,8 +227,17 @@ const messages = {
         },
         templates: {
             title: "Que souhaitez-vous faire ?",
-            delivery: "Commander une livraison",
-            medicalAppointment: "Prendre un rendez-vous médical"
+            delivery: {
+                title: "Commander une Livraison",
+                description: "Effectuez une commande pour une livraison à votre adresse.",
+                button: "Commander maintenant"
+            },
+            medicalAppointment: {
+                title: "Prendre un Rendez-vous",
+                description: "Prenez un rendez-vous avec un professionnel de la santé.",
+                button: "Planifier maintenant"
+            },
+            backHome : "Retour à l'accueil"
         }
     }
 }
