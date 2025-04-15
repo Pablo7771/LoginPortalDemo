@@ -1,59 +1,74 @@
 <template>
-  <v-container fluid>
-    <v-row align="center" justify="center" class="fill-height">
-      <v-col cols="12" md="6" lg="4">
-        <h1 class="text-center mb-6 text-white">{{ $t("templates.title") }}</h1>
+	<v-container class="pa-4" fluid>
+		<v-row justify="center" align="stretch" dense>
 
-        <!-- Card 1: Pedir Delivery -->
-        <v-card
-          class="fancy-card mb-4"
-          @click="goTo('delivery')"
-          elevation="10"
-          :style="{
-            backgroundImage:
-              'url(https://images.unsplash.com/photo-1507525428034-b723cf961d3e)',
-          }"
-        >
-          <v-card-text class="card-text">{{
-            $t("templates.delivery")
-          }}</v-card-text>
-        </v-card>
+			<!-- Card: Pedir Delivery -->
+			<h1 class="text-center mb-6 text-white">{{ $t('templates.title') }}</h1>
+			<v-col cols="12" sm="6">
+				<v-card class="pa-4" elevation="8">
+					<v-card-title class="headline font-weight-bold">
+					🛵 Pedir Delivery
+					</v-card-title>
+					<v-card-text>
+						Solicita tus productos a domicilio de forma rápida y segura.
+					</v-card-text>
+					<v-card-actions>
+						<v-btn color="primary"  @click="deliveryDialog = true" depressed>
+							Pedir ahora
+						</v-btn>
+					</v-card-actions>
+				</v-card>
+				<v-dialog
+					v-model="deliveryDialog">
+					<Delivery/>
+				</v-dialog>
 
-        <!-- Card 2: Agendar cita médica -->
+			</v-col>
 
-        <v-card
-          class="fancy-card mb-4"
-          @click="dialog = true"
-          elevation="10"
-          :style="{
-            backgroundImage:
-              'url(https://images.unsplash.com/photo-1521747116042-5a810fda9664)',
-          }"
-        >
-          <v-card-text class="card-text">{{
-            $t("templates.medicalAppointment")
-          }}</v-card-text>
-        </v-card>
+			<!-- Card: Agendar Cita -->
+			<v-col cols="12" sm="6">
+				<v-card class="pa-4" elevation="8">
+					<v-card-title class="headline font-weight-bold">
+						📅 Agendar Cita
+					</v-card-title>
+					<v-card-text>
+						Reserva una cita en el horario que más te convenga.
+					</v-card-text>
+					<v-card-actions>
+						<v-btn color="success" @click="citasDialog = true" depressed>
+							Agendar
+						</v-btn>
+					</v-card-actions>
+				</v-card>
+				<v-dialog
+					v-model="citasDialog">
+					<Citas/>
+				</v-dialog>
 
-        <v-dialog v-model="dialog" max-width="600px">
-          <Citas />
-        </v-dialog>
-      </v-col>
-    </v-row>
-  </v-container>
+			</v-col>
+
+		</v-row>
+	</v-container>
 </template>
 
 <script lang="ts">
   import Citas from "@/views/Citas.vue";
+  import Delivery from "@/views/Delivery.vue";
+  import { ref } from "vue";
 
   export default {
     name: "Templates",
     components: {
       Citas,
+	  Delivery
     },
     data() {
+		const deliveryDialog = ref(false) 
+		const citasDialog = ref(false)
       return {
         dialog: false,
+		deliveryDialog,
+		citasDialog
       };
     },
   };
