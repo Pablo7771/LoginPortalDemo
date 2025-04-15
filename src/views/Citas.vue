@@ -260,8 +260,8 @@
 /* Botón de cerrar */
 .close-btn {
     position: absolute;
-    top: 8px;
-    right: 8px;
+    top: 25px;
+    right: 25px;
     z-index: 2;
 }
 
