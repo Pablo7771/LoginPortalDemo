@@ -7,7 +7,7 @@
       {{ $t("login.unauthorized") }}
     </v-alert>
 
-    <v-text-field v-model="usercode" :label="$t('login.usercode')" autocomplete="usercode" dense name="usercode" outlined
+    <v-text-field v-model="username" :label="$t('login.usercode')" autocomplete="username" dense name="username" outlined
       persistent-placeholder class="input-field" />
 
     <v-text-field v-model="password" :label="$t('login.password')"
@@ -36,7 +36,7 @@ import i18n from "@/plugins/i18n";
 export default defineComponent({
   name: "LoginForm",
   setup() {
-    const usercode = ref("");
+    const username = ref("");
     const password = ref("");
     const showUnauthorizeMessage = ref(false);
     const alertMessage = ref(null);
@@ -71,7 +71,7 @@ export default defineComponent({
         await axios.post(
           `/login`,
           new URLSearchParams({
-            usercode: usercode.value,
+            username: username.value,
             password: password.value,
           }),
           {
@@ -97,7 +97,7 @@ export default defineComponent({
     }
 
     return {
-      usercode,
+      username,
       password,
       submit,
       loading,
