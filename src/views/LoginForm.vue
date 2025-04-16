@@ -17,7 +17,7 @@
             @keyup.enter="submit()" />
 
         <div class="login-actions">
-            <v-btn type="submit" color="primary" block class="login-btn">
+            <v-btn type="submit" color="primary" block class="login-btn" :loading="loading">
                 {{ $t("login.loginButton") }}
             </v-btn>
 
