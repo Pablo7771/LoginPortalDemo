@@ -30,21 +30,21 @@
           <v-text-field
             v-model="paciente.nombre"
             label="Nombre"
-            :rules="[v => !!v || 'El nombre es requerido']"
+            :rules="[(v) => !!v || 'El nombre es requerido']"
             required
           />
           <v-text-field
             v-model="paciente.apellido"
             label="Apellido"
-            :rules="[v => !!v || 'El apellido es requerido']"
+            :rules="[(v) => !!v || 'El apellido es requerido']"
             required
           />
           <v-text-field
             v-model="paciente.email"
             label="Email"
             :rules="[
-              v => !!v || 'El email es requerido',
-              v => /.+@.+\..+/.test(v) || 'Debe ser un email válido'
+              (v) => !!v || 'El email es requerido',
+              (v) => /.+@.+\..+/.test(v) || 'Debe ser un email válido',
             ]"
             required
           />
@@ -52,8 +52,10 @@
             v-model="paciente.telefono"
             label="Teléfono"
             :rules="[
-              v => !!v || 'El teléfono es requerido',
-              v => /^[0-9]{5,20}$/.test(v) || 'El teléfono debe contener solo números y tener entre 5 y 20 dígitos'
+              (v) => !!v || 'El teléfono es requerido',
+              (v) =>
+                /^[0-9]{5,20}$/.test(v) ||
+                'El teléfono debe contener solo números y tener entre 5 y 20 dígitos',
             ]"
             required
           />
@@ -61,7 +63,7 @@
             v-model="paciente.fotoDni"
             label="Foto del DNI"
             accept="image/*"
-            :rules="[v => !!v || 'La foto del DNI es requerida']"
+            :rules="[(v) => !!v || 'La foto del DNI es requerida']"
             required
           />
         </v-form>
@@ -125,67 +127,6 @@
           label="Hora"
           required
         />
-        <div class="mt-6">
-          <h4 class="mb-2">Resumen de la cita</h4>
-          <v-list dense>
-            <v-list-item>
-              <v-list-item-content>
-                <v-list-item-title>Nombre:</v-list-item-title>
-                <v-list-item-subtitle>
-                  {{ paciente.nombre }} {{ paciente.apellido }}
-                </v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-
-            <v-list-item>
-              <v-list-item-content>
-                <v-list-item-title>Email:</v-list-item-title>
-                <v-list-item-subtitle>{{ paciente.email }}</v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-
-            <v-list-item>
-              <v-list-item-content>
-                <v-list-item-title>Teléfono:</v-list-item-title>
-                <v-list-item-subtitle>
-                  {{ paciente.telefono }}
-                </v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-
-            <v-list-item>
-              <v-list-item-content>
-                <v-list-item-title>Especialidad:</v-list-item-title>
-                <v-list-item-subtitle>
-                  {{ nombreEspecialidad }}
-                </v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-
-            <v-list-item>
-              <v-list-item-content>
-                <v-list-item-title>Médico:</v-list-item-title>
-                <v-list-item-subtitle>{{ nombreMedico }}</v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-
-            <v-list-item>
-              <v-list-item-content>
-                <v-list-item-title>Día:</v-list-item-title>
-                <v-list-item-subtitle>
-                  {{ formattedSelectedDay }}
-                </v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-
-            <v-list-item>
-              <v-list-item-content>
-                <v-list-item-title>Hora:</v-list-item-title>
-                <v-list-item-subtitle>{{ selectedHora }}</v-list-item-subtitle>
-              </v-list-item-content>
-            </v-list-item>
-          </v-list>
-        </div>
       </div>
 
       <!-- Navegación -->
@@ -208,12 +149,81 @@
           :loading="loading"
           color="success"
           :disabled="!selectedHora"
-          @click="agendarCita"
+          @click="resumen = true"
         >
-          Confirmar Cita
+          Generar Cita
         </v-btn>
       </div>
     </v-card-text>
+
+    <v-dialog v-model="resumen" max-width="600px">
+      <v-card>
+        <v-card-title class="headline grey lighten-4">
+          Resumen de la Cita
+        </v-card-title>
+
+        <v-card-text>
+          <v-container>
+            <v-row>
+              <v-col cols="12" sm="6">
+                <strong>Nombre:</strong>
+              </v-col>
+              <v-col cols="12" sm="6">
+                {{ paciente.nombre }} {{ paciente.apellido }}
+              </v-col>
+
+              <v-col cols="12" sm="6">
+                <strong>Email:</strong>
+              </v-col>
+              <v-col cols="12" sm="6">
+                {{ paciente.email }}
+              </v-col>
+
+              <v-col cols="12" sm="6">
+                <strong>Teléfono:</strong>
+              </v-col>
+              <v-col cols="12" sm="6">
+                {{ paciente.telefono }}
+              </v-col>
+
+              <v-col cols="12" sm="6">
+                <strong>Especialidad:</strong>
+              </v-col>
+              <v-col cols="12" sm="6">
+                {{ especialidadDesc }}
+              </v-col>
+
+              <v-col cols="12" sm="6">
+                <strong>Médico:</strong>
+              </v-col>
+              <v-col cols="12" sm="6">
+                {{ medicoDesc }}
+              </v-col>
+
+              <v-col cols="12" sm="6">
+                <strong>Día:</strong>
+              </v-col>
+              <v-col cols="12" sm="6">
+                {{ formattedSelectedDay }}
+              </v-col>
+
+              <v-col cols="12" sm="6">
+                <strong>Hora:</strong>
+              </v-col>
+              <v-col cols="12" sm="6">
+                {{ selectedHora }}
+              </v-col>
+            </v-row>
+          </v-container>
+        </v-card-text>
+
+        <v-card-actions>
+          <v-spacer></v-spacer>
+          <v-btn text @click="resumen = false">Cancelar</v-btn>
+          <v-btn color="success" @click="agendarCita">Confirmar</v-btn>
+        </v-card-actions>
+      </v-card>
+    </v-dialog>
   </v-card>
 </template>
 
@@ -223,33 +233,55 @@ const { VUE_APP_API_URL: API_URL, VUE_APP_JWT: JWT } = process.env;
 export default {
   data() {
     return {
+      resumen: false,
       loading: false,
       step: 1,
-      pasos: ['Paciente', 'Especialidad', 'Médico', 'Fecha', 'Hora'],
+      pasos: ["Paciente", "Especialidad", "Médico", "Fecha", "Hora"],
       formStep1: false,
       paciente: {
-        nombre: '',
-        apellido: '',
-        email: '',
-        telefono: '',
-        fotoDni: null
+        nombre: "",
+        apellido: "",
+        email: "",
+        telefono: "",
+        fotoDni: null,
       },
       especialidades: [
-        { id: 1, nombre: 'Cardiología', imagen: require('@/assets/citas/cardiologia.png') },
-        { id: 2, nombre: 'Dermatología', imagen: require('@/assets/citas/dermatologia.png') },
-        { id: 3, nombre: 'Pediatría', imagen: require('@/assets/citas/pediatria.jpg') }
+        {
+          id: 1,
+          nombre: "Cardiología",
+          imagen: require("@/assets/citas/cardiologia.png"),
+        },
+        {
+          id: 2,
+          nombre: "Dermatología",
+          imagen: require("@/assets/citas/dermatologia.png"),
+        },
+        {
+          id: 3,
+          nombre: "Pediatría",
+          imagen: require("@/assets/citas/pediatria.jpg"),
+        },
       ],
       selectedEspecialidad: null,
       medicosDisponibles: [],
       selectedMedico: null,
       medicoDisponibilidad: {
-        1: { diasDisponibles: ['2025-04-15', '2025-04-16'], foto: require('@/assets/citas/doctor1.jpg') },
-        2: { diasDisponibles: ['2025-04-17', '2025-04-18'], foto: require('@/assets/citas/doctor2.png') },
-        3: { diasDisponibles: ['2025-04-20', '2025-04-22'], foto: require('@/assets/citas/doctor3.png') }
+        1: {
+          diasDisponibles: ["2025-04-15", "2025-04-16"],
+          foto: require("@/assets/citas/doctor1.jpg"),
+        },
+        2: {
+          diasDisponibles: ["2025-04-17", "2025-04-18"],
+          foto: require("@/assets/citas/doctor2.png"),
+        },
+        3: {
+          diasDisponibles: ["2025-04-20", "2025-04-22"],
+          foto: require("@/assets/citas/doctor3.png"),
+        },
       },
       selectedDay: null,
       horasDisponibles: [],
-      selectedHora: null
+      selectedHora: null,
     };
   },
   computed: {
@@ -268,25 +300,43 @@ export default {
       }
     },
     formattedSelectedDay() {
-      if (!this.selectedDay) return '';
-      const [year, month, day] = this.selectedDay.split('-');
+      if (!this.selectedDay) return "";
+      const [year, month, day] = this.selectedDay.split("-");
       return `${day}-${month}-${year}`;
     },
     imagenEspecialidad() {
-      const esp = this.especialidades.find(e => e.id === this.selectedEspecialidad);
-      return esp?.imagen || '';
+      const esp = this.especialidades.find(
+        (e) => e.id === this.selectedEspecialidad
+      );
+      return esp?.imagen || "";
     },
     imagenMedico() {
-      return this.medicoDisponibilidad[this.selectedMedico]?.foto || '';
+      return this.medicoDisponibilidad[this.selectedMedico]?.foto || "";
     },
     nombreEspecialidad() {
-      const esp = this.especialidades.find(e => e.id === this.selectedEspecialidad);
-      return esp?.nombre || '';
+      const esp = this.especialidades.find(
+        (e) => e.id === this.selectedEspecialidad
+      );
+      return esp?.nombre || "";
     },
     nombreMedico() {
-      const med = this.medicosDisponibles.find(e => e.id === this.selectedMedico);
-      return med?.nombre || '';
-    }
+      const med = this.medicosDisponibles.find(
+        (e) => e.id === this.selectedMedico
+      );
+      return med?.nombre || "";
+    },
+    especialidadDesc() {
+      const esp = this.especialidades.find(
+        (e) => e.id === this.selectedEspecialidad
+      );
+      return esp?.nombre || "";
+    },
+    medicoDesc() {
+      const med = this.medicosDisponibles.find(
+        (e) => e.id === this.selectedMedico
+      );
+      return med?.nombre || "";
+    },
   },
   methods: {
     pasoAnterior() {
@@ -308,15 +358,17 @@ export default {
       }
     },
     formatearEventosDelMedico() {
-      const dias = this.medicoDisponibilidad[this.selectedMedico]?.diasDisponibles || [];
-      return dias.map(d => ({
-        name: 'Disponible',
+      const dias =
+        this.medicoDisponibilidad[this.selectedMedico]?.diasDisponibles || [];
+      return dias.map((d) => ({
+        name: "Disponible",
         start: d,
-        end: d
+        end: d,
       }));
     },
     esFechaPermitida(date) {
-      const dias = this.medicoDisponibilidad[this.selectedMedico]?.diasDisponibles || [];
+      const dias =
+        this.medicoDisponibilidad[this.selectedMedico]?.diasDisponibles || [];
       return dias.includes(date);
     },
     onDateClick(e) {
@@ -327,60 +379,62 @@ export default {
         this.selectedDay = null;
       } else {
         this.selectedDay = date;
-        const button = e.nativeEvent.target.closest('button');
-        const calendar = button.closest('.v-calendar');
-        calendar.querySelectorAll('button.primary').forEach(btn => btn.classList.remove('primary'));
-        button.classList.add('primary');
+        const button = e.nativeEvent.target.closest("button");
+        const calendar = button.closest(".v-calendar");
+        calendar
+          .querySelectorAll("button.primary")
+          .forEach((btn) => btn.classList.remove("primary"));
+        button.classList.add("primary");
       }
     },
     async agendarCita() {
       const fd = new FormData();
-      fd.append('especialidad', this.selectedEspecialidad);
-      fd.append('medico', this.selectedMedico);
-      fd.append('dia', this.formattedSelectedDay);
-      fd.append('hora', this.selectedHora);
-      fd.append('nombre', this.paciente.nombre);
-      fd.append('apellido', this.paciente.apellido);
-      fd.append('email', this.paciente.email);
-      fd.append('telefono', this.paciente.telefono);
-      fd.append('foto', this.paciente.fotoDni);
+      fd.append("especialidad", this.selectedEspecialidad);
+      fd.append("medico", this.selectedMedico);
+      fd.append("dia", this.formattedSelectedDay);
+      fd.append("hora", this.selectedHora);
+      fd.append("nombre", this.paciente.nombre);
+      fd.append("apellido", this.paciente.apellido);
+      fd.append("email", this.paciente.email);
+      fd.append("telefono", this.paciente.telefono);
+      fd.append("foto", this.paciente.fotoDni);
 
       this.loading = true;
 
       const response = await fetch(`${API_URL}/demo_cita`, {
-        method: 'POST',
+        method: "POST",
         headers: {
-          Authorization: `Bearer ${JWT}`
+          Authorization: `Bearer ${JWT}`,
         },
-        body: fd
+        body: fd,
       });
 
       const data = await response.json();
       console.log(data);
 
       this.loading = false;
-      this.$emit('cerrar');
-    }
+      this.$emit("cerrar");
+    },
   },
   watch: {
     selectedEspecialidad(newVal) {
       if (newVal === 1) {
         this.medicosDisponibles = [
-          { id: 1, nombre: 'Dra. López' },
-          { id: 2, nombre: 'Dr. Ramírez' }
+          { id: 1, nombre: "Dra. López" },
+          { id: 2, nombre: "Dr. Ramírez" },
         ];
       } else if (newVal === 2) {
-        this.medicosDisponibles = [{ id: 3, nombre: 'Dra. González' }];
+        this.medicosDisponibles = [{ id: 3, nombre: "Dra. González" }];
       } else {
         this.medicosDisponibles = [];
       }
     },
     selectedMedico(newVal) {
       this.horasDisponibles = newVal
-        ? ['09:00:00', '10:30:00', '12:00:00', '15:00:00']
+        ? ["09:00:00", "10:30:00", "12:00:00", "15:00:00"]
         : [];
-    }
-  }
+    },
+  },
 };
 </script>
 
@@ -444,19 +498,19 @@ export default {
 }
 
 .step-indicator.active .circle {
-  background-color: #1976D2;
+  background-color: #1976d2;
 }
 
 .step-indicator.completed .circle {
-  background-color: #4CAF50;
+  background-color: #4caf50;
 }
 
 .step-indicator.completed .line {
-  background-color: #4CAF50;
+  background-color: #4caf50;
 }
 
 .step-indicator.active .line {
-  background-color: #1976D2;
+  background-color: #1976d2;
 }
 
 .imagen-info {
