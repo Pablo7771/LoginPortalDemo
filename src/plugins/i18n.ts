@@ -60,6 +60,11 @@ const messages = {
                 description: "Book an appointment with a healthcare provider.",
                 button: "Schedule now"
             },
+            providers: {
+              title: "Register Provider",
+              description: "Quickly and easily add new providers to the system.",
+              button: "Register"
+            },
             backHome : "Back to home"
         }
     },
@@ -118,6 +123,11 @@ const messages = {
                 title: "Agendar Cita",
                 description: "Reserva una cita con un proveedor de salud.",
                 button: "Agendar ahora"
+            },
+            providers: {
+              title: "Registrar Proveedor",
+              description: "Agrega nuevos proveedores al sistema de manera rápida y sencilla.",
+              button: "Registrar"
             },
             backHome : "Volver al inicio"
         }
@@ -178,6 +188,11 @@ const messages = {
                 description: "Reserva una cita amb un professional de la salut.",
                 button: "Agendar ara"
             },
+            providers: {
+              title: "Registrar Proveïdor",
+              description: "Afegeix nous proveïdors al sistema de manera ràpida i senzilla.",
+              button: "Registrar"
+            },
             backHome : "Tornar a l'inici"
         }
     },
@@ -236,6 +251,11 @@ const messages = {
                 title: "Prendre un Rendez-vous",
                 description: "Prenez un rendez-vous avec un professionnel de la santé.",
                 button: "Planifier maintenant"
+            },
+            providers: {
+              title: "Enregistrer un fournisseur",
+              description: "Ajoutez facilement de nouveaux fournisseurs au système.",
+              button: "Enregistrer"
             },
             backHome : "Retour à l'accueil"
         }

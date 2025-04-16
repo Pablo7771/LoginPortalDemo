@@ -4,7 +4,7 @@ import LoginForm from "@/views/LoginForm.vue";
 import RegisterForm from "@/views/RegisterForm.vue";
 import Templates from "@/views/Templates.vue";
 
-Vue.use(VueRouter);
+Vue.use(VueRouter); 
 
 const routes: Array<RouteConfig> = [
     {

@@ -54,6 +54,10 @@ export default defineComponent({
 </script>
   
 <style scoped>
+    .col-md-7 {
+        flex: 0 0 62.3333333333%;
+        max-width: 62.3333333333%;
+    }
 .login-left-col {
     position: relative;
     width: 100%;

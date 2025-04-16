@@ -1,260 +1,240 @@
 <template>
+    <v-card>
+        <!-- Formulario -->
+        <v-card class="mx-auto" max-width="800px" outlined>
+            <v-card-title class="text-h5">Formulario De Registro Proveedor</v-card-title>
 
-<v-card style="min-height: 100%; width: 100%; margin: 0; padding: 30px">
-    <form class="formulario">
-        <h2 class="titulo">Formulario de registro</h2>
+            <!-- Información General -->
+            <v-card-subtitle>Información General</v-card-subtitle>
+            <v-card-text>
+                <v-row>
+                    <v-col cols="12" md="6">
+                        <v-text-field v-model="form.razonSocial" label="Razón Social*" outlined dense></v-text-field>
+                    </v-col>
+                    <v-col cols="12" md="6">
+                        <v-text-field v-model="form.nif" label="CIF / NIF / NIE*" outlined dense></v-text-field>
+                    </v-col>
+                    <v-col cols="12">
+                        <v-text-field v-model="form.domicilio" label="Domicilio Fiscal*" outlined dense></v-text-field>
+                    </v-col>
+                    <v-col cols="12" md="6">
+                        <v-select v-model="form.provincia_1" :items="provincias" label="Provincia" outlined
+                            dense></v-select>
+                    </v-col>
+                    <v-col cols="12" md="6">
+                        <v-select v-model="form.poblacion_1" :items="poblacionesDisponibles_1" label="Población" outlined
+                            dense></v-select>
+                    </v-col>
+                    <v-col cols="12" md="6">
+                        <v-text-field v-model="form.codigoPostal_1" label="Código Postal" outlined dense
+                            readonly></v-text-field>
+                    </v-col>
+                    <v-col cols="12" md="6">
+                        <v-text-field v-model="form.telefono" label="Teléfono*" outlined dense></v-text-field>
+                    </v-col>
+                    <v-col cols="12" md="6">
+                        <v-text-field v-model="form.email" label="Email Para Gestión Comercial*" outlined
+                            dense></v-text-field>
+                    </v-col>
+                    <v-col cols="12">
+                        <v-text-field v-model="form.web" label="Web" outlined dense></v-text-field>
+                    </v-col>
+                </v-row>
+            </v-card-text>
 
-        <!-- Información General -->
-        <section :style="sectionStyle">
-            <div class="input-container"><input type="text" placeholder="Razón social*" class="input" /></div>
-            <div class="input-container"><input type="text" placeholder="CIF / NIF / NIE*" class="input" /></div>
-            <div class="input-container"><input type="text" placeholder="Domicilio fiscal*" class="input" /></div>
-            <div class="input-container"><input type="text" placeholder="Provincia*" class="input" /></div>
-            <div class="input-container"><input type="text" placeholder="Población*" class="input" /></div>
-            <div class="input-container"><input type="text" placeholder="Código postal*" class="input" /></div>
-            <div class="input-container"><input type="text" placeholder="Teléfono*" class="input" /></div>
-            <div class="input-container"><input type="email" placeholder="Email para gestión comercial*" class="input" />
-            </div>
-            <div class="input-container" :style="fullWidthStyle"><input type="url" placeholder="Web" class="input" /></div>
-        </section>
+            <!-- Información Del Apoderado -->
+            <v-card-subtitle>Información Del Apoderado</v-card-subtitle>
+            <v-card-text>
+                <v-row>
+                    <v-col cols="12" md="6">
+                        <v-text-field v-model="form.nombreApoderado" label="Nombre Y Apellidos*" outlined
+                            dense></v-text-field>
+                    </v-col>
+                    <v-col cols="12" md="6">
+                        <v-text-field v-model="form.nifApoderado" label="NIF / NIE*" outlined dense></v-text-field>
+                    </v-col>
+                    <v-col cols="12">
+                        <v-text-field v-model="form.poderes" label="Poderes*" outlined dense></v-text-field>
+                    </v-col>
+                </v-row>
+            </v-card-text>
 
-        <!-- Información del apoderado -->
-        <h2 class="titulo">Información del apoderado</h2>
-        <section :style="sectionStyle">
-            <div class="input-container"><input type="text" placeholder="Nombre y apellidos*" class="input" /></div>
-            <div class="input-container"><input type="text" placeholder="NIF / NIE*" class="input" /></div>
-            <div class="input-container"><input type="text" placeholder="Poderes*" class="input md:col-span-2" /></div>
-        </section>
+            <!-- Información Comercial -->
+            <v-card-subtitle>Información Comercial</v-card-subtitle>
+            <v-card-text>
+                <v-row>
+                    <v-col cols="12" md="6">
+                        <v-select v-model="form.tipoProveedor"
+                            :items="['Proveedor De Materiales', 'Subcontratista', 'Ambos']" label="Tipo De Proveedor*"
+                            outlined dense></v-select>
+                    </v-col>
+                    <v-col cols="12" md="6">
+                        <v-text-field v-model="form.seguroSocial" label="Nº Seguro Social" outlined dense></v-text-field>
+                    </v-col>
+                    <v-col cols="12" md="6">
+                        <v-text-field v-model="form.iban" label="IBAN*" outlined dense></v-text-field>
+                    </v-col>
+                    <v-col cols="12" md="6">
+                        <v-text-field v-model="form.certificadoTitularidad" label="Certificado Titularidad" outlined
+                            dense></v-text-field>
+                    </v-col>
+                    <v-col cols="12" md="6">
+                        <v-text-field v-model="form.oficios" label="Oficios*" outlined dense></v-text-field>
+                    </v-col>
+                    <v-col cols="12" md="6">
+                        <v-select v-model="form.ambito" :items="['nacional', 'regional', 'provincial']"
+                            label="Disponibilidad Geográfica*" outlined dense></v-select>
+                    </v-col>
+                    <v-col cols="12" v-if="form.ambito === 'regional' || form.ambito === 'provincial'">
+                        <v-select v-model="form.region_2" :items="provincias" label="Seleccione Una Región" outlined
+                            dense></v-select>
+                    </v-col>
+                    <v-col cols="12" v-if="form.ambito === 'provincial'">
+                        <v-select v-model="form.provincia_2" :items="poblacionesDisponibles_2"
+                            label="Seleccione Una Provincia" outlined dense></v-select>
+                    </v-col>
+                </v-row>
+            </v-card-text>
 
-        <!-- Información comercial -->
-        <h2 class="titulo">Información comercial</h2>
-        <section :style="sectionStyle">
-            <div class="input-container">
-                <select class="input">
-                    <option disabled selected>Tipo de proveedor*</option>
-                    <option>Opción 1</option>
-                </select>
-            </div>
-            <div class="input-container"><input type="text" placeholder="Nº Seguridad Social" class="input" /></div>
-            <div class="input-container"><input type="text" placeholder="IBAN*" class="input" /></div>
-            <div class="input-container"><input type="text" placeholder="Certificado titularidad" class="input" /></div>
-            <div class="input-container"><input type="text" placeholder="Oficios*" class="input" /></div>
+            <!-- Dirección De Envío De Pagarés -->
+            <v-card-subtitle>Dirección De Envío De Pagarés</v-card-subtitle>
+            <v-card-text>
+                <v-row>
+                    <v-col cols="12">
+                        <v-text-field v-model="form.domicilio_2" label="Domicilio" outlined dense></v-text-field>
+                    </v-col>
+                    <v-col cols="12" md="6">
+                        <v-select v-model="form.provincia" :items="provincias" label="Provincia" outlined dense></v-select>
+                    </v-col>
+                    <v-col cols="12" md="6">
+                        <v-select v-model="form.poblacion" :items="poblacionesDisponibles" label="Población" outlined
+                            dense></v-select>
+                    </v-col>
+                    <v-col cols="12" md="6">
+                        <v-text-field v-model="form.codigoPostal" label="Código Postal" outlined dense
+                            readonly></v-text-field>
+                    </v-col>
+                    <v-col cols="12">
+                        <v-checkbox v-model="form.mismaDireccion" label="Misma Que La Dirección Fiscal"
+                            @change="copiarDireccionFiscal"></v-checkbox>
+                    </v-col>
+                </v-row>
+            </v-card-text>
 
-            <div class="input-container">
-                <select class="input">
-                    <option disabled selected>Disponibilidad Geográfica*</option>
-                    <option>Opción 1</option>
-                </select>
-            </div>
-        </section>
-
-        <!-- Dirección de envío de pagarés -->
-        <h2 class="titulo">Dirección de envío de pagarés</h2>
-        <section :style="sectionStyle">
-            <div class="input-container"><input type="text" placeholder="Domicilio" class="input" /></div>
-
-            <div class="input-container">
-                <div>
-                    <select v-model="form.provincia" @change="onProvinciaChange" class="input">
-                        <option disabled value="">Provincia</option>
-                        <option v-for="prov in provincias" :key="prov" :value="prov">{{ prov }}</option>
-                    </select>
-                </div>
-            </div>
-
-            <div class="input-container">
-                <div>
-                    <select v-model="form.poblacion" @change="onPoblacionChange" class="input">
-                        <option disabled value="">Población</option>
-                        <option v-for="pob in poblacionesDisponibles" :key="pob.nombre" :value="pob.nombre">
-                            {{ pob.nombre }}
-                        </option>
-                    </select>
-                </div>
-            </div>
-
-            <!-- Código postal automático -->
-            <div class="input-container">
-                <input v-model="form.codigoPostal" type="text" placeholder="Código postal" class="input" readonly />
-            </div>
-            <div class="input-container">
-                <div class="md:col-span-2 flex items-center space-x-2">
-                    <input type="checkbox" id="igual" />
-                    <label for="igual">Misma que la dirección fiscal</label>
-                </div>
-            </div>
-        </section>
-
-        <!-- Contactos -->
-        <h2 class="titulo">Contactos</h2>
-        <section>
-            <div class="overflow-x-auto">
-                <table class="w-full text-sm text-left border">
-                    <thead class="bg-green-200">
+            <!-- Contactos -->
+            <v-card-subtitle>Contactos</v-card-subtitle>
+            <v-card-text>
+                <v-simple-table>
+                    <thead>
                         <tr>
-                            <th class="p-2">&nbsp;</th>
-                            <th class="p-2">Nombre y apellidos</th>
-                            <th class="p-2">Teléfono</th>
-                            <th class="p-2">Email</th>
+                            <th class="text-left">Nombre Y Apellidos</th>
+                            <th class="text-left">Teléfono</th>
+                            <th class="text-left">Email</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td class="p-2">Compras*</td>
-                            <td><input type="text" class="input" /></td>
-                            <td><input type="text" class="input" /></td>
-                            <td><input type="email" class="input" /></td>
+                            <td><v-text-field v-model="form.contactoCompras" outlined dense></v-text-field></td>
+                            <td><v-text-field v-model="form.contactoComprasTelefono" outlined dense></v-text-field></td>
+                            <td><v-text-field v-model="form.contactoComprasEmail" outlined dense></v-text-field></td>
                         </tr>
                         <tr>
-                            <td class="p-2">Administración*</td>
-                            <td><input type="text" class="input" /></td>
-                            <td><input type="text" class="input" /></td>
-                            <td><input type="email" class="input" /></td>
+                            <td><v-text-field v-model="form.contactoAdministracion" outlined dense></v-text-field></td>
+                            <td><v-text-field v-model="form.contactoAdministracionTelefono" outlined dense></v-text-field>
+                            </td>
+                            <td><v-text-field v-model="form.contactoAdministracionEmail" outlined dense></v-text-field></td>
                         </tr>
                         <tr>
-                            <td class="p-2">Contabilidad*</td>
-                            <td><input type="text" class="input" /></td>
-                            <td><input type="text" class="input" /></td>
-                            <td><input type="email" class="input" /></td>
+                            <td><v-text-field v-model="form.contactoContabilidad" outlined dense></v-text-field></td>
+                            <td><v-text-field v-model="form.contactoContabilidadTelefono" outlined dense></v-text-field>
+                            </td>
+                            <td><v-text-field v-model="form.contactoContabilidadEmail" outlined dense></v-text-field></td>
                         </tr>
                         <tr>
-                            <td class="p-2">Otros</td>
-                            <td><input type="text" class="input" /></td>
-                            <td><input type="text" class="input" /></td>
-                            <td><input type="email" class="input" /></td>
+                            <td><v-text-field v-model="form.contactoOtros" outlined dense></v-text-field></td>
+                            <td><v-text-field v-model="form.contactoOtrosTelefono" outlined dense></v-text-field></td>
+                            <td><v-text-field v-model="form.contactoOtrosEmail" outlined dense></v-text-field></td>
                         </tr>
                     </tbody>
-                </table>
-            </div>
-        </section>
+                </v-simple-table>
+            </v-card-text>
 
-        <!-- Aceptación y envío -->
-        <section class="space-y-2">
-            <div class="input-container">
-                <label class="flex items-center space-x-2">
-                    <input type="checkbox" required />
-                    <span>He leído y acepto la política LOPD</span>
-                </label>
-            </div>
-
-            <div class="input-container">
-                <button type="submit">
-                    Finalizar formulario y enviar
-                </button>
-            </div>
-        </section>
-    </form>
-
-</v-card>
+            <!-- Aceptación Y Envío -->
+            <v-card-subtitle>Aceptación Y Envío</v-card-subtitle>
+            <v-card-text>
+                <v-checkbox v-model="form.acepto" label="He Leído Y Acepto La Política LOPD" required></v-checkbox>
+                <v-btn color="primary" @click="submitForm">Finalizar Formulario Y Enviar</v-btn>
+            </v-card-text>
+        </v-card>
+    </v-card>
 </template>
   
 <script>
 export default {
     data() {
         return {
-            isWideScreen: window.innerWidth >= 768,
             form: {
                 razonSocial: '',
                 nif: '',
                 domicilio: '',
-                provincia: '',
-                poblacion: '',
+                provincia_1: '',
+                poblacion_1: '',
+                codigoPostal_1: '',
                 telefono: '',
                 email: '',
                 web: '',
-                codigoPostal: ''
+                nombreApoderado: '',
+                nifApoderado: '',
+                poderes: '',
+                tipoProveedor: '',
+                seguroSocial: '',
+                iban: '',
+                certificadoTitularidad: '',
+                oficios: '',
+                ambito: '',
+                region_2: '',
+                provincia_2: '',
+                poblacion_2: '',
+                domicilio_2: '',
+                codigoPostal_2: '',
+                contactoCompras: '',
+                contactoAdministracion: '',
+                contactoContabilidad: '',
+                contactoOtros: '',
+                contactoComprasTelefono: '',
+                contactoAdministracionTelefono: '',
+                contactoContabilidadTelefono: '',
+                contactoOtrosTelefono: '',
+                contactoComprasEmail: '',
+                contactoAdministracionEmail: '',
+                contactoContabilidadEmail: '',
+                contactoOtrosEmail: '',
+                mismaDireccion: false,
+                acepta: false
             },
             provincias: ['Madrid', 'Barcelona', 'Valencia'],
-            poblaciones: {
-                Madrid: [
-                    { nombre: 'Madrid', cp: '28001' },
-                    { nombre: 'Alcalá de Henares', cp: '28801' }
-                ],
-                Barcelona: [
-                    { nombre: 'Barcelona', cp: '08001' },
-                    { nombre: 'Hospitalet', cp: '08901' }
-                ],
-                Valencia: [
-                    { nombre: 'Valencia', cp: '46001' },
-                    { nombre: 'Gandía', cp: '46701' }
-                ]
-            }
-        }
-    },
-    computed: {
-        poblacionesDisponibles() {
-            return this.poblaciones[this.form.provincia] || [];
-        },
-        sectionStyle() {
-            return {
-                display: 'grid',
-                gridTemplateColumns: this.isWideScreen ? '1fr 1fr' : '1fr',
-                gap: '16px',
-            };
-        },
-        // Estilo para el input de 'Web', que debe ocupar todo el ancho
-        fullWidthStyle() {
-            return this.isWideScreen ? { gridColumn: 'span 2' } : {};
-        }
-    },
-    mounted() {
-        // Escucha el evento de redimensionamiento
-        window.addEventListener('resize', this.handleResize);
-    },
-    beforeDestroy() {
-        // Elimina el listener cuando el componente se destruye
-        window.removeEventListener('resize', this.handleResize);
+            poblacionesDisponibles: [],
+            poblacionesDisponibles_1: [],
+            poblacionesDisponibles_2: [],
+        };
     },
     methods: {
-        onProvinciaChange() {
-            this.form.poblacion = '';
-            this.form.codigoPostal = '';
+        copiarDireccionFiscal() {
+            if (this.form.mismaDireccion) {
+                this.form.domicilio_2 = this.form.domicilio;
+                this.form.provincia_2 = this.form.provincia_1;
+                this.form.poblacion_2 = this.form.poblacion_1;
+                this.form.codigoPostal_2 = this.form.codigoPostal_1;
+            }
         },
-        onPoblacionChange() {
-            const pob = this.poblacionesDisponibles.find(p => p.nombre === this.form.poblacion);
-            this.form.codigoPostal = pob ? pob.cp : '';
-        },
-        handleResize() {
-            this.isWideScreen = window.innerWidth >= 768;
-        },
+        submitForm() {
+            // Aquí iría la lógica para enviar el formulario
+        }
     }
-}
+};
 </script>
   
-<style scoped>
-.formulario {
-    width: 100%;
-    max-width: 600px;
-    margin: 0 auto;
-}
-
-.titulo {
-    font-size: 1.5rem;
-    font-weight: bold;
-    color: #2d6a4f;
-    margin-bottom: 16px;
-}
-
-.input-container {
-    margin-bottom: 12px;
-}
-
-.input {
-    width: 100%;
-    padding: 8px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-}
-
-button {
-    margin-top: 20px;
-    z-index: 10;
-    transition: all 0.3s ease;
-    color: #73cda4;
-}
-
-button:hover {
-    background-color: #6bc19b;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-}
-</style>
+<style scoped>.v-sheet .v-sheet--outlined {
+    padding: 30px;
+}</style>
+  

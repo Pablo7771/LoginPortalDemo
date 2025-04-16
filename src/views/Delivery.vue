@@ -91,8 +91,8 @@ export default {
             selectedCategory: "Comidas",
             categories: ["Comidas", "Bebidas", "Postres"],
             menu: [
-                { id: 1, name: "Big Burger", price: 10, category: "Comidas", image: require("@/assets/productos/nuggt.png") },
-                { id: 2, name: "Chicken Nuggets", price: 7, category: "Comidas", image: require("@/assets/productos/hambur.png") },
+                { id: 1, name: "Big Burger", price: 10, category: "Comidas", image: require("@/assets/productos/hambur.png") },
+                { id: 2, name: "Chicken Nuggets", price: 7, category: "Comidas", image: require("@/assets/productos/nuggt.png") },
                 { id: 3, name: "Coca Cola", price: 3, category: "Bebidas", image: require("@/assets/productos/cocacola.png") },
                 { id: 4, name: "Helado", price: 4, category: "Postres", image: require("@/assets/productos/helado.png") },
             ],
@@ -133,6 +133,9 @@ export default {
 </script>
   
 <style scoped>
+.form-wrapper > .v-card > .v-sheet {
+    padding: 100px;
+}
 .hover-card {
     transition: transform 0.2s ease;
 }

@@ -5,7 +5,7 @@
 
 		<v-row justify="center" align="stretch" dense class="card-wrapper">
 			<!-- Card: Pedir Delivery -->
-			<v-col cols="12" sm="6" class="d-flex">
+			<v-col cols="12" class="d-flex">
 				<v-card class="pa-4 d-flex flex-column justify-space-between fill-height" width="100%" elevation="8">
 					<div>
 						<v-card-title class="headline font-weight-bold">
@@ -23,13 +23,14 @@
 				</v-card>
 
 				<v-dialog v-model="deliveryDialog" max-width="1000" v-if="deliveryDialog">
-					<Delivery @cerrar="deliveryDialog = false"/>
+					<Delivery @cerrar="deliveryDialog = false" />
 
 				</v-dialog>
 			</v-col>
-
+		</v-row> 
+		<v-row justify="center" align="stretch" dense class="card-wrapper">
 			<!-- Card: Agendar Cita -->
-			<v-col cols="12" sm="6" class="d-flex">
+			<v-col cols="12"  class="d-flex">
 				<v-card class="pa-4 d-flex flex-column justify-space-between fill-height" width="100%" elevation="8">
 					<div>
 						<v-card-title class="headline font-weight-bold">
@@ -50,20 +51,22 @@
 					<Citas @cerrar="citasDialog = false" />
 				</v-dialog>
 			</v-col>
-			<!-- Card: Agendar Cita -->
-			<v-col cols="12" sm="6" class="d-flex">
+		</v-row> 
+		<v-row justify="center" align="stretch" dense class="card-wrapper">
+			<!-- Card: Registrar Proveedor -->
+			<v-col cols="12" class="d-flex">
 				<v-card class="pa-4 d-flex flex-column justify-space-between fill-height" width="100%" elevation="8">
 					<div>
 						<v-card-title class="headline font-weight-bold">
-							Registrar proveedor
+							🏢 {{ $t('templates.providers.title') }}
 						</v-card-title>
 						<v-card-text>
-							{{ $t('templates.medicalAppointment.description') }}
+							{{ $t('templates.providers.description') }}
 						</v-card-text>
 					</div>
 					<v-card-actions>
-						<v-btn color="success" @click="proveedoresDialog = true" depressed>
-							Registrar
+						<v-btn color="info" @click="proveedoresDialog = true" depressed>
+							{{ $t('templates.providers.button') }}
 						</v-btn>
 					</v-card-actions>
 				</v-card>
@@ -100,14 +103,8 @@ export default {
 </script>
 
 <style scoped>
-.card-wrapper {
-  container-type: inline-size; /* Esto establece el contenedor como el que controla las container queries */
-}
-
-@container (max-width: 575px) {
 	.col-12 {
-		flex: 0 0 100%;
-		max-width: 100%;
+		max-width: 450px;
 	}
-}
+
 </style>

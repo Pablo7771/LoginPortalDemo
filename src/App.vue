@@ -1,11 +1,11 @@
 <template>
 	<v-app>
-		<div  class="login-layout">
+		<div class="login-layout">
 			<LanguageSelector />
 			<LoginLeft />
 			<LoginRight>
 				<router-view />
-				<NoSignedUp v-if="showNoSignedUpBtn"/>
+				<NoSignedUp v-if="showNoSignedUpBtn" />
 				<BackHome v-if="!showNoSignedUpBtn" />
 			</LoginRight>
 
@@ -24,26 +24,25 @@ import BackHome from "@/views/BackHome.vue";
 
 export default defineComponent({
 	name: "App",
-  components: {
-    LoginLeft,
-    LoginRight,
-    NoSignedUp,
-    LanguageSelector,
-    BackHome
-},
-  computed: {
+	components: {
+		LoginLeft,
+		LoginRight,
+		NoSignedUp,
+		LanguageSelector,
+		BackHome
+	},
+	computed: {
 
-    showNoSignedUpBtn() {
-		return this.$route.name === "login" || this.$route.name === "register";
-    }
-  }
+		showNoSignedUpBtn() {
+			return this.$route.name === "login" || this.$route.name === "register";
+		}
+	},
 });
 </script>
   
 <style>
-
-	.login-layout {
-		display: flex;
-		height: 100vh;
-	}
+.login-layout {
+	display: flex;
+	height: 100vh;
+}
 </style>
