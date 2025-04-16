@@ -51,8 +51,6 @@
 					<Citas @cerrar="citasDialog = false" />
 				</v-dialog>
 			</v-col>
-		</v-row> 
-		<v-row justify="center" align="stretch" dense class="card-wrapper">
 			<!-- Card: Registrar Proveedor -->
 			<v-col cols="12" class="d-flex">
 				<v-card class="pa-4 d-flex flex-column justify-space-between fill-height" width="100%" elevation="8">
@@ -103,6 +101,11 @@ export default {
 </script>
 
 <style scoped>
+
+	.container--fluid {
+		overflow: auto
+		;
+	}
 	.col-12 {
 		max-width: 450px;
 	}
