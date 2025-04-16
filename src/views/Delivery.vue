@@ -41,14 +41,13 @@
                         </v-btn>
                     </v-col>
 
-
                     <!-- Productos -->
                     <v-col cols="12" sm="12" md="12">
                         <h3 class="mb-4">{{ selectedCategory }}</h3>
                         <v-row style="display: flex; flex-wrap: wrap">
-                            <v-col v-for="item in filteredMenu" :key="item.id" sm="6" md="6" class="d-flex justify-center">
+                            <v-col v-for="item in filteredMenu" :key="item.id" sm="4" md="4" class="d-flex justify-center">
                                 <v-card class="hover-card" elevation="2" style="width: 100%">
-                                    <v-img :src="item.image" height="260px" class="rounded-t object-fill" contain />
+                                    <v-img :src="item.image" height="300px" class="rounded-t object-fill" contain />
                                     <v-card-title class="text-wrap">{{ item.name }}</v-card-title>
                                     <v-card-subtitle>€{{ item.price.toFixed(2) }}</v-card-subtitle>
                                     <v-card-actions class="justify-center">
@@ -91,10 +90,34 @@ export default {
             selectedCategory: "Comidas",
             categories: ["Comidas", "Bebidas", "Postres"],
             menu: [
-                { id: 1, name: "Big Burger", price: 10, category: "Comidas", image: require("@/assets/productos/hambur.png") },
-                { id: 2, name: "Chicken Nuggets", price: 7, category: "Comidas", image: require("@/assets/productos/nuggt.png") },
-                { id: 3, name: "Coca Cola", price: 3, category: "Bebidas", image: require("@/assets/productos/cocacola.png") },
-                { id: 4, name: "Helado", price: 4, category: "Postres", image: require("@/assets/productos/helado.png") },
+                { id: 1, name: "Carne al Humo", price: 10, category: "Comidas", image: require("@/assets/productos/comida_1.jpg") },
+                { id: 2, name: "Carne al Asador Real", price: 12, category: "Comidas", image: require("@/assets/productos/comida_2.jpg") },
+                { id: 3, name: "Caldillo de Langostino", price: 8, category: "Comidas", image: require("@/assets/productos/comida_3.jpg") },
+                { id: 4, name: "Bola Asada", price: 7, category: "Comidas", image: require("@/assets/productos/comida_4.jpg") },
+                { id: 5, name: "Crema del Sol", price: 11, category: "Comidas", image: require("@/assets/productos/comida_5.jpg") },
+                { id: 6, name: "Crispados al Limón", price: 5, category: "Comidas", image: require("@/assets/productos/comida_6.jpg") },
+                { id: 7, name: "Burguer Roja y Crema", price: 14, category: "Comidas", image: require("@/assets/productos/comida_hbg_1_11zon.jpg") },
+                { id: 8, name: "Hamburguesa Completa", price: 12, category: "Comidas", image: require("@/assets/productos/comida_hbg_2_11zon.jpg") },
+                { id: 9, name: "Burguer Frescura", price: 13, category: "Comidas", image: require("@/assets/productos/comida_hbg_3_11zon.jpg") },
+                { id: 10, name: "Papas Crujientes", price: 12, category: "Comidas", image: require("@/assets/productos/comida_papa_frita_1_11zon.jpg") },
+                { id: 11, name: "Fritas del Triángulo", price: 9, category: "Comidas", image: require("@/assets/productos/comida_papa_frita_2_11zon.jpg") },
+                { id: 12, name: "Papas Delgadas", price: 7, category: "Comidas", image: require("@/assets/productos/comida_papa_frita_3_11zon.jpg") },
+                
+                { id: 13, name: "Blue Ember", price: 3, category: "Bebidas", image: require("@/assets/productos/bebida_azul.jpg") },
+                { id: 14, name: "Verde Latte", price: 4, category: "Bebidas", image: require("@/assets/productos/bebida_cafe.jpg") },
+                { id: 15, name: "Corazón de Fresa", price: 2, category: "Bebidas", image: require("@/assets/productos/bebida_coctela.jpg") },
+                { id: 16, name: "Verde Prístino", price: 5, category: "Bebidas", image: require("@/assets/productos/bebida_limoda.jpg") },
+                { id: 17, name: "Crema Boreal", price: 6, category: "Bebidas", image: require("@/assets/productos/bebida_malteada.jpg") },
+                { id: 18, name: "Zafiro Cítrico", price: 10, category: "Bebidas", image: require("@/assets/productos/bebida_morado.jpg") },
+                { id: 20, name: "Crema de Coco y Membrillo", price: 12, category: "Postres", image: require("@/assets/productos/postre_coco_11zon.jpg") },
+                { id: 21, name: "Cereza Encantada", price: 14, category: "Postres", image: require("@/assets/productos/postre_copa_11zon.jpg") },
+                { id: 22, name: "Dulce de Chocolate y Manjar", price: 11, category: "Postres", image: require("@/assets/productos/postre_crema_11zon.jpg") },
+                { id: 23, name: "Dulces de Colores", price: 24, category: "Postres", image: require("@/assets/productos/postre_empanada_1_11zon.jpg") },
+                { id: 24, name: "Cereza Encantada", price: 15, category: "Postres", image: require("@/assets/productos/postre_empanada_2_11zon.jpg") },
+                { id: 25, name: "Pastelito de Nieve y Fresa", price: 12, category: "Postres", image: require("@/assets/productos/postre_fresa_11zon.jpg") },
+                { id: 26, name: "Tarta de Crema Morada", price: 17, category: "Postres", image: require("@/assets/productos/postre_mermelada_1_11zon.jpg") },
+                { id: 27, name: "Mermelada Encantada", price: 10, category: "Postres", image: require("@/assets/productos/postre_mermelada_11zon.jpg") },
+                { id: 28, name: "Crema Carmesí con Cereza", price: 14, category: "Postres", image: require("@/assets/productos/postre_pastelillo_11zon.jpg") }
             ],
             cart: [],
         };
