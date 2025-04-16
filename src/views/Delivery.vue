@@ -1,92 +1,125 @@
 <template>
-    <v-card style="min-height: 100%; width: 100%; margin: 0; padding: 30px">
-
-        <!-- Ícono de cierre arriba a la derecha -->
-        <v-btn icon small class="close-btn" @click="$emit('cerrar')">
-            <v-icon>mdi-close</v-icon>
-        </v-btn>
-        <v-main>
-            <v-container>
-                <v-row>
-                    <!-- Menú lateral de categorías -->
-                    <v-col cols="12" md="4" class="sticky-categories">
-                        <v-list nav dense shaped class="rounded shadow-sm">
-                            <v-subheader class="text-h6 font-weight-bold">Categorías</v-subheader>
-                            <v-list-item 
-                                v-for="cat in categories" 
-                                :key="cat" 
-                                @click="selectedCategory = cat" 
-                                :class="{
-                                    'bg-primary text-white': selectedCategory === cat, 
-                                    'hover:bg-grey lighten-3': selectedCategory !== cat
-                                }" 
-                                class="transition-all duration-200 rounded">
-                                <v-list-item-title class="text-truncate">{{ cat }}</v-list-item-title>
-                            </v-list-item>
-                        </v-list>
+    <v-card style="min-height: 100%; width: 100%; margin: 0; padding: 30px;">
+      <!-- Botón de cierre -->
+      <v-btn icon small class="close-btn" @click="$emit('cerrar')" style="position: absolute; top: 10px; right: 10px;">
+        <v-icon>mdi-close</v-icon>
+      </v-btn>
+  
+      <v-main>
+        <v-container fluid>
+          <v-row>
+  
+            <!-- Menú lateral de categorías -->
+            <v-col cols="12" md="3" class="sticky-categories">
+              <v-list nav dense shaped class="rounded elevation-1 pa-2">
+                <v-subheader class="text-h6 font-weight-bold">Categorías</v-subheader>
+                <v-divider class="mb-2" />
+                <v-list-item
+                  v-for="cat in categories"
+                  :key="cat"
+                  @click="selectedCategory = cat"
+                  :class="{
+                    'bg-primary text-white': selectedCategory === cat,
+                    'hover:bg-grey lighten-4': selectedCategory !== cat
+                  }"
+                  class="rounded transition-all duration-200"
+                >
+                  <v-list-item-title class="text-truncate">{{ cat }}</v-list-item-title>
+                </v-list-item>
+              </v-list>
+            </v-col>
+  
+            <!-- Contenido principal -->
+            <v-col cols="12" md="9">
+              <v-row>
+                <!-- Sección: Carrito -->
+                <v-col cols="12" class="mb-4">
+                  <v-card outlined>
+                    <v-card-title>
+                      <h3 class="text-h6 font-weight-bold mb-0">Mi Pedido</h3>
+                    </v-card-title>
+                    <v-card-text>
+                      <v-list dense>
+                        <v-list-item
+                          v-for="(item, index) in cart"
+                          :key="index"
+                          class="justify-space-between"
+                        >
+                          <div>{{ item.name }} x{{ item.qty }}</div>
+                          <div style="margin-left: auto;">€ {{ (item.price * item.qty).toFixed(2) }}</div>
+                        </v-list-item>
+                      </v-list>
+                      <v-divider class="my-3" />
+                      <div class="text-right font-weight-bold mb-2">
+                        Total: € {{ cartTotal }}
+                      </div>
+                      <v-btn
+                        color="success"
+                        block
+                        @click="checkout"
+                        :disabled="cart.length === 0"
+                      >
+                        Confirmar Pedido
+                      </v-btn>
+                    </v-card-text>
+                  </v-card>
+                </v-col>
+  
+                <!-- Sección: Productos -->
+                <v-col cols="12">
+                  <h3 class="mb-4 text-h6 font-weight-bold">{{ selectedCategory }}</h3>
+                  <v-row>
+                    <v-col
+                      v-for="item in filteredMenu"
+                      :key="item.id"
+                      cols="12"
+                      sm="6"
+                      md="6"
+                      class="d-flex justify-center"
+                    >
+                      <v-card class="hover-card" elevation="2" style="width: 100%;">
+                        <v-img
+                          :src="item.image"
+                          height="300px"
+                          class="rounded-t"
+                          contain
+                        />
+                        <v-card-title class="text-wrap text-truncate">
+                          {{ item.name }}
+                        </v-card-title>
+                        <v-card-subtitle>€{{ item.price.toFixed(2) }}</v-card-subtitle>
+                        <v-card-actions class="justify-center">
+                          <template v-if="getItemQty(item.id)">
+                            <v-btn icon @click="changeQty(item, -1)">
+                              <v-icon>mdi-minus</v-icon>
+                            </v-btn>
+                            <span class="mx-2">{{ getItemQty(item.id) }}</span>
+                            <v-btn icon @click="changeQty(item, 1)">
+                              <v-icon>mdi-plus</v-icon>
+                            </v-btn>
+                          </template>
+                          <v-btn v-else color="primary" @click="addToCart(item)">
+                            Agregar
+                          </v-btn>
+                        </v-card-actions>
+                      </v-card>
                     </v-col>
-                    <!-- Carrito -->
-                    <v-col cols="12" md="8" style="margin-left: auto; min-width: 250px;">
-                        <h3>Mi Pedido</h3>
-                        <v-list dense>
-                            <v-list-item v-for="(item, index) in cart" :key="index" class="justify-space-between">
-                                <div>
-                                    {{ item.name }} x{{ item.qty }}
-                                </div>
-                                <div style="margin-left: auto">€ {{ (item.price * item.qty).toFixed(2) }}</div>
-                            </v-list-item>
-                        </v-list>
-
-                        <v-divider class="my-3" />
-                        <div class="text-right font-weight-bold mb-2">
-                            Total: € {{ cartTotal }}
-                        </div>
-
-                        <v-btn color="success" block @click="checkout" :disabled="cart.length === 0">
-                            Confirmar Pedido
-                        </v-btn>
+  
+                    <v-col v-if="filteredMenu.length === 0" cols="12">
+                      <v-alert type="info" border="left" colored-border>
+                        No hay productos disponibles en esta categoría.
+                      </v-alert>
                     </v-col>
-
-                    <!-- Productos -->
-                    <v-col cols="12" sm="12" md="12">
-                        <h3 class="mb-4">{{ selectedCategory }}</h3>
-                        <v-row style="display: flex; flex-wrap: wrap">
-                            <v-col v-for="item in filteredMenu" :key="item.id" sm="4" md="4" class="d-flex justify-center">
-                                <v-card class="hover-card" elevation="2" style="width: 100%">
-                                    <v-img :src="item.image" height="300px" class="rounded-t object-fill" contain />
-                                    <v-card-title class="text-wrap">{{ item.name }}</v-card-title>
-                                    <v-card-subtitle>€{{ item.price.toFixed(2) }}</v-card-subtitle>
-                                    <v-card-actions class="justify-center">
-                                        <template v-if="getItemQty(item.id)">
-                                            <v-btn icon @click="changeQty(item, -1)">
-                                                <v-icon>mdi-minus</v-icon>
-                                            </v-btn>
-                                            <span class="mx-2">{{ getItemQty(item.id) }}</span>
-                                            <v-btn icon @click="changeQty(item, 1)">
-                                                <v-icon>mdi-plus</v-icon>
-                                            </v-btn>
-                                        </template>
-                                        <v-btn v-else color="primary" @click="addToCart(item)">
-                                            Agregar
-                                        </v-btn>
-                                    </v-card-actions>
-                                </v-card>
-                            </v-col>
-
-                            <v-col v-if="filteredMenu.length === 0" cols="12">
-                                <v-alert type="info" border="left" colored-border>
-                                    No hay productos disponibles en esta categoría.
-                                </v-alert>
-                            </v-col>
-                        </v-row>
-                    </v-col>
-
-
-                </v-row>
-            </v-container>
-        </v-main>
+                  </v-row>
+                </v-col>
+              </v-row>
+            </v-col>
+  
+          </v-row>
+        </v-container>
+      </v-main>
     </v-card>
-</template>
+  </template>
   
 <script>
 export default {
@@ -162,60 +195,51 @@ export default {
 </script>
   
 <style scoped>
-.form-wrapper > .v-card > .v-sheet {
-    padding: 100px;
-}
-.hover-card {
-    transition: transform 0.2s ease;
+.v-card {
+  background-color: #fff;
+  border-radius: 12px;
 }
 
+.close-btn {
+  z-index: 10;
+}
+
+.sticky-categories {
+  position: sticky;
+  top: 20px;
+}
+
+.hover-card {
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
 .hover-card:hover {
-    transform: scale(1.02);
+  transform: scale(1.02);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
 }
 
 .v-img {
-    object-fit: cover;
+  object-fit: cover;
 }
 
-.sticky-categories {
-    position: sticky;
-    left: 0;
-    overflow-y: auto;
-    overflow-x: hidden
+.text-truncate {
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
 }
 
-/* Botón de cerrar */
-.close-btn {
-    position: absolute;
-    top: 25px;
-    right: 25px;
-    z-index: 2;
-}
-
-
-.sticky-categories {
-    position: sticky;
-    top: 10px;
-    z-index: 10;
-}
-
-.v-list-item:hover {
-    cursor: pointer;
-}
-
-.v-list-item-title {
-    font-size: 1rem;
-    font-weight: 500;
-}
-
-.v-list {
-    background-color: #f5f5f5; /* Background color for the list */
-    padding: 0.5rem;
-    border-radius: 8px;
-}
-
-.v-subheader {
-    font-size: 1.1rem;
-    color: #333;
+@media (max-width: 768px) {
+  .sticky-categories {
+    position: static;
+    margin-bottom: 16px;
+  }
+  .v-btn {
+    font-size: 14px;
+  }
+  .v-card-title {
+    font-size: 16px;
+  }
+  .v-card-subtitle {
+    font-size: 14px;
+  }
 }
 </style>
