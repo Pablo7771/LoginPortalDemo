@@ -15,43 +15,38 @@
                 <h3 class="mb-2">{{ $t("supplier.genInfo") }}</h3>
                 <v-container fluid>
                     <v-row>
-                        <v-col cols="12" md="4">
+                        <v-col cols="12" md="6">
                             <v-text-field v-model="form.razonSocial" :label="$t('supplier.companyName')" outlined dense />
                         </v-col>
-                        <v-col cols="12" md="4">
+                        <v-col cols="12" md="6">
                             <v-text-field v-model="form.cif" :label="$t('supplier.cif')" outlined dense />
                         </v-col>
-                        <v-col cols="12" md="4">
-                            <v-text-field v-model="form.domicilioFiscal" :label="$t('supplier.fiscalAddress')" outlined dense />
+                        <v-col cols="12" md="6">
+                            <v-text-field v-model="form.domicilioFiscal" :label="$t('supplier.fiscalAddress')" outlined
+                                dense />
                         </v-col>
 
-                        <v-col cols="12" md="4">
-                            <v-select v-model="form.provincia_1" :items="provincias" :label="$t('supplier.province')" outlined dense
-                                @change="onProvinciaChange_1" />
+                        <v-col cols="12" md="6">
+                            <v-select v-model="form.provincia_1" :items="provincias" :label="$t('supplier.province')"
+                                outlined dense @change="onProvinciaChange_1" />
                         </v-col>
 
-                        <v-col cols="12" md="4">
+                        <v-col cols="12" md="6">
                             <v-select v-model="form.poblacion_1" :items="poblacionesDisponibles_1.map(p => p.nombre)"
                                 :label="$t('supplier.town')" outlined dense @change="onPoblacionChange_1" />
                         </v-col>
 
-                        <v-col cols="12" md="4">
-                            <v-text-field v-model="form.codigoPostal_1" :label="$t('supplier.postalCode')" outlined dense readonly />
+                        <v-col cols="12" md="6">
+                            <v-text-field v-model="form.codigoPostal_1" :label="$t('supplier.postalCode')" outlined dense
+                                readonly />
                         </v-col>
-
-                        <v-col cols="12" md="4">
-                            <v-text-field v-model="form.poblacionFiscal" :label="$t('supplier.town')" outlined dense />
-                        </v-col>
-                        <v-col cols="12" md="4">
-                            <v-text-field v-model="form.codigoPostalFiscal" :label="$t('supplier.postalCode')" outlined dense />
-                        </v-col>
-                        <v-col cols="12" md="4">
+                        <v-col cols="12" md="6">
                             <v-text-field v-model="form.telefono" :label="$t('supplier.phone')" outlined dense />
                         </v-col>
-                        <v-col cols="12" md="4">
+                        <v-col cols="12" md="6">
                             <v-text-field v-model="form.emailComercial" :label="$t('supplier.email')" outlined dense />
                         </v-col>
-                        <v-col cols="12" md="4">
+                        <v-col cols="12" md="6">
                             <v-text-field v-model="form.web" :label="$t('supplier.website')" outlined dense />
                         </v-col>
                     </v-row>
@@ -61,14 +56,15 @@
                 <h3 class="mb-2">{{ $t("supplier.powerInfo") }}</h3>
                 <v-container fluid>
                     <v-row>
-                        <v-col cols="12" md="4">
+                        <v-col cols="12" md="6">
                             <v-text-field v-model="form.nombreApoderado" :label="$t('supplier.fullName')" outlined dense />
                         </v-col>
-                        <v-col cols="12" md="4">
+                        <v-col cols="12" md="6">
                             <v-text-field v-model="form.nifApoderado" :label="$t('supplier.nif')" outlined dense />
                         </v-col>
-                        <v-col cols="12" md="4">
-                            <v-text-field v-model="form.poderes" :label="$t('supplier.powers')" outlined dense />
+                        <v-col cols="12" md="6">
+                            <v-file-input v-model="form.poderes" :label="$t('supplier.powers')" outlined dense
+                                prepend-icon="" prepend-inner-icon="mdi-paperclip" class="file-input" />
                         </v-col>
                     </v-row>
                 </v-container>
@@ -77,33 +73,36 @@
                 <h3 class="mb-2">{{ $t("supplier.commercialInfo") }}</h3>
                 <v-container fluid>
                     <v-row>
-                        <v-col cols="12" md="4">
+                        <v-col cols="12" md="6">
                             <v-select v-model="form.tipoProveedor"
-                                :items="['Proveedor de materiales', 'Subcontratista', 'Ambos']" :label="$t('supplier.supplierType')" outlined dense />
+                                :items="['Proveedor de materiales', 'Subcontratista', 'Ambos']"
+                                :label="$t('supplier.supplierType')" outlined dense />
                         </v-col>
-                        <v-col cols="12" md="4">
-                            <v-text-field v-model="form.seguridadSocial" :label="$t('supplier.socialSecurity')" outlined dense />
+                        <v-col cols="12" md="6">
+                            <v-text-field v-model="form.seguridadSocial" :label="$t('supplier.socialSecurity')" outlined
+                                dense />
                         </v-col>
-                        <v-col cols="12" md="4">
+                        <v-col cols="12" md="6">
                             <v-text-field v-model="form.iban" :label="$t('supplier.iban')" outlined dense />
                         </v-col>
-                        <v-col cols="12" md="4">
-                            <v-text-field v-model="form.certTitularidad" :label="$t('supplier.ownershipCert')" outlined dense />
+                        <v-col cols="12" md="6">
+                            <v-text-field v-model="form.certTitularidad" :label="$t('supplier.ownershipCert')" outlined
+                                dense />
                         </v-col>
-                        <v-col cols="12" md="4">
+                        <v-col cols="12" md="6">
                             <v-text-field v-model="form.oficios" :label="$t('supplier.trades')" outlined dense />
                         </v-col>
-                        <v-col cols="12" md="4">
+                        <v-col cols="12" md="6">
                             <v-select v-model="form.ambito" :items="['nacional', 'regional', 'provincial']"
                                 :label="$t('supplier.geoAvailability')" outlined dense />
                         </v-col>
 
-                        <v-col v-if="form.ambito === 'regional' || form.ambito === 'provincial'" cols="12" md="4">
-                            <v-select v-model="form.region_2" :items="provincias" :label="$t('supplier.selectRegion')" outlined
-                                dense />
+                        <v-col v-if="form.ambito === 'regional' || form.ambito === 'provincial'" cols="12" md="6">
+                            <v-select v-model="form.region_2" :items="provincias" :label="$t('supplier.selectRegion')"
+                                outlined dense />
                         </v-col>
 
-                        <v-col v-if="form.ambito === 'provincial'" cols="12" md="4">
+                        <v-col v-if="form.ambito === 'provincial'" cols="12" md="6">
                             <v-select v-model="form.provincia_2" :items="poblacionesDisponibles_2.map(p => p.nombre)"
                                 :label="$t('supplier.selectProvince')" outlined dense />
                         </v-col>
@@ -114,47 +113,50 @@
                 <h3 class="mb-2">{{ $t("supplier.pledgeAddress") }}</h3>
                 <v-container fluid>
                     <v-row>
-                        <v-col cols="12" md="4">
+                        <v-col cols="12" md="6">
                             <v-text-field v-model="form.domicilioEnvio" :label="$t('supplier.address')" outlined dense />
                         </v-col>
-                        <v-col cols="12" md="4">
-                            <v-select v-model="form.provincia" :items="provincias" :label="$t('supplier.province')" outlined dense
-                                @change="onProvinciaChange" />
+                        <v-col cols="12" md="6">
+                            <v-select v-model="form.provincia" :items="provincias" :label="$t('supplier.province')" outlined
+                                dense @change="onProvinciaChange" />
                         </v-col>
-                        <v-col cols="12" md="4">
+                        <v-col cols="12" md="6">
                             <v-select v-model="form.poblacion" :items="poblacionesDisponibles.map(p => p.nombre)"
                                 :label="$t('supplier.town')" outlined dense @change="onPoblacionChange" />
                         </v-col>
-                        <v-col cols="12" md="4">
-                            <v-text-field v-model="form.codigoPostal" :label="$t('supplier.postalCode')" outlined dense readonly />
+                        <v-col cols="12" md="6">
+                            <v-text-field v-model="form.codigoPostal" :label="$t('supplier.postalCode')" outlined dense
+                                readonly />
                         </v-col>
                         <v-col cols="12" md="8">
-                            <v-checkbox v-model="form.mismaDireccion" :label="$t('supplier.sameAsFiscal')" 
+                            <v-checkbox v-model="form.mismaDireccion" :label="$t('supplier.sameAsFiscal')"
                                 @change="copiarDireccionFiscal" />
                         </v-col>
                     </v-row>
                 </v-container>
-
-                <!-- Contactos -->
-                <h3 class="mb-2">{{ $t("supplier.contacts") }}</h3>
-                <v-simple-table dense>
-                    <thead>
-                        <tr>
-                            <th>&nbsp;</th>
-                            <th>{{ $t("supplier.fullName") }}</th>
-                            <th>{{ $t("supplier.phone") }}</th>
-                            <th>{{ $t("supplier.email") }}</th>
-                        </tr>
-                    </thead>
+                
+                <h3 class="mb-2 mt-2">{{ $t("supplier.contacts") }}</h3>
+                <v-simple-table>
                     <tbody>
-                        <tr v-for="(contacto, idx) in contactos" :key="idx">
-                            <td class="font-weight-bold">{{ contacto.rol }}</td>
-                            <td><v-text-field class="pa-2" v-model="contacto.nombre" dense outlined hide-details="auto" />
+                        <tr>
+                            <th></th>
+                            <th class="header-cell text-center">Nombre y apellidos</th>
+                            <th class="header-cell text-center">Teléfono</th>
+                            <th class="header-cell text-center">Email</th>
+                        </tr>
+                        <tr v-for="(item, index) in contactos" :key="index">
+                            <td class="first-column">
+                                <p>{{ item.rol }}</p>
                             </td>
-                            <td><v-text-field class="pa-2" v-model="contacto.telefono" dense outlined hide-details="auto" />
+                            <td class="input-cell">
+                                <v-text-field v-model="item.nombre" outlined hide-details></v-text-field>
                             </td>
-                            <td><v-text-field class="pa-2" v-model="contacto.email" dense outlined hide-details="auto"
-                                    type="email" /></td>
+                            <td class="input-cell">
+                                <v-text-field v-model="item.telefono" outlined hide-details></v-text-field>
+                            </td>
+                            <td class="input-cell">
+                                <v-text-field v-model="item.email" outlined hide-details></v-text-field>
+                            </td>
                         </tr>
                     </tbody>
                 </v-simple-table>
@@ -279,10 +281,10 @@ export default {
                 ]
             },
             contactos: [
-                { rol: this.$t("supplier.contactRols")[0]},
-                { rol: this.$t("supplier.contactRols")[1]},
-                { rol: this.$t("supplier.contactRols")[2]},
-                { rol: this.$t("supplier.contactRols")[3]}
+                { rol: this.$t("supplier.contactRols")[0] },
+                { rol: this.$t("supplier.contactRols")[1] },
+                { rol: this.$t("supplier.contactRols")[2] },
+                { rol: this.$t("supplier.contactRols")[3] }
             ]
         }
     },
@@ -347,11 +349,36 @@ export default {
 }
 </script>
 
-<style scoped>
+<style>
+
+.header-cell {
+    font-size: 12px;
+    border:1px solid darkgray;
+    color:white; 
+    text-align:center;
+    border-radius: 5px;
+    background-color: #1976d2;
+}
+
+.contact-h {
+    color: white;
+    font-weight: 500;
+    text-align: left;
+    padding: 8px;
+}
+
+.v-data-table > .v-data-table__wrapper > table > tbody > tr > td{
+    padding: 1px 1px;
+}
+
 .formulario {
     width: 100%;
     max-width: 600px;
     margin: 0 auto;
+}
+
+.v-application p {
+    margin: 0;
 }
 
 .titulo {
@@ -384,4 +411,5 @@ button {
     transition: all 0.3s ease;
     color: #73cda4;
 }
-</style>
+
+</style>                                                                                                                                                                               
