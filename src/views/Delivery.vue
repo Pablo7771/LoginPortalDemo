@@ -11,6 +11,7 @@
 
                     <!-- Menú lateral de categorías -->
                     <v-col cols="12" md="3" class="sticky-categories">
+                        <!-- Lista de categorías -->
                         <v-list nav dense shaped class="rounded elevation-1 pa-2">
                             <v-subheader class="text-h6 font-weight-bold">{{ $t('delivery.categories') }}</v-subheader>
                             <v-divider class="mb-2" />
@@ -21,36 +22,34 @@
                                 <v-list-item-title class="text-truncate">{{ cat }}</v-list-item-title>
                             </v-list-item>
                         </v-list>
+
+                        <v-card nav dense shaped class="rounded elevation-1 mt-1">
+                            <v-card-title>
+                                <h3 class="text-h6 font-weight-bold mb-0">{{ $t('delivery.myOrder') }}</h3>
+                            </v-card-title>
+                            <v-card-text>
+                                <v-list dense>
+                                    <v-list-item v-for="(item, index) in cart" :key="index" class="d-flex justify-space-between">
+                                        <div>{{ item.name }} x{{ item.qty }}</div>
+                                        <div style="margin-right: auto;">€ {{ (item.price * item.qty).toFixed(0) }}</div>
+                                    </v-list-item>
+                                </v-list>
+
+                                <v-divider class="my-3" />
+                                <div class="text-right font-weight-bold mb-2">
+                                    {{ $t('delivery.total') }}: € {{ cartTotal }}
+                                </div>
+                                <v-btn color="success" block @click="checkout" :disabled="cart.length === 0">
+                                    {{ $t('delivery.confirmOrder') }}
+                                </v-btn>
+                            </v-card-text>
+                        </v-card>
                     </v-col>
 
                     <!-- Contenido principal -->
                     <v-col cols="12" md="9">
                         <v-row>
-                            <!-- Sección: Carrito -->
-                            <v-col cols="12" class="mb-4">
-                                <v-card outlined>
-                                    <v-card-title>
-                                        <h3 class="text-h6 font-weight-bold mb-0">{{ $t('delivery.myOrder') }}</h3>
-                                    </v-card-title>
-                                    <v-card-text>
-                                        <v-list dense>
-                                            <v-list-item v-for="(item, index) in cart" :key="index"
-                                                class="justify-space-between">
-                                                <div>{{ item.name }} x{{ item.qty }}</div>
-                                                <div style="margin-left: auto;">€ {{ (item.price * item.qty).toFixed(2) }}
-                                                </div>
-                                            </v-list-item>
-                                        </v-list>
-                                        <v-divider class="my-3" />
-                                        <div class="text-right font-weight-bold mb-2">
-                                            {{ $t('delivery.total') }}: € {{ cartTotal }}
-                                        </div>
-                                        <v-btn color="success" block @click="checkout" :disabled="cart.length === 0">
-                                            {{ $t('delivery.confirmOrder') }}
-                                        </v-btn>
-                                    </v-card-text>
-                                </v-card>
-                            </v-col>
+                            
 
                             <!-- Sección: Productos -->
                             <v-col cols="12">
@@ -139,7 +138,7 @@ export default {
     },
     computed: {
         cartTotal() {
-            return this.cart.reduce((total, item) => total + (item.price * item.qty), 0).toFixed(2);
+            return this.cart.reduce((total, item) => total + (item.price * item.qty), 0).toFixed(0);
         },
         filteredMenu() {
             return this.menu.filter(item => item.category === this.selectedCategory);
