@@ -1,148 +1,148 @@
 <template>
     <v-card class="mx-auto pa-6 pa-0">
-        <!-- Botón de cerrar -->
         <v-btn icon small class="close-btn" @click="$emit('cerrar')">
             <v-icon>mdi-close</v-icon>
         </v-btn>
 
         <v-card-title class="headline text-center justify-center">
-            Agendar Cita Médica
+            {{ $t('medicalAppointment.agendar_cita_medica') }}
         </v-card-title>
 
-        <!-- Paso actual -->
+        <!-- Encabezado pasos -->
         <div class="stepper-header d-flex justify-space-between mb-6 px-4">
             <div v-for="(etiqueta, n) in pasos" :key="n" class="step-indicator"
                 :class="{ active: step === n + 1, completed: step > n + 1 }">
                 <div class="circle">{{ n + 1 }}</div>
-                <div class="label">{{ etiqueta }}</div>
+                <div class="label">{{ $t(`medicalAppointment.paso_${n + 1}`) }}</div>
                 <div v-if="n < pasos.length - 1" class="line"></div>
             </div>
         </div>
 
         <v-card-text>
-            <!-- Paso 1: Datos del paciente -->
+            <!-- Paso 1 -->
             <div v-if="step === 1">
                 <v-form v-model="formStep1" ref="form1">
-                    <v-text-field v-model="paciente.nombre" label="Nombre" :rules="[(v) => !!v || 'El nombre es requerido']"
-                        required />
-                    <v-text-field v-model="paciente.apellido" label="Apellido"
-                        :rules="[(v) => !!v || 'El apellido es requerido']" required />
-                    <v-text-field v-model="paciente.email" label="Email" :rules="[
-                        (v) => !!v || 'El email es requerido',
-                        (v) => /.+@.+\..+/.test(v) || 'Debe ser un email válido',
+                    <v-text-field v-model="paciente.nombre" :label="$t('medicalAppointment.nombre')"
+                        :rules="[(v) => !!v || $t('medicalAppointment.rules.nombre_requerido')]" required />
+                    <v-text-field v-model="paciente.apellido" :label="$t('medicalAppointment.apellido')"
+                        :rules="[(v) => !!v || $t('medicalAppointment.rules.apellido_requerido')]" required />
+                    <v-text-field v-model="paciente.email" :label="$t('medicalAppointment.email')" :rules="[
+                        (v) => !!v || $t('medicalAppointment.rules.email_requerido'),
+                        (v) => /.+@.+\..+/.test(v) || $t('medicalAppointment.rules.email_invalido'),
                     ]" required />
-                    <v-text-field v-model="paciente.telefono" label="Teléfono" :rules="[
-                        (v) => !!v || 'El teléfono es requerido',
-                        (v) =>
-                            /^[0-9]{5,20}$/.test(v) ||
-                            'El teléfono debe contener solo números y tener entre 5 y 20 dígitos',
+                    <v-text-field v-model="paciente.telefono" :label="$t('medicalAppointment.telefono')" :rules="[
+                        (v) => !!v || $t('medicalAppointment.rules.telefono_requerido'),
+                        (v) => /^[0-9]{5,20}$/.test(v) || $t('medicalAppointment.rules.telefono_invalido'),
                     ]" required />
-                    <v-file-input v-model="paciente.fotoDni" label="Foto del DNI" accept="image/*"
-                        :rules="[(v) => !!v || 'La foto del DNI es requerida']" required />
+                    <v-file-input v-model="paciente.fotoDni" :label="$t('medicalAppointment.foto_dni')" accept="image/*"
+                        :rules="[(v) => !!v || $t('medicalAppointment.rules.foto_dni_requerida')]" required />
                 </v-form>
             </div>
 
-            <!-- Paso 2: Especialidad -->
+            <!-- Paso 2 -->
             <div v-if="step === 2">
-                <v-select :items="especialidades" v-model="selectedEspecialidad" label="Especialidad" item-text="nombre"
-                    item-value="id" required />
+                <v-select :items="especialidades" v-model="selectedEspecialidad"
+                    :label="$t('medicalAppointment.especialidad')" item-text="nombre" item-value="id" required />
                 <div v-if="selectedEspecialidad" class="mt-4 text-center">
-                    <img :src="imagenEspecialidad" alt="Imagen especialidad" class="imagen-info" />
+                    <img :src="imagenEspecialidad" :alt="$t('medicalAppointment.imagen_especialidad')"
+                        class="imagen-info" />
                 </div>
             </div>
 
-            <!-- Paso 3: Médico -->
+            <!-- Paso 3 -->
             <div v-if="step === 3">
-                <v-select :items="medicosDisponibles" v-model="selectedMedico" label="Médico" item-text="nombre"
-                    item-value="id" required />
+                <v-select :items="medicosDisponibles" v-model="selectedMedico" :label="$t('medicalAppointment.medico')"
+                    item-text="nombre" item-value="id" required />
                 <div v-if="selectedMedico" class="mt-4 text-center">
-                    <img :src="imagenMedico" alt="Foto del médico" class="imagen-info" />
+                    <img :src="imagenMedico" :alt="$t('medicalAppointment.foto_medico')" class="imagen-info" />
                 </div>
             </div>
 
-            <!-- Paso 4: Fecha -->
+            <!-- Paso 4 -->
             <div v-if="step === 4">
                 <v-calendar ref="calendar" type="month" :events="formatearEventosDelMedico()" :event-color="'green'"
                     :allowed-dates="esFechaPermitida" @click:date="onDateClick" :value="selectedDay" />
                 <div class="mt-2">
-                    Día seleccionado: <strong>{{ formattedSelectedDay }}</strong>
+                    {{ $t('medicalAppointment.dia_seleccionado') }} <strong>{{ formattedSelectedDay }}</strong>
                 </div>
             </div>
 
-            <!-- Paso 5: Hora -->
+            <!-- Paso 5 -->
             <div v-if="step === 5">
-                <v-select :items="horasDisponibles" v-model="selectedHora" label="Hora" required />
+                <v-select :items="horasDisponibles" v-model="selectedHora" :label="$t('medicalAppointment.hora')"
+                    required />
             </div>
 
-            <!-- Navegación -->
+            <!-- Botones navegación -->
             <div class="d-flex justify-space-between mt-6">
                 <v-btn text :disabled="step === 1" @click="pasoAnterior" outlined>
-                    Anterior
+                    {{ $t('medicalAppointment.anterior') }}
                 </v-btn>
 
                 <v-btn v-if="step < 5" color="primary" :disabled="!puedeAvanzar" @click="siguientePaso">
-                    Siguiente
+                    {{ $t('medicalAppointment.siguiente') }}
                 </v-btn>
 
                 <v-btn v-else :loading="loading" color="success" :disabled="!selectedHora" @click="resumen = true">
-                    Generar Cita
+                    {{ $t('medicalAppointment.generar_cita') }}
                 </v-btn>
             </div>
         </v-card-text>
 
+        <!-- Diálogo resumen -->
         <v-dialog v-model="resumen" max-width="600px">
             <v-card>
                 <v-card-title class="headline grey lighten-4">
-                    Resumen de la Cita
+                    {{ $t('medicalAppointment.resumen_cita') }}
                 </v-card-title>
 
                 <v-card-text>
                     <v-container>
                         <v-row>
                             <v-col cols="12" sm="6">
-                                <strong>Nombre:</strong>
+                                <strong>{{ $t('medicalAppointment.nombre') }}:</strong>
                             </v-col>
                             <v-col cols="12" sm="6">
                                 {{ paciente.nombre }} {{ paciente.apellido }}
                             </v-col>
 
                             <v-col cols="12" sm="6">
-                                <strong>Email:</strong>
+                                <strong>{{ $t('medicalAppointment.email') }}:</strong>
                             </v-col>
                             <v-col cols="12" sm="6">
                                 {{ paciente.email }}
                             </v-col>
 
                             <v-col cols="12" sm="6">
-                                <strong>Teléfono:</strong>
+                                <strong>{{ $t('medicalAppointment.telefono') }}:</strong>
                             </v-col>
                             <v-col cols="12" sm="6">
                                 {{ paciente.telefono }}
                             </v-col>
 
                             <v-col cols="12" sm="6">
-                                <strong>Especialidad:</strong>
+                                <strong>{{ $t('medicalAppointment.especialidad') }}:</strong>
                             </v-col>
                             <v-col cols="12" sm="6">
                                 {{ especialidadDesc }}
                             </v-col>
 
                             <v-col cols="12" sm="6">
-                                <strong>Médico:</strong>
+                                <strong>{{ $t('medicalAppointment.medico') }}:</strong>
                             </v-col>
                             <v-col cols="12" sm="6">
                                 {{ medicoDesc }}
                             </v-col>
 
                             <v-col cols="12" sm="6">
-                                <strong>Día:</strong>
+                                <strong>{{ $t('medicalAppointment.dia') }}:</strong>
                             </v-col>
                             <v-col cols="12" sm="6">
                                 {{ formattedSelectedDay }}
                             </v-col>
 
                             <v-col cols="12" sm="6">
-                                <strong>Hora:</strong>
+                                <strong>{{ $t('medicalAppointment.hora') }}:</strong>
                             </v-col>
                             <v-col cols="12" sm="6">
                                 {{ selectedHora }}
@@ -153,13 +153,14 @@
 
                 <v-card-actions>
                     <v-spacer></v-spacer>
-                    <v-btn text @click="resumen = false">Cancelar</v-btn>
-                    <v-btn color="success" @click="agendarCita">Confirmar</v-btn>
+                    <v-btn text @click="resumen = false">{{ $t('medicalAppointment.cancelar') }}</v-btn>
+                    <v-btn color="success" @click="agendarCita">{{ $t('medicalAppointment.confirmar') }}</v-btn>
                 </v-card-actions>
             </v-card>
         </v-dialog>
     </v-card>
 </template>
+
 
 <script>
 const { VUE_APP_API_URL: API_URL, VUE_APP_JWT: JWT } = process.env;
@@ -295,7 +296,7 @@ export default {
             const dias =
                 this.medicoDisponibilidad[this.selectedMedico]?.diasDisponibles || [];
             return dias.map((d) => ({
-                name: "Disponible",
+                name: this.$t('medicalAppointment.available'),
                 start: d,
                 end: d,
             }));

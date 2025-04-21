@@ -2,7 +2,6 @@ import Vue from 'vue';
 import VueI18n from 'vue-i18n';
 
 Vue.use(VueI18n);
-
 const messages = {
     en: {
         login: {
@@ -30,7 +29,7 @@ const messages = {
             submitError: "❌ There was an error during registration",
             rules: {
                 usercode: {
-                    required:"Required name",
+                    required: "Required name",
                     invalid: "Invalid name",
                 },
                 email: {
@@ -48,6 +47,56 @@ const messages = {
                 passwordMatch: "Passwords do not match"
             }
         },
+        medicalAppointment: {
+            // Títulos y botones
+            agendar_cita_medica: "Schedule Medical Appointment",
+            cerrar: "Close",
+            paso_1: "Patient Information",
+            paso_2: "Specialty",
+            paso_3: "Doctor",
+            paso_4: "Date",
+            paso_5: "Time",
+            generar_cita: "Generate Appointment",
+            cancelar: "Cancel",
+            confirmar: "Confirm",
+
+            // Campos de formulario
+            nombre: "First Name",
+            apellido: "Last Name",
+            email: "Email",
+            telefono: "Phone",
+            foto_dni: "ID Photo",
+
+            // Especialidad y médico
+            especialidad: "Specialty",
+            medico: "Doctor",
+            imagen_especialidad: "Specialty Image",
+            foto_medico: "Doctor's Photo",
+
+            // Fecha
+            dia_seleccionado: "Selected Day",
+
+            // Resumen de cita
+            resumen_cita: "Appointment Summary",
+            dia: "Day",
+            hora: "Time",
+
+            // Botones de navegación
+            anterior: "Previous",
+            siguiente: "Next",
+            available: "Available",
+
+            // Reglas de validación
+            rules: {
+                nombre_requerido: "First name is required",
+                apellido_requerido: "Last name is required",
+                email_requerido: "Email is required",
+                email_invalido: "Must be a valid email",
+                telefono_requerido: "Phone number is required",
+                telefono_invalido: "Phone number must contain only numbers and be between 5 and 20 digits",
+                foto_dni_requerida: "ID photo is required",
+            }
+        },
         templates: {
             title: "What would you like to do?",
             delivery: {
@@ -61,11 +110,11 @@ const messages = {
                 button: "Schedule now"
             },
             providers: {
-              title: "Register Provider",
-              description: "Quickly and easily add new providers to the system.",
-              button: "Register"
+                title: "Register Provider",
+                description: "Quickly and easily add new providers to the system.",
+                button: "Register"
             },
-            backHome : "Back to home"
+            backHome: "Back to home"
         }
     },
     es: {
@@ -94,7 +143,7 @@ const messages = {
             submitError: "❌ Hubo un error al registrarse",
             rules: {
                 usercode: {
-                    required:"Nombre requerido",
+                    required: "Nombre requerido",
                     invalid: "Nombre inválido"
                 },
                 email: {
@@ -112,6 +161,51 @@ const messages = {
                 passwordMatch: "Las contraseñas no coinciden"
             }
         },
+        medicalAppointment: {
+            // Títulos y botones
+            agendar_cita_medica: "Agendar Cita Médica",
+            cerrar: "Cerrar",
+            paso_1: "Datos del paciente",
+            paso_2: "Especialidad",
+            paso_3: "Médico",
+            paso_4: "Fecha",
+            paso_5: "Hora",
+            generar_cita: "Generar Cita",
+            cancelar: "Cancelar",
+            confirmar: "Confirmar",
+            // Campos de formulario
+            nombre: "Nombre",
+            apellido: "Apellido",
+            email: "Email",
+            telefono: "Teléfono",
+            foto_dni: "Foto del DNI",
+            // Especialidad y médico
+            especialidad: "Especialidad",
+            medico: "Médico",
+            imagen_especialidad: "Imagen especialidad",
+            foto_medico: "Foto del médico",
+            // Fecha
+            dia_seleccionado: "Día seleccionado",
+            // Resumen de cita
+            resumen_cita: "Resumen de la Cita",
+            dia: "Día",
+            hora: "Hora",
+            // Botones de navegación
+            anterior: "Anterior",
+            siguiente: "Siguiente",
+            available: "Disponible",
+            rules: {
+
+                // Reglas de validación
+                nombre_requerido: "El nombre es requerido",
+                apellido_requerido: "El apellido es requerido",
+                email_requerido: "El email es requerido",
+                email_invalido: "Debe ser un email válido",
+                telefono_requerido: "El teléfono es requerido",
+                telefono_invalido: "El teléfono debe contener solo números y tener entre 5 y 20 dígitos",
+                foto_dni_requerida: "La foto del DNI es requerida",
+            }
+        },
         templates: {
             title: "¿Qué deseas hacer?",
             delivery: {
@@ -125,11 +219,11 @@ const messages = {
                 button: "Agendar ahora"
             },
             providers: {
-              title: "Registrar Proveedor",
-              description: "Agrega nuevos proveedores al sistema de manera rápida y sencilla.",
-              button: "Registrar"
+                title: "Registrar Proveedor",
+                description: "Agrega nuevos proveedores al sistema de manera rápida y sencilla.",
+                button: "Registrar"
             },
-            backHome : "Volver al inicio"
+            backHome: "Volver al inicio"
         }
     },
     ca: {
@@ -158,7 +252,7 @@ const messages = {
             submitError: "❌ Hi ha hagut un error en registrar-se",
             rules: {
                 usercode: {
-                    required:"Nom requerit",
+                    required: "Nom requerit",
                     invalid: "Nom invàlid",
                 },
                 email: {
@@ -176,6 +270,56 @@ const messages = {
                 passwordMatch: "Les contrasenyes no coincideixen"
             }
         },
+        medicalAppointment: {
+            // Títulos y botones
+            agendar_cita_medica: "Programar Cita Mèdica",
+            cerrar: "Tancar",
+            paso_1: "Dades del pacient",
+            paso_2: "Especialitat",
+            paso_3: "Metge",
+            paso_4: "Data",
+            paso_5: "Hora",
+            generar_cita: "Generar Cita",
+            cancelar: "Cancel·lar",
+            confirmar: "Confirmar",
+
+            // Campos de formulario
+            nombre: "Nom",
+            apellido: "Cognom",
+            email: "Correu electrònic",
+            telefono: "Telèfon",
+            foto_dni: "Foto de l'ID",
+
+            // Especialidad y médico
+            especialidad: "Especialitat",
+            medico: "Metge",
+            imagen_especialidad: "Imatge de l'especialitat",
+            foto_medico: "Foto del metge",
+
+            // Fecha
+            dia_seleccionado: "Dia seleccionat",
+
+            // Resumen de cita
+            resumen_cita: "Resum de la Cita",
+            dia: "Dia",
+            hora: "Hora",
+
+            // Botones de navegación
+            anterior: "Anterior",
+            siguiente: "Següent",
+            available: "Disponible",
+
+            // Reglas de validación
+            rules: {
+                nombre_requerido: "El nom és requerit",
+                apellido_requerido: "Els cognoms són requerits",
+                email_requerido: "El correu electrònic és requerit",
+                email_invalido: "Ha de ser un correu electrònic vàlid",
+                telefono_requerido: "El telèfon és requerit",
+                telefono_invalido: "El telèfon ha de contenir només números i tenir entre 5 i 20 dígits",
+                foto_dni_requerida: "La foto de l'ID és requerida",
+            }
+        },
         templates: {
             title: "Què vols fer?",
             delivery: {
@@ -189,11 +333,11 @@ const messages = {
                 button: "Agendar ara"
             },
             providers: {
-              title: "Registrar Proveïdor",
-              description: "Afegeix nous proveïdors al sistema de manera ràpida i senzilla.",
-              button: "Registrar"
+                title: "Registrar Proveïdor",
+                description: "Afegeix nous proveïdors al sistema de manera ràpida i senzilla.",
+                button: "Registrar"
             },
-            backHome : "Tornar a l'inici"
+            backHome: "Tornar a l'inici"
         }
     },
     fr: {
@@ -222,7 +366,7 @@ const messages = {
             submitError: "❌ Une erreur s'est produite lors de l'inscription",
             rules: {
                 usercode: {
-                    required:"Nom requis",
+                    required: "Nom requis",
                     invalid: "Nom invalide"
                 },
                 email: {
@@ -240,27 +384,70 @@ const messages = {
                 passwordMatch: "Les mots de passe ne correspondent pas"
             }
         },
+        medicalAppointment: {
+            agendar_cita_medica: "Prendre un Rendez-vous Médical",
+            cerrar: "Fermer",
+            paso_1: "Informations du patient",
+            paso_2: "Spécialité",
+            paso_3: "Médecin",
+            paso_4: "Date",
+            paso_5: "Heure",
+            generar_cita: "Générer un Rendez-vous",
+            cancelar: "Annuler",
+            confirmar: "Confirmer",
+
+            nombre: "Prénom",
+            apellido: "Nom",
+            email: "Email",
+            telefono: "Téléphone",
+            foto_dni: "Photo de l'ID",
+
+            especialidad: "Spécialité",
+            medico: "Médecin",
+            imagen_especialidad: "Image de la spécialité",
+            foto_medico: "Photo du médecin",
+
+            dia_seleccionado: "Jour sélectionné",
+
+            resumen_cita: "Résumé du Rendez-vous",
+            dia: "Jour",
+            hora: "Heure",
+
+            anterior: "Précédent",
+            siguiente: "Suivant",
+            available: "Disponible",
+
+            rules: {
+                nombre_requerido: "Le prénom est requis",
+                apellido_requerido: "Le nom est requis",
+                email_requerido: "L'email est requis",
+                email_invalido: "Doit être un email valide",
+                telefono_requerido: "Le numéro de téléphone est requis",
+                telefono_invalido: "Le numéro doit contenir uniquement des chiffres et avoir entre 5 et 20 caractères",
+                foto_dni_requerida: "La photo de l'ID est requise"
+            }
+        },
         templates: {
             title: "Que souhaitez-vous faire ?",
             delivery: {
-                title: "Commander une Livraison",
-                description: "Effectuez une commande pour une livraison à votre adresse.",
+                title: "Demander une Livraison",
+                description: "Passez une commande pour la livraison à votre emplacement.",
                 button: "Commander maintenant"
             },
             medicalAppointment: {
                 title: "Prendre un Rendez-vous",
-                description: "Prenez un rendez-vous avec un professionnel de la santé.",
-                button: "Planifier maintenant"
+                description: "Réservez un rendez-vous avec un professionnel de santé.",
+                button: "Prendre rendez-vous"
             },
             providers: {
-              title: "Enregistrer un fournisseur",
-              description: "Ajoutez facilement de nouveaux fournisseurs au système.",
-              button: "Enregistrer"
+                title: "Enregistrer un Fournisseur",
+                description: "Ajoutez rapidement et facilement de nouveaux fournisseurs au système.",
+                button: "Enregistrer"
             },
-            backHome : "Retour à l'accueil"
+            backHome: "Retour à l'accueil"
         }
     }
-}
+};
 
 const i18n = new VueI18n({
     locale: 'es', // predeterminado
