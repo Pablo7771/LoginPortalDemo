@@ -134,7 +134,7 @@
                         </v-col>
                     </v-row>
                 </v-container>
-                
+
                 <h3 class="mb-2 mt-2">{{ $t("supplier.contacts") }}</h3>
                 <v-simple-table>
                     <tbody>
@@ -162,15 +162,18 @@
                 </v-simple-table>
 
                 <!-- Aceptación y envío -->
-                <v-row class="mt-4">
-                    <v-col cols="12">
+                <v-row class="align-center">
+                    <v-col cols="auto">
                         <v-checkbox v-model="form.aceptaLOPD" :rules="[v => !!v || $t('supplier.acceptLOPD')]"
-                            :label="$t('supplier.acceptPolicy')" required />
+                            hide-details />
                     </v-col>
-                    <v-col cols="12">
-                        <v-btn color="primary" type="submit" @click.prevent="submitForm">
-                            {{ $t('supplier.submit') }}
-                        </v-btn>
+                    <v-col>
+                        <span>
+                            {{ $t('supplier.acceptText') }}
+                            <a href="#" @click.prevent="dialogPoliticas = true">
+                                {{ $t('supplier.acceptLink') }}
+                            </a>
+                        </span>
                     </v-col>
                 </v-row>
             </v-form>
@@ -350,12 +353,11 @@ export default {
 </script>
 
 <style>
-
 .header-cell {
-    font-size: 12px;
-    border:1px solid darkgray;
-    color:white; 
-    text-align:center;
+    font-size: 1px;
+    border: 1px solid darkgray;
+    color: white;
+    text-align: center;
     border-radius: 5px;
     background-color: #1976d2;
 }
@@ -367,7 +369,7 @@ export default {
     padding: 8px;
 }
 
-.v-data-table > .v-data-table__wrapper > table > tbody > tr > td{
+.v-data-table>.v-data-table__wrapper>table>tbody>tr>td {
     padding: 1px 1px;
 }
 
@@ -411,5 +413,4 @@ button {
     transition: all 0.3s ease;
     color: #73cda4;
 }
-
 </style>                                                                                                                                                                               
