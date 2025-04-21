@@ -74,7 +74,7 @@ export default defineComponent({
     position: fixed;
     top: 16px;
     right: 16px;
-    z-index: 201;
+    z-index: 1;
     padding: 0;
 }
 

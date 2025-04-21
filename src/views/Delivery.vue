@@ -12,7 +12,7 @@
                     <!-- Menú lateral de categorías -->
                     <v-col cols="12" md="3" class="sticky-categories">
                         <v-list nav dense shaped class="rounded elevation-1 pa-2">
-                            <v-subheader class="text-h6 font-weight-bold">Categorías</v-subheader>
+                            <v-subheader class="text-h6 font-weight-bold">{{ $t('delivery.categories') }}</v-subheader>
                             <v-divider class="mb-2" />
                             <v-list-item v-for="cat in categories" :key="cat" @click="selectedCategory = cat" :class="{
                                 'bg-primary text-white': selectedCategory === cat,
@@ -30,7 +30,7 @@
                             <v-col cols="12" class="mb-4">
                                 <v-card outlined>
                                     <v-card-title>
-                                        <h3 class="text-h6 font-weight-bold mb-0">Mi Pedido</h3>
+                                        <h3 class="text-h6 font-weight-bold mb-0">{{ $t('delivery.myOrder') }}</h3>
                                     </v-card-title>
                                     <v-card-text>
                                         <v-list dense>
@@ -43,10 +43,10 @@
                                         </v-list>
                                         <v-divider class="my-3" />
                                         <div class="text-right font-weight-bold mb-2">
-                                            Total: € {{ cartTotal }}
+                                            {{ $t('delivery.total') }}: € {{ cartTotal }}
                                         </div>
                                         <v-btn color="success" block @click="checkout" :disabled="cart.length === 0">
-                                            Confirmar Pedido
+                                            {{ $t('delivery.confirmOrder') }}
                                         </v-btn>
                                     </v-card-text>
                                 </v-card>
@@ -75,7 +75,7 @@
                                                     </v-btn>
                                                 </template>
                                                 <v-btn v-else color="primary" @click="addToCart(item)">
-                                                    Agregar
+                                                    {{ $t('delivery.add') }}
                                                 </v-btn>
                                             </v-card-actions>
                                         </v-card>
@@ -83,7 +83,7 @@
 
                                     <v-col v-if="filteredMenu.length === 0" cols="12">
                                         <v-alert type="info" border="left" colored-border>
-                                            No hay productos disponibles en esta categoría.
+                                            {{ $t('delivery.noProducts') }}
                                         </v-alert>
                                     </v-col>
                                 </v-row>
@@ -96,77 +96,77 @@
         </v-main>
     </v-card>
 </template>
-  
 <script>
 export default {
     name: "McStyleOrder",
     data() {
         return {
-            selectedCategory: "Comidas",
-            categories: ["Comidas", "Bebidas", "Postres"],
+            selectedCategory: this.$t("delivery.categoryLabels")[0],
+            categories: this.$t("delivery.categoryLabels"),
             menu: [
-                { id: 1, name: "Carne al Humo", price: 10, category: "Comidas", image: require("@/assets/productos/comida_1.jpg") },
-                { id: 2, name: "Carne al Asador Real", price: 12, category: "Comidas", image: require("@/assets/productos/comida_2.jpg") },
-                { id: 3, name: "Caldillo de Langostino", price: 8, category: "Comidas", image: require("@/assets/productos/comida_3.jpg") },
-                { id: 4, name: "Bola Asada", price: 7, category: "Comidas", image: require("@/assets/productos/comida_4.jpg") },
-                { id: 5, name: "Crema del Sol", price: 11, category: "Comidas", image: require("@/assets/productos/comida_5.jpg") },
-                { id: 6, name: "Crispados al Limón", price: 5, category: "Comidas", image: require("@/assets/productos/comida_6.jpg") },
-                { id: 7, name: "Burguer Roja y Crema", price: 14, category: "Comidas", image: require("@/assets/productos/comida_hbg_1_11zon.jpg") },
-                { id: 8, name: "Hamburguesa Completa", price: 12, category: "Comidas", image: require("@/assets/productos/comida_hbg_2_11zon.jpg") },
-                { id: 9, name: "Burguer Frescura", price: 13, category: "Comidas", image: require("@/assets/productos/comida_hbg_3_11zon.jpg") },
-                { id: 10, name: "Papas Crujientes", price: 12, category: "Comidas", image: require("@/assets/productos/comida_papa_frita_1_11zon.jpg") },
-                { id: 11, name: "Fritas del Triángulo", price: 9, category: "Comidas", image: require("@/assets/productos/comida_papa_frita_2_11zon.jpg") },
-                { id: 12, name: "Papas Delgadas", price: 7, category: "Comidas", image: require("@/assets/productos/comida_papa_frita_3_11zon.jpg") },
+                { id: 1, name: "Carne al Humo", price: 10, category: this.$t("delivery.categoryLabels")[0], image: require("@/assets/productos/comida_1.jpg") },
+                { id: 2, name: "Carne al Asador Real", price: 12, category: this.$t("delivery.categoryLabels")[0], image: require("@/assets/productos/comida_2.jpg") },
+                { id: 3, name: "Caldillo de Langostino", price: 8, category: this.$t("delivery.categoryLabels")[0], image: require("@/assets/productos/comida_3.jpg") },
+                { id: 4, name: "Bola Asada", price: 7, category: this.$t("delivery.categoryLabels")[0], image: require("@/assets/productos/comida_4.jpg") },
+                { id: 5, name: "Crema del Sol", price: 11, category: this.$t("delivery.categoryLabels")[0], image: require("@/assets/productos/comida_5.jpg") },
+                { id: 6, name: "Crispados al Limón", price: 5, category: this.$t("delivery.categoryLabels")[0], image: require("@/assets/productos/comida_6.jpg") },
+                { id: 7, name: "Burguer Roja y Crema", price: 14, category: this.$t("delivery.categoryLabels")[0], image: require("@/assets/productos/comida_hbg_1_11zon.jpg") },
+                { id: 8, name: "Hamburguesa Completa", price: 12, category: this.$t("delivery.categoryLabels")[0], image: require("@/assets/productos/comida_hbg_2_11zon.jpg") },
+                { id: 9, name: "Burguer Frescura", price: 13, category: this.$t("delivery.categoryLabels")[0], image: require("@/assets/productos/comida_hbg_3_11zon.jpg") },
+                { id: 10, name: "Papas Crujientes", price: 12, category: this.$t("delivery.categoryLabels")[0], image: require("@/assets/productos/comida_papa_frita_1_11zon.jpg") },
+                { id: 11, name: "Fritas del Triángulo", price: 9, category: this.$t("delivery.categoryLabels")[0], image: require("@/assets/productos/comida_papa_frita_2_11zon.jpg") },
+                { id: 12, name: "Papas Delgadas", price: 7, category: this.$t("delivery.categoryLabels")[0], image: require("@/assets/productos/comida_papa_frita_3_11zon.jpg") },
 
-                { id: 13, name: "Blue Ember", price: 3, category: "Bebidas", image: require("@/assets/productos/bebida_azul.jpg") },
-                { id: 14, name: "Verde Latte", price: 4, category: "Bebidas", image: require("@/assets/productos/bebida_cafe.jpg") },
-                { id: 15, name: "Corazón de Fresa", price: 2, category: "Bebidas", image: require("@/assets/productos/bebida_coctela.jpg") },
-                { id: 16, name: "Verde Prístino", price: 5, category: "Bebidas", image: require("@/assets/productos/bebida_limoda.jpg") },
-                { id: 17, name: "Crema Boreal", price: 6, category: "Bebidas", image: require("@/assets/productos/bebida_malteada.jpg") },
-                { id: 18, name: "Zafiro Cítrico", price: 10, category: "Bebidas", image: require("@/assets/productos/bebida_morado.jpg") },
-                { id: 20, name: "Crema de Coco y Membrillo", price: 12, category: "Postres", image: require("@/assets/productos/postre_coco_11zon.jpg") },
-                { id: 21, name: "Cereza Encantada", price: 14, category: "Postres", image: require("@/assets/productos/postre_copa_11zon.jpg") },
-                { id: 22, name: "Dulce de Chocolate y Manjar", price: 11, category: "Postres", image: require("@/assets/productos/postre_crema_11zon.jpg") },
-                { id: 23, name: "Dulces de Colores", price: 24, category: "Postres", image: require("@/assets/productos/postre_empanada_1_11zon.jpg") },
-                { id: 24, name: "Cereza Encantada", price: 15, category: "Postres", image: require("@/assets/productos/postre_empanada_2_11zon.jpg") },
-                { id: 25, name: "Pastelito de Nieve y Fresa", price: 12, category: "Postres", image: require("@/assets/productos/postre_fresa_11zon.jpg") },
-                { id: 26, name: "Tarta de Crema Morada", price: 17, category: "Postres", image: require("@/assets/productos/postre_mermelada_1_11zon.jpg") },
-                { id: 27, name: "Mermelada Encantada", price: 10, category: "Postres", image: require("@/assets/productos/postre_mermelada_11zon.jpg") },
-                { id: 28, name: "Crema Carmesí con Cereza", price: 14, category: "Postres", image: require("@/assets/productos/postre_pastelillo_11zon.jpg") }
+                { id: 13, name: "Blue Ember", price: 3, category: this.$t("delivery.categoryLabels")[1], image: require("@/assets/productos/bebida_azul.jpg") },
+                { id: 14, name: "Verde Latte", price: 4, category: this.$t("delivery.categoryLabels")[1], image: require("@/assets/productos/bebida_cafe.jpg") },
+                { id: 15, name: "Corazón de Fresa", price: 2, category: this.$t("delivery.categoryLabels")[1], image: require("@/assets/productos/bebida_coctela.jpg") },
+                { id: 16, name: "Verde Prístino", price: 5, category: this.$t("delivery.categoryLabels")[1], image: require("@/assets/productos/bebida_limoda.jpg") },
+                { id: 17, name: "Crema Boreal", price: 6, category: this.$t("delivery.categoryLabels")[1], image: require("@/assets/productos/bebida_malteada.jpg") },
+                { id: 18, name: "Zafiro Cítrico", price: 10, category: this.$t("delivery.categoryLabels")[1], image: require("@/assets/productos/bebida_morado.jpg") },
+                
+                { id: 20, name: "Crema de Coco y Membrillo", price: 12, category: this.$t("delivery.categoryLabels")[2], image: require("@/assets/productos/postre_coco_11zon.jpg") },
+                { id: 21, name: "Cereza Encantada", price: 14, category: this.$t("delivery.categoryLabels")[2], image: require("@/assets/productos/postre_copa_11zon.jpg") },
+                { id: 22, name: "Dulce de Chocolate y Manjar", price: 11, category: this.$t("delivery.categoryLabels")[2], image: require("@/assets/productos/postre_crema_11zon.jpg") },
+                { id: 23, name: "Dulces de Colores", price: 24, category: this.$t("delivery.categoryLabels")[2], image: require("@/assets/productos/postre_empanada_1_11zon.jpg") },
+                { id: 24, name: "Cereza Encantada", price: 15, category: this.$t("delivery.categoryLabels")[2], image: require("@/assets/productos/postre_empanada_2_11zon.jpg") },
+                { id: 25, name: "Pastelito de Nieve y Fresa", price: 12, category: this.$t("delivery.categoryLabels")[2], image: require("@/assets/productos/postre_fresa_11zon.jpg") },
+                { id: 26, name: "Tarta de Crema Morada", price: 17, category: this.$t("delivery.categoryLabels")[2], image: require("@/assets/productos/postre_mermelada_1_11zon.jpg") },
+                { id: 27, name: "Mermelada Encantada", price: 10, category: this.$t("delivery.categoryLabels")[2], image: require("@/assets/productos/postre_mermelada_11zon.jpg") },
+                { id: 28, name: "Crema Carmesí con Cereza", price: 14, category: this.$t("delivery.categoryLabels")[2], image: require("@/assets/productos/postre_pastelillo_11zon.jpg") }
             ],
             cart: [],
         };
     },
     computed: {
-        filteredMenu() {
-            return this.menu.filter((item) => item.category === this.selectedCategory);
-        },
         cartTotal() {
-            return this.cart.reduce((sum, item) => sum + item.price * item.qty, 0).toFixed(2);
+            return this.cart.reduce((total, item) => total + (item.price * item.qty), 0).toFixed(2);
+        },
+        filteredMenu() {
+            return this.menu.filter(item => item.category === this.selectedCategory);
         },
     },
     methods: {
-        getItemQty(id) {
-            const found = this.cart.find(i => i.id === id);
-            return found ? found.qty : 0;
-        },
         addToCart(item) {
             this.cart.push({ ...item, qty: 1 });
         },
         changeQty(item, delta) {
-            const found = this.cart.find(i => i.id === item.id);
-            if (found) {
-                found.qty += delta;
-                if (found.qty <= 0) {
+            const cartItem = this.cart.find(i => i.id === item.id);
+            if (cartItem) {
+                cartItem.qty += delta;
+                if (cartItem.qty <= 0) {
                     this.cart = this.cart.filter(i => i.id !== item.id);
                 }
             }
         },
-        checkout() {
-            alert("Pedido confirmado:\n" + JSON.stringify(this.cart, null, 2));
-            this.cart = [];
+        getItemQty(id) {
+            const cartItem = this.cart.find(i => i.id === id);
+            return cartItem ? cartItem.qty : 0;
         },
-    },
+        checkout() {
+            // Aquí iría la lógica para el pago o procesamiento del pedido
+            alert(this.$t("delivery.orderConfirmed") + "\n" + JSON.stringify(this.cart, null, 2));
+        }
+    }
 };
 </script>
   

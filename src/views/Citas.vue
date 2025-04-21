@@ -221,18 +221,13 @@ export default {
     },
     computed: {
         puedeAvanzar() {
-            switch (this.step) {
-                case 1:
-                    return this.formStep1;
-                case 2:
-                    return !!this.selectedEspecialidad;
-                case 3:
-                    return !!this.selectedMedico;
-                case 4:
-                    return !!this.selectedDay;
-                default:
-                    return false;
-            }
+            const validaciones = {
+                1: this.formStep1,
+                2: !!this.selectedEspecialidad,
+                3: !!this.selectedMedico,
+                4: !!this.selectedDay,
+            };
+            return validaciones[this.step] ?? false;
         },
         formattedSelectedDay() {
             if (!this.selectedDay) return "";
@@ -281,10 +276,10 @@ export default {
                 this.selectedHora = null;
             }
         },
-        siguientePaso() {
+        async siguientePaso() {
             if (this.step === 1) {
-                this.$refs.form1.validate();
-                if (!this.formStep1) return;
+                const valid = await this.$refs.form1.validate();
+                if (!valid) return;
             }
             this.step++;
             if (this.step === 4) {

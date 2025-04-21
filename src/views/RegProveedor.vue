@@ -1,242 +1,182 @@
 <template>
     <v-card class="pa-4">
-        
-      <v-card-title class="headline">Formulario de Registro Proveedor</v-card-title>
-      
-      <v-card-text>
-         <!-- Botón de cierre -->
-         <v-btn icon small class="close-btn" @click="$emit('cerrar')" style="position: absolute; top: 10px; right: 10px;">
-            <v-icon>mdi-close</v-icon>
-        </v-btn>
 
-        <v-form ref="form">
-          <!-- Información General -->
-          <h3 class="mb-2">Información General</h3>
-          <v-container fluid>
-            <v-row>
-              <v-col cols="12" md="4">
-                <v-text-field v-model="form.razonSocial" label="Razón social*" outlined dense />
-              </v-col>
-              <v-col cols="12" md="4">
-                <v-text-field v-model="form.cif" label="CIF / NIF / NIE*" outlined dense />
-              </v-col>
-              <v-col cols="12" md="4">
-                <v-text-field v-model="form.domicilioFiscal" label="Domicilio fiscal*" outlined dense />
-              </v-col>
-  
-              <v-col cols="12" md="4">
-                <v-select
-                  v-model="form.provincia_1"
-                  :items="provincias"
-                  label="Provincia"
-                  outlined
-                  dense
-                  @change="onProvinciaChange_1"
-                />
-              </v-col>
-  
-              <v-col cols="12" md="4">
-                <v-select
-                  v-model="form.poblacion_1"
-                  :items="poblacionesDisponibles_1.map(p => p.nombre)"
-                  label="Población"
-                  outlined
-                  dense
-                  @change="onPoblacionChange_1"
-                />
-              </v-col>
-  
-              <v-col cols="12" md="4">
-                <v-text-field
-                  v-model="form.codigoPostal_1"
-                  label="Código postal"
-                  outlined
-                  dense
-                  readonly
-                />
-              </v-col>
-  
-              <v-col cols="12" md="4">
-                <v-text-field v-model="form.poblacionFiscal" label="Población*" outlined dense />
-              </v-col>
-              <v-col cols="12" md="4">
-                <v-text-field v-model="form.codigoPostalFiscal" label="Código postal*" outlined dense />
-              </v-col>
-              <v-col cols="12" md="4">
-                <v-text-field v-model="form.telefono" label="Teléfono*" outlined dense />
-              </v-col>
-              <v-col cols="12" md="4">
-                <v-text-field v-model="form.emailComercial" label="Email para gestión comercial*" outlined dense />
-              </v-col>
-              <v-col cols="12" md="4">
-                <v-text-field v-model="form.web" label="Web" outlined dense />
-              </v-col>
-            </v-row>
-          </v-container>
-  
-          <!-- Información del apoderado -->
-          <h3 class="mb-2">Información del apoderado</h3>
-          <v-container fluid>
-            <v-row>
-              <v-col cols="12" md="4">
-                <v-text-field v-model="form.nombreApoderado" label="Nombre y apellidos*" outlined dense />
-              </v-col>
-              <v-col cols="12" md="4">
-                <v-text-field v-model="form.nifApoderado" label="NIF / NIE*" outlined dense />
-              </v-col>
-              <v-col cols="12" md="4">
-                <v-text-field v-model="form.poderes" label="Poderes*" outlined dense />
-              </v-col>
-            </v-row>
-          </v-container>
-  
-          <!-- Información comercial -->
-          <h3 class="mb-2">Información comercial</h3>
-          <v-container fluid>
-            <v-row>
-              <v-col cols="12" md="4">
-                <v-select
-                  v-model="form.tipoProveedor"
-                  :items="['Proveedor de materiales', 'Subcontratista', 'Ambos']"
-                  label="Tipo de proveedor*"
-                  outlined
-                  dense
-                />
-              </v-col>
-              <v-col cols="12" md="4">
-                <v-text-field v-model="form.seguridadSocial" label="Nº Seguridad Social" outlined dense />
-              </v-col>
-              <v-col cols="12" md="4">
-                <v-text-field v-model="form.iban" label="IBAN*" outlined dense />
-              </v-col>
-              <v-col cols="12" md="4">
-                <v-text-field v-model="form.certTitularidad" label="Certificado titularidad" outlined dense />
-              </v-col>
-              <v-col cols="12" md="4">
-                <v-text-field v-model="form.oficios" label="Oficios*" outlined dense />
-              </v-col>
-              <v-col cols="12" md="4">
-                <v-select
-                  v-model="form.ambito"
-                  :items="['nacional', 'regional', 'provincial']"
-                  label="Disponibilidad Geográfica*"
-                  outlined
-                  dense
-                />
-              </v-col>
-  
-              <v-col
-                v-if="form.ambito === 'regional' || form.ambito === 'provincial'"
-                cols="12"
-                md="4"
-              >
-                <v-select
-                  v-model="form.region_2"
-                  :items="provincias"
-                  label="Seleccione una Región"
-                  outlined
-                  dense
-                />
-              </v-col>
-  
-              <v-col
-                v-if="form.ambito === 'provincial'"
-                cols="12"
-                md="4"
-              >
-                <v-select
-                  v-model="form.provincia_2"
-                  :items="poblacionesDisponibles_2.map(p => p.nombre)"
-                  label="Seleccione una Provincia"
-                  outlined
-                  dense
-                />
-              </v-col>
-            </v-row>
-          </v-container>
-  
-          <!-- Dirección de envío de pagarés -->
-          <h3 class="mb-2">Dirección de envío de pagarés</h3>
-          <v-container fluid>
-            <v-row>
-              <v-col cols="12" md="4">
-                <v-text-field v-model="form.domicilioEnvio" label="Domicilio" outlined dense />
-              </v-col>
-              <v-col cols="12" md="4">
-                <v-select
-                  v-model="form.provincia"
-                  :items="provincias"
-                  label="Provincia"
-                  outlined
-                  dense
-                  @change="onProvinciaChange"
-                />
-              </v-col>
-              <v-col cols="12" md="4">
-                <v-select
-                  v-model="form.poblacion"
-                  :items="poblacionesDisponibles.map(p => p.nombre)"
-                  label="Población"
-                  outlined
-                  dense
-                  @change="onPoblacionChange"
-                />
-              </v-col>
-              <v-col cols="12" md="4">
-                <v-text-field v-model="form.codigoPostal" label="Código postal" outlined dense readonly />
-              </v-col>
-              <v-col cols="12" md="8">
-                <v-checkbox
-                  v-model="form.mismaDireccion"
-                  label="Misma que la dirección fiscal"
-                  @change="copiarDireccionFiscal"
-                />
-              </v-col>
-            </v-row>
-          </v-container>
-  
-          <!-- Contactos -->
-          <h3 class="mb-2">Contactos</h3>
-          <v-simple-table dense>
-            <thead>
-              <tr>
-                <th>&nbsp;</th>
-                <th>Nombre y apellidos</th>
-                <th>Teléfono</th>
-                <th>Email</th>
-              </tr>
-            </thead>
-            <tbody>
-              <tr v-for="(contacto, idx) in contactos" :key="idx">
-                <td class="font-weight-bold">{{ contacto.rol }}</td>
-                <td><v-text-field class="pa-2" v-model="contacto.nombre" dense outlined hide-details="auto"/></td>
-                <td><v-text-field class="pa-2" v-model="contacto.telefono" dense outlined hide-details="auto"/></td>
-                <td><v-text-field class="pa-2" v-model="contacto.email" dense outlined hide-details="auto" type="email" /></td>
-              </tr>
-            </tbody>
-          </v-simple-table>
-  
-          <!-- Aceptación y envío -->
-          <v-row class="mt-4">
-            <v-col cols="12">
-              <v-checkbox
-                v-model="form.aceptaLOPD"
-                :rules="[v => !!v || 'Debe aceptar la política LOPD']"
-                label="He leído y acepto la política LOPD"
-                required
-              />
-            </v-col>
-            <v-col cols="12">
-              <v-btn color="primary" type="submit" @click.prevent="submitForm">
-                Finalizar formulario y enviar
-              </v-btn>
-            </v-col>
-          </v-row>
-        </v-form>
-      </v-card-text>
+        <v-card-title class="headline">{{ $t("supplier.regForm") }}</v-card-title>
+
+        <v-card-text>
+            <!-- Botón de cierre -->
+            <v-btn icon small class="close-btn" @click="$emit('cerrar')"
+                style="position: absolute; top: 10px; right: 10px;">
+                <v-icon>mdi-close</v-icon>
+            </v-btn>
+
+            <v-form ref="form">
+                <!-- Información General -->
+                <h3 class="mb-2">{{ $t("supplier.genInfo") }}</h3>
+                <v-container fluid>
+                    <v-row>
+                        <v-col cols="12" md="4">
+                            <v-text-field v-model="form.razonSocial" :label="$t('supplier.companyName')" outlined dense />
+                        </v-col>
+                        <v-col cols="12" md="4">
+                            <v-text-field v-model="form.cif" :label="$t('supplier.cif')" outlined dense />
+                        </v-col>
+                        <v-col cols="12" md="4">
+                            <v-text-field v-model="form.domicilioFiscal" :label="$t('supplier.fiscalAddress')" outlined dense />
+                        </v-col>
+
+                        <v-col cols="12" md="4">
+                            <v-select v-model="form.provincia_1" :items="provincias" :label="$t('supplier.province')" outlined dense
+                                @change="onProvinciaChange_1" />
+                        </v-col>
+
+                        <v-col cols="12" md="4">
+                            <v-select v-model="form.poblacion_1" :items="poblacionesDisponibles_1.map(p => p.nombre)"
+                                :label="$t('supplier.town')" outlined dense @change="onPoblacionChange_1" />
+                        </v-col>
+
+                        <v-col cols="12" md="4">
+                            <v-text-field v-model="form.codigoPostal_1" :label="$t('supplier.postalCode')" outlined dense readonly />
+                        </v-col>
+
+                        <v-col cols="12" md="4">
+                            <v-text-field v-model="form.poblacionFiscal" :label="$t('supplier.town')" outlined dense />
+                        </v-col>
+                        <v-col cols="12" md="4">
+                            <v-text-field v-model="form.codigoPostalFiscal" :label="$t('supplier.postalCode')" outlined dense />
+                        </v-col>
+                        <v-col cols="12" md="4">
+                            <v-text-field v-model="form.telefono" :label="$t('supplier.phone')" outlined dense />
+                        </v-col>
+                        <v-col cols="12" md="4">
+                            <v-text-field v-model="form.emailComercial" :label="$t('supplier.email')" outlined dense />
+                        </v-col>
+                        <v-col cols="12" md="4">
+                            <v-text-field v-model="form.web" :label="$t('supplier.website')" outlined dense />
+                        </v-col>
+                    </v-row>
+                </v-container>
+
+                <!-- Información del apoderado -->
+                <h3 class="mb-2">{{ $t("supplier.powerInfo") }}</h3>
+                <v-container fluid>
+                    <v-row>
+                        <v-col cols="12" md="4">
+                            <v-text-field v-model="form.nombreApoderado" :label="$t('supplier.fullName')" outlined dense />
+                        </v-col>
+                        <v-col cols="12" md="4">
+                            <v-text-field v-model="form.nifApoderado" :label="$t('supplier.nif')" outlined dense />
+                        </v-col>
+                        <v-col cols="12" md="4">
+                            <v-text-field v-model="form.poderes" :label="$t('supplier.powers')" outlined dense />
+                        </v-col>
+                    </v-row>
+                </v-container>
+
+                <!-- Información comercial -->
+                <h3 class="mb-2">{{ $t("supplier.commercialInfo") }}</h3>
+                <v-container fluid>
+                    <v-row>
+                        <v-col cols="12" md="4">
+                            <v-select v-model="form.tipoProveedor"
+                                :items="['Proveedor de materiales', 'Subcontratista', 'Ambos']" :label="$t('supplier.supplierType')" outlined dense />
+                        </v-col>
+                        <v-col cols="12" md="4">
+                            <v-text-field v-model="form.seguridadSocial" :label="$t('supplier.socialSecurity')" outlined dense />
+                        </v-col>
+                        <v-col cols="12" md="4">
+                            <v-text-field v-model="form.iban" :label="$t('supplier.iban')" outlined dense />
+                        </v-col>
+                        <v-col cols="12" md="4">
+                            <v-text-field v-model="form.certTitularidad" :label="$t('supplier.ownershipCert')" outlined dense />
+                        </v-col>
+                        <v-col cols="12" md="4">
+                            <v-text-field v-model="form.oficios" :label="$t('supplier.trades')" outlined dense />
+                        </v-col>
+                        <v-col cols="12" md="4">
+                            <v-select v-model="form.ambito" :items="['nacional', 'regional', 'provincial']"
+                                :label="$t('supplier.geoAvailability')" outlined dense />
+                        </v-col>
+
+                        <v-col v-if="form.ambito === 'regional' || form.ambito === 'provincial'" cols="12" md="4">
+                            <v-select v-model="form.region_2" :items="provincias" :label="$t('supplier.selectRegion')" outlined
+                                dense />
+                        </v-col>
+
+                        <v-col v-if="form.ambito === 'provincial'" cols="12" md="4">
+                            <v-select v-model="form.provincia_2" :items="poblacionesDisponibles_2.map(p => p.nombre)"
+                                :label="$t('supplier.selectProvince')" outlined dense />
+                        </v-col>
+                    </v-row>
+                </v-container>
+
+                <!-- Dirección de envío de pagarés -->
+                <h3 class="mb-2">{{ $t("supplier.pledgeAddress") }}</h3>
+                <v-container fluid>
+                    <v-row>
+                        <v-col cols="12" md="4">
+                            <v-text-field v-model="form.domicilioEnvio" :label="$t('supplier.address')" outlined dense />
+                        </v-col>
+                        <v-col cols="12" md="4">
+                            <v-select v-model="form.provincia" :items="provincias" :label="$t('supplier.province')" outlined dense
+                                @change="onProvinciaChange" />
+                        </v-col>
+                        <v-col cols="12" md="4">
+                            <v-select v-model="form.poblacion" :items="poblacionesDisponibles.map(p => p.nombre)"
+                                :label="$t('supplier.town')" outlined dense @change="onPoblacionChange" />
+                        </v-col>
+                        <v-col cols="12" md="4">
+                            <v-text-field v-model="form.codigoPostal" :label="$t('supplier.postalCode')" outlined dense readonly />
+                        </v-col>
+                        <v-col cols="12" md="8">
+                            <v-checkbox v-model="form.mismaDireccion" :label="$t('supplier.sameAsFiscal')" 
+                                @change="copiarDireccionFiscal" />
+                        </v-col>
+                    </v-row>
+                </v-container>
+
+                <!-- Contactos -->
+                <h3 class="mb-2">{{ $t("supplier.contacts") }}</h3>
+                <v-simple-table dense>
+                    <thead>
+                        <tr>
+                            <th>&nbsp;</th>
+                            <th>{{ $t("supplier.fullName") }}</th>
+                            <th>{{ $t("supplier.phone") }}</th>
+                            <th>{{ $t("supplier.email") }}</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(contacto, idx) in contactos" :key="idx">
+                            <td class="font-weight-bold">{{ contacto.rol }}</td>
+                            <td><v-text-field class="pa-2" v-model="contacto.nombre" dense outlined hide-details="auto" />
+                            </td>
+                            <td><v-text-field class="pa-2" v-model="contacto.telefono" dense outlined hide-details="auto" />
+                            </td>
+                            <td><v-text-field class="pa-2" v-model="contacto.email" dense outlined hide-details="auto"
+                                    type="email" /></td>
+                        </tr>
+                    </tbody>
+                </v-simple-table>
+
+                <!-- Aceptación y envío -->
+                <v-row class="mt-4">
+                    <v-col cols="12">
+                        <v-checkbox v-model="form.aceptaLOPD" :rules="[v => !!v || $t('supplier.acceptLOPD')]"
+                            :label="$t('supplier.acceptPolicy')" required />
+                    </v-col>
+                    <v-col cols="12">
+                        <v-btn color="primary" type="submit" @click.prevent="submitForm">
+                            {{ $t('supplier.submit') }}
+                        </v-btn>
+                    </v-col>
+                </v-row>
+            </v-form>
+        </v-card-text>
     </v-card>
-  </template>
-  
+</template>
+
+
 
 <script>
 export default {
@@ -339,10 +279,10 @@ export default {
                 ]
             },
             contactos: [
-                { rol: 'Compras' },
-                { rol: 'Administración' },
-                { rol: 'Contabilidad' },
-                { rol: 'Otros' }
+                { rol: this.$t("supplier.contactRols")[0]},
+                { rol: this.$t("supplier.contactRols")[1]},
+                { rol: this.$t("supplier.contactRols")[2]},
+                { rol: this.$t("supplier.contactRols")[3]}
             ]
         }
     },
@@ -444,5 +384,4 @@ button {
     transition: all 0.3s ease;
     color: #73cda4;
 }
-
 </style>
