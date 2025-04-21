@@ -1,255 +1,263 @@
 <template>
-    <v-card>
-        <!-- Contenedor principal -->
-        <v-card class="mx-auto" max-width="800px" outlined>
-            <v-card-title class="text-h5">
-                Formulario De Registro Proveedor
-            </v-card-title>
+    <v-card class="pa-4">
+        
+      <v-card-title class="headline">Formulario de Registro Proveedor</v-card-title>
+      
+      <v-card-text>
+         <!-- Botón de cierre -->
+         <v-btn icon small class="close-btn" @click="$emit('cerrar')" style="position: absolute; top: 10px; right: 10px;">
+            <v-icon>mdi-close</v-icon>
+        </v-btn>
 
-            <!-- Información General -->
-            <v-card-subtitle>Información General</v-card-subtitle>
-            <v-card-text>
-                <v-row>
-                    <v-col cols="12" md="6">
-                        <v-text-field v-model="form.razonSocial" label="Razón Social*" outlined dense />
-                    </v-col>
-                    <v-col cols="12" md="6">
-                        <v-text-field v-model="form.nif" label="CIF / NIF / NIE*" outlined dense />
-                    </v-col>
-                    <v-col cols="12">
-                        <v-text-field v-model="form.domicilio" label="Domicilio Fiscal*" outlined dense />
-                    </v-col>
-                    <v-col cols="12" md="6">
-                        <v-select v-model="form.provincia_1" :items="provincias" label="Provincia" outlined dense
-                            @change="actualizarPoblaciones_1" />
-                    </v-col>
-                    <v-col cols="12" md="6">
-                        <v-select v-model="form.poblacion_1" :items="poblacionesDisponibles_1" label="Población" outlined
-                            dense />
-                    </v-col>
-                    <v-col cols="12" md="6">
-                        <v-text-field v-model="form.codigoPostal_1" label="Código Postal" outlined dense readonly />
-                    </v-col>
-                    <v-col cols="12" md="6">
-                        <v-text-field v-model="form.telefono" label="Teléfono*" outlined dense />
-                    </v-col>
-                    <v-col cols="12" md="6">
-                        <v-text-field v-model="form.email" label="Email para gestión comercial*" outlined dense />
-                    </v-col>
-                    <v-col cols="12">
-                        <v-text-field v-model="form.web" label="Web" outlined dense />
-                    </v-col>
-                </v-row>
-            </v-card-text>
-
-            <!-- Información del Apoderado -->
-            <v-card-subtitle>Información Del Apoderado</v-card-subtitle>
-            <v-card-text>
-                <v-row>
-                    <v-col cols="12" md="6">
-                        <v-text-field v-model="form.nombreApoderado" label="Nombre y Apellidos*" outlined dense />
-                    </v-col>
-                    <v-col cols="12" md="6">
-                        <v-text-field v-model="form.nifApoderado" label="NIF / NIE*" outlined dense />
-                    </v-col>
-                    <v-col cols="12">
-                        <v-text-field v-model="form.poderes" label="Poderes*" outlined dense />
-                    </v-col>
-                </v-row>
-            </v-card-text>
-
-            <!-- Información Comercial -->
-            <v-card-subtitle>Información Comercial</v-card-subtitle>
-            <v-card-text>
-                <v-row>
-                    <v-col cols="12" md="6">
-                        <v-select v-model="form.tipoProveedor"
-                            :items="['Proveedor de materiales', 'Subcontratista', 'Ambos']" label="Tipo de proveedor*"
-                            outlined dense />
-                    </v-col>
-                    <v-col cols="12" md="6">
-                        <v-text-field v-model="form.seguroSocial" label="Nº Seguridad Social" outlined dense />
-                    </v-col>
-                    <v-col cols="12" md="6">
-                        <v-text-field v-model="form.iban" label="IBAN*" outlined dense />
-                    </v-col>
-                    <v-col cols="12" md="6">
-                        <v-text-field v-model="form.certificadoTitularidad" label="Certificado Titularidad" outlined
-                            dense />
-                    </v-col>
-                    <v-col cols="12" md="6">
-                        <v-text-field v-model="form.oficios" label="Oficios*" outlined dense />
-                    </v-col>
-                    <v-col cols="12" md="6">
-                        <v-select v-model="form.ambito" :items="['nacional', 'regional', 'provincial']"
-                            label="Disponibilidad Geográfica*" outlined dense />
-                    </v-col>
-                    <v-col cols="12" v-if="form.ambito === 'regional' || form.ambito === 'provincial'">
-                        <v-select v-model="form.region_2" :items="provincias" label="Seleccione una Región" outlined
-                            dense />
-                    </v-col>
-                    <v-col cols="12" v-if="form.ambito === 'provincial'">
-                        <v-select v-model="form.provincia_2" :items="poblacionesDisponibles_2"
-                            label="Seleccione una Provincia" outlined dense />
-                    </v-col>
-                </v-row>
-            </v-card-text>
-
-            <!-- Dirección de envío de pagarés -->
-            <v-card-subtitle>Dirección de envío de Pagarés</v-card-subtitle>
-            <v-card-text>
-                <v-row>
-                    <v-col cols="12">
-                        <v-text-field v-model="form.domicilio_2" label="Domicilio" outlined dense />
-                    </v-col>
-                    <v-col cols="12" md="6">
-                        <v-select v-model="form.provincia" :items="provincias" label="Provincia" outlined dense
-                            @change="actualizarPoblaciones" />
-                    </v-col>
-                    <v-col cols="12" md="6">
-                        <v-select v-model="form.poblacion" :items="poblacionesDisponibles" label="Población" outlined
-                            dense />
-                    </v-col>
-                    <v-col cols="12" md="6">
-                        <v-text-field v-model="form.codigoPostal" label="Código Postal" outlined dense readonly />
-                    </v-col>
-                    <v-col cols="12">
-                        <v-checkbox v-model="form.mismaDireccion" label="Misma que la dirección fiscal"
-                            @change="copiarDireccionFiscal" />
-                    </v-col>
-                </v-row>
-            </v-card-text>
-
-            <!-- Contactos -->
-            <v-card-subtitle>Contactos</v-card-subtitle>
-            <v-card-text>
-                <v-simple-table dense class="contact-table">
-                    <thead>
-                        <tr>
-                            <th class="text-center">Área</th>
-                            <th class="text-center">Nombre y Apellidos</th>
-                            <th class="text-center">Teléfono</th>
-                            <th class="text-center">Email</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            <td class="font-weight-bold">Compras*</td>
-                            <td>
-                                <v-text-field v-model="form.contactoCompras" outlined dense hide-details
-                                    class="input-field" />
-                            </td>
-                            <td>
-                                <v-text-field v-model="form.contactoComprasTelefono" outlined dense hide-details
-                                    class="input-field" />
-                            </td>
-                            <td>
-                                <v-text-field v-model="form.contactoComprasEmail" outlined dense hide-details
-                                    class="input-field" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="font-weight-bold">Administración*</td>
-                            <td>
-                                <v-text-field v-model="form.contactoAdministracion" outlined dense hide-details
-                                    class="input-field" />
-                            </td>
-                            <td>
-                                <v-text-field v-model="form.contactoAdministracionTelefono" outlined dense hide-details
-                                    class="input-field" />
-                            </td>
-                            <td>
-                                <v-text-field v-model="form.contactoAdministracionEmail" outlined dense hide-details
-                                    class="input-field" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="font-weight-bold">Contabilidad*</td>
-                            <td>
-                                <v-text-field v-model="form.contactoContabilidad" outlined dense hide-details
-                                    class="input-field" />
-                            </td>
-                            <td>
-                                <v-text-field v-model="form.contactoContabilidadTelefono" outlined dense hide-details
-                                    class="input-field" />
-                            </td>
-                            <td>
-                                <v-text-field v-model="form.contactoContabilidadEmail" outlined dense hide-details
-                                    class="input-field" />
-                            </td>
-                        </tr>
-                        <tr>
-                            <td class="font-weight-bold">Otros</td>
-                            <td>
-                                <v-text-field v-model="form.contactoOtros" outlined dense hide-details
-                                    class="input-field" />
-                            </td>
-                            <td>
-                                <v-text-field v-model="form.contactoOtrosTelefono" outlined dense hide-details
-                                    class="input-field" />
-                            </td>
-                            <td>
-                                <v-text-field v-model="form.contactoOtrosEmail" outlined dense hide-details
-                                    class="input-field" />
-                            </td>
-                        </tr>
-                    </tbody>
-                </v-simple-table>
-            </v-card-text>
-
-            <!-- Aceptación y envío -->
-            <v-card-subtitle>Aceptación y envío</v-card-subtitle>
-            <v-card-text>
-                <v-checkbox v-model="form.acepto" label="He leído y acepto la política LOPD" required />
-                <v-btn color="primary" @click="submitForm">
-                    Finalizar Formulario y Enviar
-                </v-btn>
-            </v-card-text>
-        </v-card>
+        <v-form ref="form">
+          <!-- Información General -->
+          <h3 class="mb-2">Información General</h3>
+          <v-container fluid>
+            <v-row>
+              <v-col cols="12" md="4">
+                <v-text-field v-model="form.razonSocial" label="Razón social*" outlined dense />
+              </v-col>
+              <v-col cols="12" md="4">
+                <v-text-field v-model="form.cif" label="CIF / NIF / NIE*" outlined dense />
+              </v-col>
+              <v-col cols="12" md="4">
+                <v-text-field v-model="form.domicilioFiscal" label="Domicilio fiscal*" outlined dense />
+              </v-col>
+  
+              <v-col cols="12" md="4">
+                <v-select
+                  v-model="form.provincia_1"
+                  :items="provincias"
+                  label="Provincia"
+                  outlined
+                  dense
+                  @change="onProvinciaChange_1"
+                />
+              </v-col>
+  
+              <v-col cols="12" md="4">
+                <v-select
+                  v-model="form.poblacion_1"
+                  :items="poblacionesDisponibles_1.map(p => p.nombre)"
+                  label="Población"
+                  outlined
+                  dense
+                  @change="onPoblacionChange_1"
+                />
+              </v-col>
+  
+              <v-col cols="12" md="4">
+                <v-text-field
+                  v-model="form.codigoPostal_1"
+                  label="Código postal"
+                  outlined
+                  dense
+                  readonly
+                />
+              </v-col>
+  
+              <v-col cols="12" md="4">
+                <v-text-field v-model="form.poblacionFiscal" label="Población*" outlined dense />
+              </v-col>
+              <v-col cols="12" md="4">
+                <v-text-field v-model="form.codigoPostalFiscal" label="Código postal*" outlined dense />
+              </v-col>
+              <v-col cols="12" md="4">
+                <v-text-field v-model="form.telefono" label="Teléfono*" outlined dense />
+              </v-col>
+              <v-col cols="12" md="4">
+                <v-text-field v-model="form.emailComercial" label="Email para gestión comercial*" outlined dense />
+              </v-col>
+              <v-col cols="12" md="4">
+                <v-text-field v-model="form.web" label="Web" outlined dense />
+              </v-col>
+            </v-row>
+          </v-container>
+  
+          <!-- Información del apoderado -->
+          <h3 class="mb-2">Información del apoderado</h3>
+          <v-container fluid>
+            <v-row>
+              <v-col cols="12" md="4">
+                <v-text-field v-model="form.nombreApoderado" label="Nombre y apellidos*" outlined dense />
+              </v-col>
+              <v-col cols="12" md="4">
+                <v-text-field v-model="form.nifApoderado" label="NIF / NIE*" outlined dense />
+              </v-col>
+              <v-col cols="12" md="4">
+                <v-text-field v-model="form.poderes" label="Poderes*" outlined dense />
+              </v-col>
+            </v-row>
+          </v-container>
+  
+          <!-- Información comercial -->
+          <h3 class="mb-2">Información comercial</h3>
+          <v-container fluid>
+            <v-row>
+              <v-col cols="12" md="4">
+                <v-select
+                  v-model="form.tipoProveedor"
+                  :items="['Proveedor de materiales', 'Subcontratista', 'Ambos']"
+                  label="Tipo de proveedor*"
+                  outlined
+                  dense
+                />
+              </v-col>
+              <v-col cols="12" md="4">
+                <v-text-field v-model="form.seguridadSocial" label="Nº Seguridad Social" outlined dense />
+              </v-col>
+              <v-col cols="12" md="4">
+                <v-text-field v-model="form.iban" label="IBAN*" outlined dense />
+              </v-col>
+              <v-col cols="12" md="4">
+                <v-text-field v-model="form.certTitularidad" label="Certificado titularidad" outlined dense />
+              </v-col>
+              <v-col cols="12" md="4">
+                <v-text-field v-model="form.oficios" label="Oficios*" outlined dense />
+              </v-col>
+              <v-col cols="12" md="4">
+                <v-select
+                  v-model="form.ambito"
+                  :items="['nacional', 'regional', 'provincial']"
+                  label="Disponibilidad Geográfica*"
+                  outlined
+                  dense
+                />
+              </v-col>
+  
+              <v-col
+                v-if="form.ambito === 'regional' || form.ambito === 'provincial'"
+                cols="12"
+                md="4"
+              >
+                <v-select
+                  v-model="form.region_2"
+                  :items="provincias"
+                  label="Seleccione una Región"
+                  outlined
+                  dense
+                />
+              </v-col>
+  
+              <v-col
+                v-if="form.ambito === 'provincial'"
+                cols="12"
+                md="4"
+              >
+                <v-select
+                  v-model="form.provincia_2"
+                  :items="poblacionesDisponibles_2.map(p => p.nombre)"
+                  label="Seleccione una Provincia"
+                  outlined
+                  dense
+                />
+              </v-col>
+            </v-row>
+          </v-container>
+  
+          <!-- Dirección de envío de pagarés -->
+          <h3 class="mb-2">Dirección de envío de pagarés</h3>
+          <v-container fluid>
+            <v-row>
+              <v-col cols="12" md="4">
+                <v-text-field v-model="form.domicilioEnvio" label="Domicilio" outlined dense />
+              </v-col>
+              <v-col cols="12" md="4">
+                <v-select
+                  v-model="form.provincia"
+                  :items="provincias"
+                  label="Provincia"
+                  outlined
+                  dense
+                  @change="onProvinciaChange"
+                />
+              </v-col>
+              <v-col cols="12" md="4">
+                <v-select
+                  v-model="form.poblacion"
+                  :items="poblacionesDisponibles.map(p => p.nombre)"
+                  label="Población"
+                  outlined
+                  dense
+                  @change="onPoblacionChange"
+                />
+              </v-col>
+              <v-col cols="12" md="4">
+                <v-text-field v-model="form.codigoPostal" label="Código postal" outlined dense readonly />
+              </v-col>
+              <v-col cols="12" md="8">
+                <v-checkbox
+                  v-model="form.mismaDireccion"
+                  label="Misma que la dirección fiscal"
+                  @change="copiarDireccionFiscal"
+                />
+              </v-col>
+            </v-row>
+          </v-container>
+  
+          <!-- Contactos -->
+          <h3 class="mb-2">Contactos</h3>
+          <v-simple-table dense>
+            <thead>
+              <tr>
+                <th>&nbsp;</th>
+                <th>Nombre y apellidos</th>
+                <th>Teléfono</th>
+                <th>Email</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr v-for="(contacto, idx) in contactos" :key="idx">
+                <td class="font-weight-bold">{{ contacto.rol }}</td>
+                <td><v-text-field class="pa-2" v-model="contacto.nombre" dense outlined hide-details="auto"/></td>
+                <td><v-text-field class="pa-2" v-model="contacto.telefono" dense outlined hide-details="auto"/></td>
+                <td><v-text-field class="pa-2" v-model="contacto.email" dense outlined hide-details="auto" type="email" /></td>
+              </tr>
+            </tbody>
+          </v-simple-table>
+  
+          <!-- Aceptación y envío -->
+          <v-row class="mt-4">
+            <v-col cols="12">
+              <v-checkbox
+                v-model="form.aceptaLOPD"
+                :rules="[v => !!v || 'Debe aceptar la política LOPD']"
+                label="He leído y acepto la política LOPD"
+                required
+              />
+            </v-col>
+            <v-col cols="12">
+              <v-btn color="primary" type="submit" @click.prevent="submitForm">
+                Finalizar formulario y enviar
+              </v-btn>
+            </v-col>
+          </v-row>
+        </v-form>
+      </v-card-text>
     </v-card>
-</template>
+  </template>
+  
+
 <script>
 export default {
     data() {
         return {
+            isWideScreen: window.innerWidth >= 768,
             form: {
                 razonSocial: '',
                 nif: '',
                 domicilio: '',
+                provincia: '',
                 provincia_1: '',
+                poblacion: '',
                 poblacion_1: '',
-                codigoPostal_1: '',
                 telefono: '',
                 email: '',
                 web: '',
-                nombreApoderado: '',
-                nifApoderado: '',
-                poderes: '',
-                tipoProveedor: '',
-                seguroSocial: '',
-                iban: '',
-                certificadoTitularidad: '',
-                oficios: '',
+                codigoPostal: '',
+                codigoPostal_1: '',
                 ambito: '',
-                region_2: '',
-                provincia_2: '',
-                poblacion_2: '',
-                domicilio_2: '',
-                codigoPostal_2: '',
-                contactoCompras: '',
-                contactoAdministracion: '',
-                contactoContabilidad: '',
-                contactoOtros: '',
-                contactoComprasTelefono: '',
-                contactoAdministracionTelefono: '',
-                contactoContabilidadTelefono: '',
-                contactoOtrosTelefono: '',
-                contactoComprasEmail: '',
-                contactoAdministracionEmail: '',
-                contactoContabilidadEmail: '',
-                contactoOtrosEmail: '',
-                mismaDireccion: false,
-                acepta: false
+                region_2: ""
             },
             provincias: [
                 'Madrid',
@@ -329,80 +337,112 @@ export default {
                     { nombre: 'Lucena', cp: '14900' },
                     { nombre: 'Puente Genil', cp: '14500' }
                 ]
-            }
+            },
+            contactos: [
+                { rol: 'Compras' },
+                { rol: 'Administración' },
+                { rol: 'Contabilidad' },
+                { rol: 'Otros' }
+            ]
         }
     },
-    methods: {
-        actualizarPoblaciones_1() {
-            // Lógica para actualizar las poblaciones según la provincia_1 seleccionada
-            if (this.form.provincia_1 === 'Madrid') {
-                this.poblacionesDisponibles_1 = ['Madrid', 'Alcalá de Henares', 'Getafe'];
-            } else if (this.form.provincia_1 === 'Barcelona') {
-                this.poblacionesDisponibles_1 = ['Barcelona', 'Badalona', 'Hospitalet'];
-            } else {
-                this.poblacionesDisponibles_1 = [];
-            }
-            this.form.poblacion_1 = ''; // Limpiar la población al cambiar provincia
-            this.form.codigoPostal_1 = ''; // Limpiar el código postal
+    computed: {
+        poblacionesDisponibles() {
+            return this.poblaciones[this.form.provincia] || [];
         },
-        actualizarPoblaciones() {
-            // Lógica para actualizar las poblaciones según la provincia seleccionada
-            if (this.form.provincia === 'Madrid') {
-                this.poblacionesDisponibles = ['Madrid', 'Alcalá de Henares', 'Getafe'];
-            } else if (this.form.provincia === 'Barcelona') {
-                this.poblacionesDisponibles = ['Barcelona', 'Badalona', 'Hospitalet'];
-            } else {
-                this.poblacionesDisponibles = [];
-            }
-            this.form.poblacion = ''; // Limpiar la población al cambiar provincia
-            this.form.codigoPostal = ''; // Limpiar el código postal
+        poblacionesDisponibles_1() {
+            return this.poblaciones[this.form.provincia_1] || [];
+        },
+        poblacionesDisponibles_2() {
+            return this.poblaciones[this.form.region_2] || [];
+        },
+        sectionStyle() {
+            return {
+                display: 'grid',
+                gridTemplateColumns: this.isWideScreen ? '1fr 1fr' : '1fr',
+                gap: '16px',
+            };
+        },
+        // Estilo para el input de 'Web', que debe ocupar todo el ancho
+        fullWidthStyle() {
+            return this.isWideScreen ? { gridColumn: 'span 2' } : {};
+        }
+    },
+    mounted() {
+        // Escucha el evento de redimensionamiento
+        window.addEventListener('resize', this.handleResize);
+    },
+    beforeDestroy() {
+        // Elimina el listener cuando el componente se destruye
+        window.removeEventListener('resize', this.handleResize);
+    },
+    methods: {
+        onProvinciaChange() {
+            this.form.poblacion = '';
+            this.form.codigoPostal = '';
+        },
+        onProvinciaChange_1() {
+            this.form.poblacion_1 = '';
+            this.form.codigoPostal_1 = '';
+        },
+        onPoblacionChange() {
+            const pob = this.poblacionesDisponibles.find(p => p.nombre === this.form.poblacion);
+            this.form.codigoPostal = pob ? pob.cp : '';
+        },
+        onPoblacionChange_1() {
+            const pob = this.poblacionesDisponibles_1.find(p => p.nombre === this.form.poblacion_1);
+            this.form.codigoPostal_1 = pob ? pob.cp : '';
+        },
+        handleResize() {
+            this.isWideScreen = window.innerWidth >= 768;
         },
         copiarDireccionFiscal() {
             if (this.form.mismaDireccion) {
-                this.form.domicilio_2 = this.form.domicilio;
-                this.form.provincia_2 = this.form.provincia_1;
-                this.form.poblacion_2 = this.form.poblacion_1;
-                this.form.codigoPostal_2 = this.form.codigoPostal_1;
+                this.form.provincia = this.form.provincia_1;
+                this.form.poblacion = this.form.poblacion_1;
+                this.form.codigoPostal = this.form.codigoPostal_1;
             }
-        },
-        submitForm() {
-            // Aquí iría la lógica para enviar el formulario
         }
     }
-};
+}
 </script>
 
 <style scoped>
-.contact-table thead {
-    background-color: #f5f5f5;
-    color: #333;
-}
-
-.contact-table th,
-.contact-table td {
-    text-align: center;
-    padding: 12px 16px;
-}
-
-.contact-table tbody tr:hover {
-    background-color: #f1f1f1;
-}
-
-.input-field {
+.formulario {
     width: 100%;
-    background-color: #fff;
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.titulo {
+    font-size: 1.5rem;
+    font-weight: bold;
+    color: #2d6a4f;
+    margin-bottom: 16px;
+}
+
+.input-container {
+    margin-bottom: 12px;
+}
+
+.close-btn {
+    position: absolute;
+    top: 10px;
+    right: 10px;
+    z-index: 2;
+}
+
+.input {
+    width: 100%;
+    padding: 8px;
+    border: 1px solid #ccc;
     border-radius: 4px;
-    box-shadow: none;
 }
 
-.input-field .v-input__control {
-    margin-top: 0 !important;
+button {
+    z-index: 10;
+    transition: all 0.3s ease;
+    color: #73cda4;
 }
 
-.font-weight-bold {
-    font-weight: 600;
-}
-
-.v-sheet .v-sheet--outlined {
-    padding: 30px;
-}</style>
+</style>
