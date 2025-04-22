@@ -1,171 +1,222 @@
 <template>
     <form class="login-form" @submit.prevent="submit">
-        <h1 class="login-title">{{ $t("login.title") }}</h1>
-        <p class="login-subtitle">{{ $t("login.subtitle") }}</p>
-
-        <v-alert v-if="showUnauthorizeMessage" class="alert-error" color="error" dense text type="error">
-            {{ $t("login.unauthorized") }}
-        </v-alert>
-
-        <v-text-field v-model="username" :label="$t('login.usercode')" autocomplete="username" dense name="username"
-            outlined persistent-placeholder class="input-field" />
-
-        <v-text-field v-model="password" :label="$t('login.password')"
-            :append-icon="passwordVisible ? 'mdi-eye-off-outline' : 'mdi-eye-outline'"
-            :type="passwordVisible ? 'text' : 'password'" autocomplete="password" dense name="password" outlined
-            persistent-placeholder class="input-field" @click:append="passwordVisible = !passwordVisible"
-            @keyup.enter="submit()" />
-
-        <div class="login-actions">
-            <v-btn type="submit" color="primary" block class="login-btn" :loading="loading">
-                {{ $t("login.loginButton") }}
-            </v-btn>
-
-            <v-btn color="secondary" block class="login-btn" @click="$router.push('/register')">
-                {{ $t("login.createAccount") }}
-            </v-btn>
-        </div>
-    </form>
-</template>
+      <h1 class="login-title">{{ $t("login.title") }}</h1>
+      <p class="login-subtitle">{{ $t("login.subtitle") }}</p>
   
-<script lang="ts">
+      <!-- Alerta por campos requeridos -->
+      <v-alert
+        v-if="showRequiredFieldsMessage"
+        class="alert-error"
+        type="warning"
+        color="warning"
+        dense
+        text
+      >
+        {{ $t("login.requiredFields") }}
+      </v-alert>
+  
+      <!-- Alerta por error 401 -->
+      <v-alert
+        v-if="showUnauthorizedMessage"
+        class="alert-error"
+        type="error"
+        color="error"
+        dense
+        text
+      >
+        {{ $t("login.unauthorized") }}
+      </v-alert>
+  
+      <v-text-field
+        v-model="username"
+        :label="$t('login.usercode')"
+        :error="showRequiredFieldsMessage && !username"
+        name="username"
+        autocomplete="username"
+        outlined
+        dense
+        persistent-placeholder
+        class="input-field"
+      />
+  
+      <v-text-field
+        v-model="password"
+        :label="$t('login.password')"
+        :error="showRequiredFieldsMessage && !password"
+        :append-icon="passwordVisible ? 'mdi-eye-off-outline' : 'mdi-eye-outline'"
+        :type="passwordVisible ? 'text' : 'password'"
+        name="password"
+        autocomplete="current-password"
+        outlined
+        dense
+        persistent-placeholder
+        class="input-field"
+        @click:append="togglePasswordVisibility"
+        @keyup.enter="submit"
+      />
+  
+      <div class="login-actions">
+        <v-btn
+          type="submit"
+          color="primary"
+          block
+          class="login-btn"
+          :loading="loading"
+          :disabled="loading"
+        >
+          {{ $t("login.loginButton") }}
+        </v-btn>
+  
+        <v-btn
+          color="secondary"
+          block
+          class="login-btn"
+          @click="$router.push('/register')"
+        >
+          {{ $t("login.createAccount") }}
+        </v-btn>
+      </div>
+    </form>
+  </template>
+  
+  <script lang="ts">
 import { defineComponent, ref, computed } from "vue";
 import axios from "axios";
 import i18n from "@/plugins/i18n";
 
 export default defineComponent({
-    name: "LoginForm",
-    setup() {
-        const username = ref("");
-        const password = ref("");
-        const showUnauthorizeMessage = ref(false);
-        const alertMessage = ref(null);
-        const passwordVisible = ref(false);
-        const loading = ref(false);
+  name: "LoginForm",
+  setup() {
+    const username = ref("");
+    const password = ref("");
+    const passwordVisible = ref(false);
+    const loading = ref(false);
+    const showUnauthorizedMessage = ref(false);
+    const showRequiredFieldsMessage = ref(false);
 
-        const availableLanguages = [
-            { code: "ca", label: "Català" },
-            { code: "es", label: "Español" },
-            { code: "fr", label: "Français" },
-            { code: "en", label: "English" },
-        ];
+    const currentLang = ref(i18n.locale);
 
-        const currentLang = ref(i18n.locale);
+    const availableLanguages = [
+      { code: "ca", label: "Català" },
+      { code: "es", label: "Español" },
+      { code: "fr", label: "Français" },
+      { code: "en", label: "English" },
+    ];
 
-        const changeLanguage = (code: string) => {
-            i18n.locale = code;
-            currentLang.value = code;
-        };
+    const languageLabel = computed(() => {
+      const lang = availableLanguages.find((l) => l.code === currentLang.value);
+      return lang?.label || "Idioma";
+    });
 
-        const languageLabel = computed(() => {
-            const lang = availableLanguages.find((l) => l.code === currentLang.value);
-            return lang ? lang.label : "Idioma";
-        });
+    const togglePasswordVisibility = () => {
+      passwordVisible.value = !passwordVisible.value;
+    };
 
-        async function submit() {
-            try {
-                loading.value = true;
-                alertMessage.value = null;
-                showUnauthorizeMessage.value = false;
+    const changeLanguage = (code: string) => {
+      i18n.locale = code;
+      currentLang.value = code;
+    };
 
-                await axios.post(
-                    `/login`,
-                    new URLSearchParams({
-                        username: username.value,
-                        password: password.value,
-                    }),
-                    {
-                        headers: {
-                            "Content-Type": "application/x-www-form-urlencoded",
-                        }
-                    }
-                );
+    const submit = async () => {
+      showRequiredFieldsMessage.value = false;
+      showUnauthorizedMessage.value = false;
 
-                location.replace("/app");
-            } catch (error) {
-                const response = (error as any).response;
-                if (response) {
-                    if (response.status === 401) {
-                        showUnauthorizeMessage.value = true;
-                    } else {
-                        alertMessage.value = response?.data;
-                    }
-                }
-            } finally {
-                loading.value = false;
-            }
+      if (!username.value || !password.value) {
+        showRequiredFieldsMessage.value = true;
+        return;
+      }
+
+      loading.value = true;
+
+      try {
+        await axios.post(
+          "/login",
+          new URLSearchParams({
+            username: username.value,
+            password: password.value,
+          }),
+          {
+            headers: {
+              "Content-Type": "application/x-www-form-urlencoded",
+            },
+          }
+        );
+
+        location.replace("/app");
+      } catch (error: any) {
+        if (error.response?.status === 401) {
+          showUnauthorizedMessage.value = true;
         }
+      } finally {
+        loading.value = false;
+      };
+      
+    };
 
-        return {
-            username,
-            password,
-            submit,
-            loading,
-            showUnauthorizeMessage,
-            passwordVisible,
-            availableLanguages,
-            changeLanguage,
-            currentLang,
-            languageLabel,
-        };
-    },
+    return {
+      username,
+      password,
+      passwordVisible,
+      togglePasswordVisibility,
+      loading,
+      showUnauthorizedMessage,
+      showRequiredFieldsMessage,
+      submit,
+      availableLanguages,
+      currentLang,
+      changeLanguage,
+      languageLabel,
+    };
+  },
 });
 </script>
-  
+
 <style scoped>
-.login-form {
-    max-width: 400px;
-    width: 80%;
-    margin: 0 auto;
-    padding: 24px;
-    border-radius: 12px;
-    backdrop-filter: blur(10px);
-    background-color: rgba(255, 255, 255, 0.1);
-    color: #333;
-    display: flex;
-    flex-direction: column;
-    align-items: stretch;
-}
+    .login-form {
+        max-width: 400px;
+        width: 100%;
+        margin: 0 auto;
+        padding: 24px;
+        backdrop-filter: blur(10px);
+        color: #333;
+        display: flex;
+        flex-direction: column;
+        align-items: stretch;
+    }
 
-.login-title {
-    font-size: 32px;
-    font-weight: 600;
-    color: #333;
-    margin-bottom: 12px;
-    text-align: center;
-}
+    .login-title {
+        font-size: 28px;
+        font-weight: 600;
+        color: #222;
+        text-align: center;
+        margin-bottom: 8px;
+    }
 
-.login-subtitle {
-    font-size: 14px;
-    color: #555;
-    margin-bottom: 20px;
-    text-align: center;
-}
+    .login-subtitle {
+        font-size: 14px;
+        color: #666;
+        text-align: center;
+        margin-bottom: 20px;
+    }
 
-.alert-error {
-    margin-bottom: 20px;
-}
+    .alert-error {
+        margin-bottom: 16px;
+    }
 
-.input-field {
-    margin-bottom: 12px;
-}
+    .input-field {
+        margin-bottom: 16px;
+    }
 
-.login-actions {
-    display: flex;
-    flex-direction: column;
-    gap: 10px;
-    margin-top: 20px;
-}
+    .login-actions {
+        display: flex;
+        flex-direction: column;
+        gap: 12px;
+        margin-top: 24px;
+    }
 
-.login-btn {
-    font-size: 14px;
-    text-transform: none;
-    font-weight: 500;
-    letter-spacing: 1px;
-}
-
-.login-btn:hover {
-    opacity: 0.9;
-}
+    .login-btn {
+        font-weight: 500;
+        font-size: 15px;
+        text-transform: none;
+    }
 </style>
-  
