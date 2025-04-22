@@ -1,15 +1,18 @@
 <template>
-    <v-card class="pa-4">
+    <v-card class="pa-0" style="height: 90vh; overflow: hidden; position: relative;">
 
-        <v-card-title class="headline">{{ $t("supplier.regForm") }}</v-card-title>
+        <!-- Cabecera fija con botón de cerrar -->
+        <div style="position: sticky; top: 0; z-index: 2; background-color: rgba(0, 0, 0, 0.5);" class="pa-4">
+            <v-card-title class="headline text-white">{{ $t("supplier.regForm") }}</v-card-title>
 
-        <v-card-text>
-            <!-- Botón de cierre -->
             <v-btn icon small class="close-btn" @click="$emit('cerrar')"
-                style="position: absolute; top: 10px; right: 10px;">
+                style="position: absolute; top: 16px; right: 16px;">
                 <v-icon>mdi-close</v-icon>
             </v-btn>
+        </div>
 
+        <!-- Scroll en zona de formulario -->
+        <v-card-text style="overflow-y: auto; height: calc(100% - 100px); ">
             <v-form ref="form">
                 <!-- Información General -->
                 <h3 class="mb-2">{{ $t("supplier.genInfo") }}</h3>
@@ -136,55 +139,37 @@
                 </v-container>
 
                 <h2 class="mb-2 mt-2">{{ $t("supplier.contacts") }}</h2>
-                                    <table>
-                                        <thead>
-                                            <tr>
-                                                <th class="first-col-row"></th>
-                                                <th>Nombre y apellidos</th>
-                                                <th>Teléfono</th>
-                                                <th>Email</th>
-                                            </tr>
-                                        </thead>
-                                        <tbody>
-                                            <tr v-for="(item, index) in contactos" :key="index">
-                                                <td class="first-column" data-label="Rol">
-                                                    <p>{{ item.rol }}</p>
-                                                </td>
-                                                <td class="input-cell" data-label="Nombre y Apellidos">
-                                                    <v-text-field
-                                                        v-model="item.nombre"
-                                                        outlined persistent-placeholder
-                                                        color="green accent-12"
-                                                        hide-details="auto"
-                                                        class="input_media"
-                                                        :disabled="contactos.disable"
-                                                        @input="upperText(contactos.name)"
-                                                    ></v-text-field>
-                                                </td>
-                                                <td class="input-cell" data-label="Teléfono">
-                                                    <v-text-field
-                                                        v-model="item.nombre"
-                                                        outlined persistent-placeholder
-                                                        color="green accent-12"
-                                                        hide-details="auto"
-                                                        class="input_media"
-                                                        :disabled="contactos.disable"
-                                                        @input="upperText(contactos.phone)"
-                                                    ></v-text-field>
-                                                </td>
-                                                <td class="input-cell last-column" data-label="Email">
-                                                    <v-text-field
-                                                        v-model="item.nombre"
-                                                        outlined persistent-placeholder
-                                                        color="green accent-12"
-                                                        hide-details="auto"
-                                                        class="input_media"
-                                                        :disabled="contactos.disable"
-                                                    ></v-text-field>
-                                                </td>
-                                            </tr>
-                                        </tbody>
-                                    </table>
+                <table style="width: 100%;" class="pa-3">
+                    <thead>
+                        <tr>
+                            <th class="first-col-row"></th>
+                            <th >Nombre</th>
+                            <th >Teléfono</th>
+                            <th >Email</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr v-for="(item, index) in contactos" :key="index">
+                            <td class="first-column" data-label="Rol">
+                                <p>{{ item.rol }}</p>
+                            </td>
+                            <td class="" data-label="Nombre y Apellidos">
+                                <v-text-field v-model="item.nombre" outlined persistent-placeholder  dense
+                                    hide-details="auto" class="caption input_media" :disabled="contactos.disable"
+                                    @input="upperText(contactos.name)"></v-text-field>
+                            </td>
+                            <td class="" data-label="Teléfono">
+                                <v-text-field v-model="item.nombre" outlined persistent-placeholder dense
+                                    hide-details="auto" class="caption input_media" :disabled="contactos.disable"
+                                    @input="upperText(contactos.phone)"></v-text-field>
+                            </td>
+                            <td class=" last-column" data-label="Email">
+                                <v-text-field v-model="item.nombre" outlined persistent-placeholder dense
+                                    hide-details="auto" class="caption input_media" :disabled="contactos.disable"></v-text-field>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
 
                 <!-- Aceptación y envío -->
                 <v-row class="align-center mt-4">
@@ -385,6 +370,9 @@ export default {
 
 <style>
 
+.first-column, .first-col-row{
+    font-weight: bold;
+}
 .v-input--hide-details {
     margin: 0;
     padding: 0;

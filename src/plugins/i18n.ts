@@ -110,7 +110,7 @@ const messages = {
             categoryLabels: ["Meals", "Drinks", "Desserts"]
         },
         supplier: {
-            regForm: "Supplier Registration Form",
+            regForm: "Supplier Registration",
             genInfo: "General Information",
             companyName: "Company name*",
             cif: "CIF / NIF / NIE*",
@@ -268,7 +268,7 @@ const messages = {
             categoryLabels: ["Comidas", "Bebidas", "Postres"]
         },
         supplier: {
-            regForm: "Formulario de Registro Proveedor",
+            regForm: "Registro Proveedor",
             genInfo: "Información General",
             companyName: "Razón social*",
             cif: "CIF / NIF / NIE*",
@@ -430,7 +430,7 @@ const messages = {
             categoryLabels: ["Menjars", "Begudes", "Postres"]
         },
         supplier: {
-            regForm: "Formulari de registre de proveïdor",
+            regForm: "Registre de proveïdor",
             genInfo: "Informació general",
             companyName: "Raó social*",
             cif: "CIF / NIF / NIE*",
@@ -585,7 +585,7 @@ const messages = {
             categoryLabels: ["Repas", "Boissons", "Desserts"]
         },
         supplier: {
-            regForm: "Formulaire d'inscription du fournisseur",
+            regForm: "Inscription du fournisseur",
             genInfo: "Informations générales",
             companyName: "Raison sociale*",
             cif: "CIF / NIF / NIE*",

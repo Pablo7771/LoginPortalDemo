@@ -18,7 +18,7 @@
                     <v-col cols="12" md="4" class="">
                         <!-- Lista de categorías -->
                         <v-list nav dense shaped class="rounded elevation-1 pa-2">
-                            <v-subheader class="text-h6 font-weight-bold">{{ $t('delivery.categories') }}</v-subheader>
+                            <v-subheader style="color:black" class="text-h6 font-weight-bold">{{ $t('delivery.categories') }}</v-subheader>
                             <v-divider class="mb-2" />
                             <div class="div-cat">
                                 <v-list-item v-for="cat in categories" :key="cat" @click="selectedCategory = cat" :class="{
@@ -38,7 +38,7 @@
                         <v-card nav dense shaped class="rounded elevation-1 mt-1">
                             <v-list-item @click="showOrder = !showOrder" class="px-4">
                                 <v-list-item-content>
-                                    <v-list-item-title class="text-h6 font-weight-bold">
+                                    <v-list-item-title class="text-h6 font-weight-bold ">
                                         {{ $t('delivery.myOrder') }}
                                     </v-list-item-title>
                                 </v-list-item-content>
@@ -125,7 +125,7 @@
 </template>
 
 <script>
-import { EventBus } from "./test";
+import { EventBus } from "../utils/eventBus";
 import { ref } from 'vue'
 
 const showOrder = ref(false);
@@ -137,37 +137,7 @@ export default {
             showOrder,
             selectedCategory: this.$t("delivery.categoryLabels")[0],
             categories: this.$t("delivery.categoryLabels"),
-            menu: [
-                { id: 1, name: "Carne al Humo", price: 10, category: this.$t("delivery.categoryLabels")[0], image: require("@/assets/productos/comida_1.jpg") },
-                { id: 2, name: "Carne al Asador Real", price: 12, category: this.$t("delivery.categoryLabels")[0], image: require("@/assets/productos/comida_2.jpg") },
-                { id: 3, name: "Caldillo de Langostino", price: 8, category: this.$t("delivery.categoryLabels")[0], image: require("@/assets/productos/comida_3.jpg") },
-                { id: 4, name: "Bola Asada", price: 7, category: this.$t("delivery.categoryLabels")[0], image: require("@/assets/productos/comida_4.jpg") },
-                { id: 5, name: "Crema del Sol", price: 11, category: this.$t("delivery.categoryLabels")[0], image: require("@/assets/productos/comida_5.jpg") },
-                { id: 6, name: "Crispados al Limón", price: 5, category: this.$t("delivery.categoryLabels")[0], image: require("@/assets/productos/comida_6.jpg") },
-                { id: 7, name: "Burguer Roja y Crema", price: 14, category: this.$t("delivery.categoryLabels")[0], image: require("@/assets/productos/comida_hbg_1_11zon.jpg") },
-                { id: 8, name: "Hamburguesa Completa", price: 12, category: this.$t("delivery.categoryLabels")[0], image: require("@/assets/productos/comida_hbg_2_11zon.jpg") },
-                { id: 9, name: "Burguer Frescura", price: 13, category: this.$t("delivery.categoryLabels")[0], image: require("@/assets/productos/comida_hbg_3_11zon.jpg") },
-                { id: 10, name: "Papas Crujientes", price: 12, category: this.$t("delivery.categoryLabels")[0], image: require("@/assets/productos/comida_papa_frita_1_11zon.jpg") },
-                { id: 11, name: "Fritas del Triángulo", price: 9, category: this.$t("delivery.categoryLabels")[0], image: require("@/assets/productos/comida_papa_frita_2_11zon.jpg") },
-                { id: 12, name: "Papas Delgadas", price: 7, category: this.$t("delivery.categoryLabels")[0], image: require("@/assets/productos/comida_papa_frita_3_11zon.jpg") },
-
-                { id: 13, name: "Blue Ember", price: 3, category: this.$t("delivery.categoryLabels")[1], image: require("@/assets/productos/bebida_azul.jpg") },
-                { id: 14, name: "Verde Latte", price: 4, category: this.$t("delivery.categoryLabels")[1], image: require("@/assets/productos/bebida_cafe.jpg") },
-                { id: 15, name: "Corazón de Fresa", price: 2, category: this.$t("delivery.categoryLabels")[1], image: require("@/assets/productos/bebida_coctela.jpg") },
-                { id: 16, name: "Verde Prístino", price: 5, category: this.$t("delivery.categoryLabels")[1], image: require("@/assets/productos/bebida_limoda.jpg") },
-                { id: 17, name: "Crema Boreal", price: 6, category: this.$t("delivery.categoryLabels")[1], image: require("@/assets/productos/bebida_malteada.jpg") },
-                { id: 18, name: "Zafiro Cítrico", price: 10, category: this.$t("delivery.categoryLabels")[1], image: require("@/assets/productos/bebida_morado.jpg") },
-
-                { id: 20, name: "Crema de Coco y Membrillo", price: 12, category: this.$t("delivery.categoryLabels")[2], image: require("@/assets/productos/postre_coco_11zon.jpg") },
-                { id: 21, name: "Cereza Encantada", price: 14, category: this.$t("delivery.categoryLabels")[2], image: require("@/assets/productos/postre_copa_11zon.jpg") },
-                { id: 22, name: "Dulce de Chocolate y Manjar", price: 11, category: this.$t("delivery.categoryLabels")[2], image: require("@/assets/productos/postre_crema_11zon.jpg") },
-                { id: 23, name: "Dulces de Colores", price: 24, category: this.$t("delivery.categoryLabels")[2], image: require("@/assets/productos/postre_empanada_1_11zon.jpg") },
-                { id: 24, name: "Cereza Encantada", price: 15, category: this.$t("delivery.categoryLabels")[2], image: require("@/assets/productos/postre_empanada_2_11zon.jpg") },
-                { id: 25, name: "Pastelito de Nieve y Fresa", price: 12, category: this.$t("delivery.categoryLabels")[2], image: require("@/assets/productos/postre_fresa_11zon.jpg") },
-                { id: 26, name: "Tarta de Crema Morada", price: 17, category: this.$t("delivery.categoryLabels")[2], image: require("@/assets/productos/postre_mermelada_1_11zon.jpg") },
-                { id: 27, name: "Mermelada Encantada", price: 10, category: this.$t("delivery.categoryLabels")[2], image: require("@/assets/productos/postre_mermelada_11zon.jpg") },
-                { id: 28, name: "Crema Carmesí con Cereza", price: 14, category: this.$t("delivery.categoryLabels")[2], image: require("@/assets/productos/postre_pastelillo_11zon.jpg") }
-            ],
+            menu: this.refreshMenu(),
             cart: [],
         };
     },
@@ -180,11 +150,18 @@ export default {
         },
     },
     created() {
+
         EventBus.$on('mensaje-cambiado', (nuevoMensaje) => {
-            console.log(this.$t("delivery.categoryLabels")[0]);
+            
             this.categories = this.$t("delivery.categoryLabels");
             this.selectedCategory = this.$t("delivery.categoryLabels")[0];
-            this.menu = [
+            this.menu = this.refreshMenu();
+        })
+    },
+    methods: {
+
+        refreshMenu() {
+            return [
                 { id: 1, name: "Carne al Humo", price: 10, category: this.$t("delivery.categoryLabels")[0], image: require("@/assets/productos/comida_1.jpg") },
                 { id: 2, name: "Carne al Asador Real", price: 12, category: this.$t("delivery.categoryLabels")[0], image: require("@/assets/productos/comida_2.jpg") },
                 { id: 3, name: "Caldillo de Langostino", price: 8, category: this.$t("delivery.categoryLabels")[0], image: require("@/assets/productos/comida_3.jpg") },
@@ -215,10 +192,7 @@ export default {
                 { id: 27, name: "Mermelada Encantada", price: 10, category: this.$t("delivery.categoryLabels")[2], image: require("@/assets/productos/postre_mermelada_11zon.jpg") },
                 { id: 28, name: "Crema Carmesí con Cereza", price: 14, category: this.$t("delivery.categoryLabels")[2], image: require("@/assets/productos/postre_pastelillo_11zon.jpg") }
             ]
-            console.log("Mensaje cambiado en Delivery:", nuevoMensaje);
-        });
-    },
-    methods: {
+        },
         addToCart(item) {
             this.cart.push({ ...item, qty: 1 });
         },
@@ -269,14 +243,16 @@ export default {
     .div-cat {
         display: flex;
     }
+
     .rounded-t {
         height: 150px;
     }
 }
 
 .rounded-t {
-        height: 150px;
-    }
+    height: 150px;
+}
+
 .v-card {
     background-color: #fff;
     border-radius: 0px;

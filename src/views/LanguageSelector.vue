@@ -21,7 +21,7 @@
 
 import { ref, computed } from "vue";
 import i18n from "@/plugins/i18n";
-import { EventBus } from "./test"; // Assuming you have an EventBus setup
+import { EventBus } from "../utils/eventBus"; // Assuming you have an EventBus setup
 
 export default {
     name: "LanguageSelector",
