@@ -52,7 +52,7 @@ const messages = {
             // Títulos y botones
             agendar_cita_medica: "Schedule Medical Appointment",
             cerrar: "Close",
-            paso_1: "Patient Information",
+            paso_1: "Patient",
             paso_2: "Specialty",
             paso_3: "Doctor",
             paso_4: "Date",
@@ -215,7 +215,7 @@ const messages = {
             // Títulos y botones
             agendar_cita_medica: "Agendar Cita Médica",
             cerrar: "Cerrar",
-            paso_1: "Datos del paciente",
+            paso_1: "Paciente",
             paso_2: "Especialidad",
             paso_3: "Médico",
             paso_4: "Fecha",
@@ -374,7 +374,7 @@ const messages = {
             // Títulos y botones
             agendar_cita_medica: "Programar Cita Mèdica",
             cerrar: "Tancar",
-            paso_1: "Dades del pacient",
+            paso_1: "Pacient",
             paso_2: "Especialitat",
             paso_3: "Metge",
             paso_4: "Data",
@@ -536,7 +536,7 @@ const messages = {
         medicalAppointment: {
             agendar_cita_medica: "Prendre un Rendez-vous Médical",
             cerrar: "Fermer",
-            paso_1: "Informations du patient",
+            paso_1: "Patient",
             paso_2: "Spécialité",
             paso_3: "Médecin",
             paso_4: "Date",
