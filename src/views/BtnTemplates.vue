@@ -1,5 +1,5 @@
 <template>
-    <v-btn text class="mt-6 btnGuest" @click="goToTemplates">
+    <v-btn text class="mt-6 btnTemplates" @click="goToTemplates">
         <v-icon left>mdi-list-box</v-icon>
         {{ $t('login.guestContinue') }}
     </v-btn>
@@ -8,18 +8,18 @@
   
 <script>
 export default {
-    name: "NoSignedUp",
+    name: "BtnTemplates",
     methods: {
         goToTemplates() {
             // Navegación usando this.$router en Vue 2
-            this.$router.push("/no-signed-up");
+            this.$router.push("/templates");
         },
     },
 };
 </script>
 
 <style scoped>
-.btnGuest {
+.btnTemplates {
     text-transform: none;
 }
 </style>

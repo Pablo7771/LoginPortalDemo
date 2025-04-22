@@ -12,14 +12,14 @@ export default defineComponent({
     name: "LoginLeft",
     setup() {
         const images = [
-            require("@/assets/fnd_1.avif"),
-            require("@/assets/fnd_2.avif"),
-            require("@/assets/fnd_3.avif"),
-            require("@/assets/fnd_4.avif"),
-            require("@/assets/fnd_5.avif"),
-            require("@/assets/fnd_6.avif"),
-            require("@/assets/fnd_7.avif"),
-            require("@/assets/fnd_8.avif"),
+            require("@/assets/backgrounds/fnd_1.avif"),
+            require("@/assets/backgrounds/fnd_2.avif"),
+            require("@/assets/backgrounds/fnd_3.avif"),
+            require("@/assets/backgrounds/fnd_4.avif"),
+            require("@/assets/backgrounds/fnd_5.avif"),
+            require("@/assets/backgrounds/fnd_6.avif"),
+            require("@/assets/backgrounds/fnd_7.avif"),
+            require("@/assets/backgrounds/fnd_8.avif"),
         ];
 
         const currentImage = ref(images[0]);

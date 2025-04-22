@@ -135,45 +135,76 @@
                     </v-row>
                 </v-container>
 
-                <h3 class="mb-2 mt-2">{{ $t("supplier.contacts") }}</h3>
-                <v-simple-table>
-                    <tbody>
-                        <tr>
-                            <th></th>
-                            <th class="header-cell text-center">Nombre y apellidos</th>
-                            <th class="header-cell text-center">Teléfono</th>
-                            <th class="header-cell text-center">Email</th>
-                        </tr>
-                        <tr v-for="(item, index) in contactos" :key="index">
-                            <td class="first-column">
-                                <p>{{ item.rol }}</p>
-                            </td>
-                            <td class="input-cell">
-                                <v-text-field v-model="item.nombre" outlined hide-details></v-text-field>
-                            </td>
-                            <td class="input-cell">
-                                <v-text-field v-model="item.telefono" outlined hide-details></v-text-field>
-                            </td>
-                            <td class="input-cell">
-                                <v-text-field v-model="item.email" outlined hide-details></v-text-field>
-                            </td>
-                        </tr>
-                    </tbody>
-                </v-simple-table>
+                <h2 class="mb-2 mt-2">{{ $t("supplier.contacts") }}</h2>
+                                    <table>
+                                        <thead>
+                                            <tr>
+                                                <th class="first-col-row"></th>
+                                                <th>Nombre y apellidos</th>
+                                                <th>Teléfono</th>
+                                                <th>Email</th>
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                            <tr v-for="(item, index) in contactos" :key="index">
+                                                <td class="first-column" data-label="Rol">
+                                                    <p>{{ item.rol }}</p>
+                                                </td>
+                                                <td class="input-cell" data-label="Nombre y Apellidos">
+                                                    <v-text-field
+                                                        v-model="item.nombre"
+                                                        outlined persistent-placeholder
+                                                        color="green accent-12"
+                                                        hide-details="auto"
+                                                        class="input_media"
+                                                        :disabled="contactos.disable"
+                                                        @input="upperText(contactos.name)"
+                                                    ></v-text-field>
+                                                </td>
+                                                <td class="input-cell" data-label="Teléfono">
+                                                    <v-text-field
+                                                        v-model="item.nombre"
+                                                        outlined persistent-placeholder
+                                                        color="green accent-12"
+                                                        hide-details="auto"
+                                                        class="input_media"
+                                                        :disabled="contactos.disable"
+                                                        @input="upperText(contactos.phone)"
+                                                    ></v-text-field>
+                                                </td>
+                                                <td class="input-cell last-column" data-label="Email">
+                                                    <v-text-field
+                                                        v-model="item.nombre"
+                                                        outlined persistent-placeholder
+                                                        color="green accent-12"
+                                                        hide-details="auto"
+                                                        class="input_media"
+                                                        :disabled="contactos.disable"
+                                                    ></v-text-field>
+                                                </td>
+                                            </tr>
+                                        </tbody>
+                                    </table>
 
                 <!-- Aceptación y envío -->
-                <v-row class="align-center">
+                <v-row class="align-center mt-4">
                     <v-col cols="auto">
                         <v-checkbox v-model="form.aceptaLOPD" :rules="[v => !!v || $t('supplier.acceptLOPD')]"
                             hide-details />
                     </v-col>
-                    <v-col>
-                        <span>
-                            {{ $t('supplier.acceptText') }}
-                            <a href="#" @click.prevent="dialogPoliticas = true">
+                    <v-col class="pl-0">
+                        <span class="text-body-2">
+                            {{ $t('supplier.acceptPrefix') }}
+                            <a href="#" @click.prevent="dialogPoliticas = true" class="text-primary font-weight-medium">
                                 {{ $t('supplier.acceptLink') }}
                             </a>
                         </span>
+                    </v-col>
+
+                    <v-col cols="12">
+                        <v-btn color="primary" type="submit" @click.prevent="submitForm">
+                            {{ $t('supplier.submit') }}
+                        </v-btn>
                     </v-col>
                 </v-row>
             </v-form>
@@ -353,6 +384,12 @@ export default {
 </script>
 
 <style>
+
+.v-input--hide-details {
+    margin: 0;
+    padding: 0;
+}
+
 .header-cell {
     font-size: 1px;
     border: 1px solid darkgray;

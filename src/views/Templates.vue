@@ -6,7 +6,7 @@
 		<v-row justify="center" align="stretch" dense class="card-wrapper">
 			<!-- Card: Pedir Delivery -->
 			<v-col cols="12" class="d-flex">
-				<v-card class="pa-4 d-flex flex-column justify-space-between fill-height" width="100%" elevation="8">
+				<v-card class="v-card-tmp pa-4 d-flex flex-column justify-space-between fill-height" width="100%" elevation="8">
 					<div>
 						<v-card-title class="headline font-weight-bold">
 							🛵 {{ $t('templates.delivery.title') }}
@@ -31,7 +31,7 @@
 		<v-row justify="center" align="stretch" dense class="card-wrapper">
 			<!-- Card: Agendar Cita -->
 			<v-col cols="12"  class="d-flex">
-				<v-card class="pa-4 d-flex flex-column justify-space-between fill-height" width="100%" elevation="8">
+				<v-card class="v-card-tmp pa-4 d-flex flex-column justify-space-between fill-height" width="100%" elevation="8">
 					<div>
 						<v-card-title class="headline font-weight-bold">
 							📅 {{ $t('templates.medicalAppointment.title') }}
@@ -53,7 +53,7 @@
 			</v-col>
 			<!-- Card: Registrar Proveedor -->
 			<v-col cols="12" class="d-flex">
-				<v-card class="pa-4 d-flex flex-column justify-space-between fill-height" width="100%" elevation="8">
+				<v-card class="v-card-tmp pa-4 d-flex flex-column justify-space-between fill-height" width="100%" elevation="8">
 					<div>
 						<v-card-title class="headline font-weight-bold">
 							🏢 {{ $t('templates.providers.title') }}
@@ -102,6 +102,9 @@ export default {
 
 <style scoped>
 
+	/*.v-card-tmp {
+		height: 200px;
+	}*/
 	.container--fluid {
 		overflow: auto
 		;

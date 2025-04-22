@@ -8,7 +8,7 @@ Vue.use(VueRouter);
 
 const routes: Array<RouteConfig> = [
     {
-        path: "/login",
+        path: "/",
         name: "login",
         component: LoginForm,
     },
@@ -18,13 +18,13 @@ const routes: Array<RouteConfig> = [
         component: RegisterForm,
     },
     {
-        path: "/no-signed-up",
-        name: "no-signed-up",
+        path: "/templates",
+        name: "templates",
         component: Templates
     },
     {
         path: "*",
-        redirect: "/login",
+        redirect: "/",
     }
 
 ];

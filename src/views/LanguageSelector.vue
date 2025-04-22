@@ -17,11 +17,13 @@
     </v-card-actions>
 </template>
   
-<script lang="ts">
-import { defineComponent, ref, computed } from "vue";
-import i18n from "@/plugins/i18n";
+<script>
 
-export default defineComponent({
+import { ref, computed } from "vue";
+import i18n from "@/plugins/i18n";
+import { EventBus } from "./test"; // Assuming you have an EventBus setup
+
+export default {
     name: "LanguageSelector",
     setup() {
         const availableLanguages = [
@@ -33,8 +35,8 @@ export default defineComponent({
 
         const currentLang = ref(i18n.locale);
 
-        const getFlag = (code: string) => {
-            const flags: Record<string, string> = {
+        const getFlag = (code) => {
+            const flags = {
                 es: require("@/assets/banderas/españa.png"),
                 ca: require("@/assets/banderas/catalunya.png"),
                 en: require("@/assets/banderas/reino-unido.png"),
@@ -45,9 +47,10 @@ export default defineComponent({
 
         const languageFlag = computed(() => getFlag(currentLang.value));
 
-        const changeLanguage = (code: string) => {
+        const changeLanguage = (code) => {
             i18n.locale = code;
             currentLang.value = code;
+            EventBus.$emit('mensaje-cambiado', code);
         };
 
         const languageLabel = computed(() => {
@@ -66,7 +69,7 @@ export default defineComponent({
             getFlag,
         };
     },
-});
+};
 </script>
   
 <style scoped>
@@ -74,7 +77,7 @@ export default defineComponent({
     position: fixed;
     top: 16px;
     right: 16px;
-    z-index: 1;
+    z-index: 1000;
     padding: 0;
 }
 

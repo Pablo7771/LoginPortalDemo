@@ -1,12 +1,12 @@
 <template>
 	<v-app>
 		<div class="login-layout">
-			<LanguageSelector />
+			<LanguageSelector @languageChanged = "" />
 			<LoginLeft />
 			<LoginRight>
 				<router-view />
-				<NoSignedUp v-if="showNoSignedUpBtn" />
-				<BackHome v-if="!showNoSignedUpBtn" />
+				<BtnTemplates v-if="showBtnTemplates" />
+				<BackHome v-if="!showBtnTemplates" />
 			</LoginRight>
 
 		</div>
@@ -14,11 +14,12 @@
 </template>
   
 <script lang="ts">
+
 import { defineComponent } from "vue";
 
 import LoginLeft from "@/views/LoginLeft.vue"
 import LoginRight from "@/views/LoginRight.vue"
-import NoSignedUp from "@/views/NoSignedUp.vue";
+import BtnTemplates from "@/views/BtnTemplates.vue";
 import LanguageSelector from "@/views/LanguageSelector.vue";
 import BackHome from "@/views/BackHome.vue";
 
@@ -27,13 +28,12 @@ export default defineComponent({
 	components: {
 		LoginLeft,
 		LoginRight,
-		NoSignedUp,
+		BtnTemplates,
 		LanguageSelector,
 		BackHome
 	},
 	computed: {
-
-		showNoSignedUpBtn() {
+		showBtnTemplates() {
 			return this.$route.name === "login" || this.$route.name === "register";
 		}
 	},
@@ -45,4 +45,8 @@ export default defineComponent({
 	display: flex;
 	height: 100vh;
 }
+html {
+    box-sizing: border-box;
+    overflow-y: hidden;
+	}
 </style>

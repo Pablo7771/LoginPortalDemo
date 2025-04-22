@@ -98,10 +98,11 @@ const messages = {
             }
         },
         delivery: {
+            title: "Delivery",
             categories: "Categories",
             myOrder: "My Order",
             total: "Total",
-            confirmOrder: "Confirm Order",
+            confirmOrder: "Confirm",
             orderConfirmed: "Order confirmed",
             add: "Add",
             noProducts: "No products available in this category.",
@@ -137,9 +138,11 @@ const messages = {
             address: "Address",
             sameAsFiscal: "Same as fiscal address",
             contacts: "Contacts",
-            acceptLOPD: "You must accept the LOPD policy",
             acceptPolicy: "I have read and accept the LOPD policy",
             submit: "Finish form and submit",
+            acceptPrefix: "I accept the",
+            acceptLink: "terms of use",
+            acceptLOPD: "You must accept the terms of use",
             contactRols: [ "Purchasing", "Administration", "Accounting", "Others" ],
         },
         templates: {
@@ -253,10 +256,11 @@ const messages = {
             }
         },
         delivery: {
+            title: "Delivery",
             categories: "Categorías",
             myOrder: "Mi Pedido",
             total: "Total",
-            confirmOrder: "Confirmar Pedido",
+            confirmOrder: "Confirmar",
             orderConfirmed: "Pedido confirmado",
             add: "Agregar",
             noProducts: "No hay productos disponibles en esta categoría.",
@@ -292,9 +296,11 @@ const messages = {
             address: "Domicilio",
             sameAsFiscal: "Misma que la dirección fiscal",
             contacts: "Contactos",
-            acceptLOPD: "Debe aceptar la política LOPD",
             acceptPolicy: "He leído y acepto la política LOPD",
             submit: "Finalizar formulario y enviar",
+            acceptPrefix: "Acepto las",
+            acceptLink: "políticas de uso",
+            acceptLOPD: "Debes aceptar las políticas de uso",
             contactRols: [ "Compras", "Administración", "Contabilidad", "Otros" ],
         },
         templates: {
@@ -412,10 +418,11 @@ const messages = {
             }
         },
         delivery: {
+            title: "Delivery",
             categories: "Categories",
             myOrder: "La Meva Comanda",
             total: "Total",
-            confirmOrder: "Confirmar Comanda",
+            confirmOrder: "Confirmar",
             orderConfirmed: "Comanda confirmada",
             add: "Afegir",
             noProducts: "No hi ha productes disponibles en aquesta categoria.",
@@ -451,9 +458,11 @@ const messages = {
             address: "Domicili",
             sameAsFiscal: "Mateixa que l'adreça fiscal",
             contacts: "Contactes",
-            acceptLOPD: "Heu d'acceptar la política LOPD",
             acceptPolicy: "He llegit i accepto la política LOPD",
             submit: "Finalitzar formulari i enviar",
+            acceptPrefix: "Accepto les",
+            acceptLink: "polítiques d'ús",
+            acceptLOPD: "Has d'acceptar les polítiques d'ús",
             contactRols: [ "Compres", "Administració", "Comptabilitat", "Altres" ]
         },
         templates: {
@@ -564,10 +573,11 @@ const messages = {
             }
         },
         delivery: {
+            title: "Delivery",
             categories: "Catégories",
             myOrder: "Ma Commande",
             total: "Total",
-            confirmOrder: "Confirmer la Commande",
+            confirmOrder: "Confirmer",
             orderConfirmed: "Commande confirmée",
             add: "Ajouter",
             noProducts: "Aucun produit disponible dans cette catégorie.",
@@ -603,9 +613,11 @@ const messages = {
             address: "Adresse",
             sameAsFiscal: "Même que l'adresse fiscale",
             contacts: "Contacts",
-            acceptLOPD: "Vous devez accepter la politique LOPD",
             acceptPolicy: "J'ai lu et j'accepte la politique LOPD",
             submit: "Terminer le formulaire et soumettre",
+            acceptPrefix: "J'accepte les",
+            acceptLink: "conditions d'utilisation",
+            acceptLOPD: "Vous devez accepter les conditions d'utilisation",
             contactRols: [ "Achats", "Administration", "Comptabilité", "Autres" ]
         },
         templates: {
