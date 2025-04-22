@@ -5,7 +5,7 @@
         <div style="position: sticky; top: 0; z-index: 2; background-color: rgba(0, 0, 0, 0.5);" >
             <v-card-title class="text-h5 font-weight-bold mb-0 white--text">{{ $t("supplier.regForm") }}</v-card-title>
 
-            <v-btn icon small class="close-btn" @click="$emit('cerrar')"
+            <v-btn icon small class="close-btn" @click="$emit('cerrar')" color="white"
                 style="position: absolute; top: 16px; right: 16px;">
                 <v-icon>mdi-close</v-icon>
             </v-btn>
@@ -15,7 +15,7 @@
         <v-card-text style="overflow-y: auto; height: calc(100% - 100px); ">
             <v-form ref="form">
                 <!-- Información General -->
-                <h3 class="mb-2">{{ $t("supplier.genInfo") }}</h3>
+                <h3 class="mb-2 mt-6">{{ $t("supplier.genInfo") }}</h3>
                 <v-container fluid>
                     <v-row>
                         <v-col cols="12" md="6">
