@@ -2,8 +2,8 @@
     <v-card class="pa-0" style="height: 90vh; overflow: hidden; position: relative;">
 
         <!-- Cabecera fija con botón de cerrar -->
-        <div style="position: sticky; top: 0; z-index: 2; background-color: rgba(0, 0, 0, 0.5);" class="pa-4">
-            <v-card-title class="headline text-white">{{ $t("supplier.regForm") }}</v-card-title>
+        <div style="position: sticky; top: 0; z-index: 2; background-color: rgba(0, 0, 0, 0.5);" >
+            <v-card-title class="text-h5 font-weight-bold mb-0 white--text">{{ $t("supplier.regForm") }}</v-card-title>
 
             <v-btn icon small class="close-btn" @click="$emit('cerrar')"
                 style="position: absolute; top: 16px; right: 16px;">

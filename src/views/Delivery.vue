@@ -3,7 +3,7 @@
 
         <div class="d-flex align-center justify-space-between px-4 py-3 elevation-1"
             style="background-color: rgba(0, 0, 0, 0.5); color: white; margin-bottom: 1px;">
-            <h2 class="text-h6 font-weight-bold mb-0">{{ $t('delivery.title') }}</h2>
+            <h2 class="text-h5 font-weight-bold mb-0">{{ $t('delivery.title') }}</h2>
 
             <!-- Botón de cierre en la barra -->
             <v-btn icon small @click="$emit('cerrar')" color="white">

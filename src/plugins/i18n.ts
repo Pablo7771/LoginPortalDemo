@@ -12,7 +12,8 @@ const messages = {
             loginButton: "Sign in",
             createAccount: "Create new account",
             unauthorized: "Unauthorized: incorrect user or password",
-            guestContinue: "View Forms"
+            guestContinue: "View Forms",
+            requiredFields: "Required fields"
         },
         register: {
             title: "Create Account",
@@ -174,7 +175,8 @@ const messages = {
             loginButton: "Iniciar sesión",
             createAccount: "Crear cuenta nueva",
             unauthorized: "No autorizado: usuario o contraseña incorrectos",
-            guestContinue: "Visualizar formularios"
+            guestContinue: "Visualizar formularios",
+            requiredFields: "Campos requeridos"
         },
         register: {
             title: "Crear Cuenta",
@@ -332,7 +334,8 @@ const messages = {
             loginButton: "Iniciar sessió",
             createAccount: "Crear un compte nou",
             unauthorized: "No autoritzat: usuari o contrasenya incorrectes",
-            guestContinue: "Visualitzar formularis"
+            guestContinue: "Visualitzar formularis",
+            requiredFields: "Camps requerits"
         },
         register: {
             title: "Crear Compte",
@@ -494,7 +497,8 @@ const messages = {
             loginButton: "Se connecter",
             createAccount: "Créer un nouveau compte",
             unauthorized: "Non autorisé : nom d'utilisateur ou mot de passe incorrect",
-            guestContinue: "Visualiser les formulaires"
+            guestContinue: "Visualiser les formulaires",
+            requiredFields: "Champs requis"
         },
         register: {
             title: "Créer un Compte",
