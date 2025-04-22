@@ -13,7 +13,7 @@
 
         <v-main>
             <v-container fluid>
-                <v-row>
+                <v-row style="overflow: scroll; max-height: 80vh;">
                     <!-- Menú lateral de categorías -->
                     <v-col cols="12" md="4" class="">
                         <!-- Lista de categorías -->
@@ -77,7 +77,7 @@
                     </v-col>
 
                     <!-- Contenido principal -->
-                    <v-col cols="12" md="8" style="overflow: scroll; max-height: 80vh;">
+                    <v-col cols="12" md="8">
                         <v-row>
                             <!-- Sección: Productos -->
                             <v-col cols="12">
