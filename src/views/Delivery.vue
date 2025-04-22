@@ -1,16 +1,21 @@
 <template>
-    <v-card style="min-height: 100%; width: 100%; margin: 0; padding: 30px;">
-        <!-- Botón de cierre -->
-        <v-btn icon small class="close-btn" @click="$emit('cerrar')" style="position: absolute; top: 10px; right: 10px;">
+    <v-card style="min-height: 100%; width: 100%; margin: 0;padding: 0; position: relative;">
+
+        <div class="d-flex align-center justify-space-between px-4 py-3 elevation-1" style="background-color: rgba(0, 0, 0, 0.5); color: white;">
+            <h2 class="text-h6 font-weight-bold mb-0">{{ $t('delivery.title') }}</h2>
+            
+            <!-- Botón de cierre en la barra -->
+            <v-btn icon small @click="$emit('cerrar')" color="white">
             <v-icon>mdi-close</v-icon>
-        </v-btn>
+            </v-btn>
+        </div>
 
         <v-main>
             <v-container fluid>
                 <v-row>
-
                     <!-- Menú lateral de categorías -->
-                    <v-col cols="12" md="3" class="sticky-categories">
+                    <v-col cols="12" md="4" class="sticky-categories">
+                        <!-- Lista de categorías -->
                         <v-list nav dense shaped class="rounded elevation-1 pa-2">
                             <v-subheader class="text-h6 font-weight-bold">{{ $t('delivery.categories') }}</v-subheader>
                             <v-divider class="mb-2" />
@@ -18,40 +23,42 @@
                                 'bg-primary text-white': selectedCategory === cat,
                                 'hover:bg-grey lighten-4': selectedCategory !== cat
                             }" class="rounded transition-all duration-200">
-                                <v-list-item-title class="text-truncate">{{ cat }}</v-list-item-title>
+                                <v-list-item-content>
+                                    <v-list-item-title class="text-truncate">{{ cat }}</v-list-item-title>
+                                </v-list-item-content>
+                                <v-list-item-icon v-if="selectedCategory === cat">
+                                    <v-icon>mdi-check-circle</v-icon>
+                                </v-list-item-icon>
                             </v-list-item>
                         </v-list>
+
+                        <v-card nav dense shaped class="rounded elevation-1 mt-1">
+                            <v-subheader class="text-h6 font-weight-bold">{{ $t('delivery.myOrder') }}</v-subheader>
+                            <v-card-text class="scrollable-content">
+                                <v-list dense>
+                                    <v-list-item v-for="(item, index) in cart" :key="index" class="d-flex justify-space-between">
+                                        <div>{{ item.name }} x{{ item.qty }}</div>
+                                        <div style="margin-left: auto;">€ {{ (item.price * item.qty).toFixed(0) }}</div>
+                                    </v-list-item>
+                                </v-list>
+
+                                <v-divider class="my-3" />
+                                <div class="text-right font-weight-bold mb-2">
+                                    {{ $t('delivery.total') }}: € {{ cartTotal }}
+                                </div>
+                                <v-btn color="success" block @click="checkout" :disabled="cart.length === 0">
+                                    {{ $t('delivery.confirmOrder') }}
+                                </v-btn>
+                                
+                            </v-card-text>
+
+                            
+                        </v-card>
                     </v-col>
 
                     <!-- Contenido principal -->
-                    <v-col cols="12" md="9">
+                    <v-col cols="12" md="8">
                         <v-row>
-                            <!-- Sección: Carrito -->
-                            <v-col cols="12" class="mb-4">
-                                <v-card outlined>
-                                    <v-card-title>
-                                        <h3 class="text-h6 font-weight-bold mb-0">{{ $t('delivery.myOrder') }}</h3>
-                                    </v-card-title>
-                                    <v-card-text>
-                                        <v-list dense>
-                                            <v-list-item v-for="(item, index) in cart" :key="index"
-                                                class="justify-space-between">
-                                                <div>{{ item.name }} x{{ item.qty }}</div>
-                                                <div style="margin-left: auto;">€ {{ (item.price * item.qty).toFixed(2) }}
-                                                </div>
-                                            </v-list-item>
-                                        </v-list>
-                                        <v-divider class="my-3" />
-                                        <div class="text-right font-weight-bold mb-2">
-                                            {{ $t('delivery.total') }}: € {{ cartTotal }}
-                                        </div>
-                                        <v-btn color="success" block @click="checkout" :disabled="cart.length === 0">
-                                            {{ $t('delivery.confirmOrder') }}
-                                        </v-btn>
-                                    </v-card-text>
-                                </v-card>
-                            </v-col>
-
                             <!-- Sección: Productos -->
                             <v-col cols="12">
                                 <h3 class="mb-4 text-h6 font-weight-bold">{{ selectedCategory }}</h3>
@@ -96,6 +103,7 @@
         </v-main>
     </v-card>
 </template>
+
 <script>
 export default {
     name: "McStyleOrder",
@@ -139,7 +147,7 @@ export default {
     },
     computed: {
         cartTotal() {
-            return this.cart.reduce((total, item) => total + (item.price * item.qty), 0).toFixed(2);
+            return this.cart.reduce((total, item) => total + (item.price * item.qty), 0).toFixed(0);
         },
         filteredMenu() {
             return this.menu.filter(item => item.category === this.selectedCategory);
@@ -174,10 +182,6 @@ export default {
 .v-card {
     background-color: #fff;
     border-radius: 0px;
-}
-
-.close-btn {
-    z-index: 10;
 }
 
 .sticky-categories {
