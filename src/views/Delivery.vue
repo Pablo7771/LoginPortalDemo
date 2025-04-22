@@ -15,29 +15,31 @@
             <v-container fluid>
                 <v-row>
                     <!-- Menú lateral de categorías -->
-                    <v-col cols="12" md="4">
+                    <v-col cols="12" md="4" class="">
                         <!-- Lista de categorías -->
                         <v-list nav dense shaped class="rounded elevation-1 pa-2">
                             <v-subheader class="text-h6 font-weight-bold">{{ $t('delivery.categories') }}</v-subheader>
                             <v-divider class="mb-2" />
-                            <v-list-item v-for="cat in categories" :key="cat" @click="selectedCategory = cat" :class="{
-                                'bg-primary text-white': selectedCategory === cat,
-                                'hover:bg-grey lighten-4': selectedCategory !== cat
-                            }" class="rounded transition-all duration-200">
-                                <v-list-item-content>
-                                    <v-list-item-title class="text-truncate">{{ cat }}</v-list-item-title>
-                                </v-list-item-content>
-                                <v-list-item-icon v-if="selectedCategory === cat">
-                                    <v-icon>mdi-check-circle</v-icon>
-                                </v-list-item-icon>
-                            </v-list-item>
+                            <div class="d-flex">
+                                <v-list-item v-for="cat in categories" :key="cat" @click="selectedCategory = cat" :class="{
+                                    'bg-primary text-white': selectedCategory === cat,
+                                    'hover:bg-grey lighten-4': selectedCategory !== cat
+                                }" style="border: 1px solid darkgray;" class="rounded transition-all duration-200">
+                                    <v-list-item-content>
+                                        <v-list-item-title >{{ cat }}</v-list-item-title>
+                                    </v-list-item-content>
+                                    <v-list-item-icon v-if="selectedCategory === cat">
+                                        <v-icon>mdi-check-circle</v-icon>
+                                    </v-list-item-icon>
+                                </v-list-item>
+                            </div>
                         </v-list>
 
                         <v-card nav dense shaped class="rounded elevation-1 mt-1">
                             <v-subheader class="text-h6 font-weight-bold">{{ $t('delivery.myOrder') }}</v-subheader>
-                            <v-divider class="mb-2 mr-4 ml-4" />
-                            <v-card-text>
-                                <v-list dense style="max-height:35vh;overflow:auto;">
+                            <v-divider class="mb-2 mr-4 ml-4" v-if="cart.length > 0"/>
+                            <v-card-text >
+                                <v-list dense style="max-height:35vh;overflow:auto;" v-if="cart.length > 0">
                                     <v-list-item v-for="(item, index) in cart" :key="index"
                                         class="d-flex justify-space-between">
                                         <div>{{ item.name }} x{{ item.qty }}</div>
