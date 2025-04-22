@@ -159,12 +159,12 @@
                                     @input="upperText(contactos.name)"></v-text-field>
                             </td>
                             <td class="" data-label="Teléfono">
-                                <v-text-field v-model="item.nombre" outlined persistent-placeholder dense
+                                <v-text-field v-model="item.phone" outlined persistent-placeholder dense
                                     hide-details="auto" class="caption input_media" :disabled="contactos.disable"
                                     @input="upperText(contactos.phone)"></v-text-field>
                             </td>
                             <td class=" last-column" data-label="Email">
-                                <v-text-field v-model="item.nombre" outlined persistent-placeholder dense
+                                <v-text-field v-model="item.email" outlined persistent-placeholder dense
                                     hide-details="auto" class="caption input_media" :disabled="contactos.disable"></v-text-field>
                             </td>
                         </tr>
@@ -338,6 +338,32 @@ export default {
         window.removeEventListener('resize', this.handleResize);
     },
     methods: {
+        async submitForm() {
+            fetch(`${process.env.VUE_APP_API_URL}/demo_api`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${process.env.VUE_APP_JWT}`
+                },
+                body: JSON.stringify(
+                    {
+                        module: "proveedor",
+                        form  : this.form
+                    }
+                ),
+            })
+                .then(async response => {
+                    if (!response.ok) {
+                        const error = await response.text();
+                        throw new Error(error || this.$t('register.submitError'));
+                    }
+                    alert(this.$t('register.submitSuccess'));
+                })
+                .catch(err => {
+                    console.error(err);
+                    alert(this.$t('register.submitError'));
+                });
+        },
         onProvinciaChange() {
             this.form.poblacion = '';
             this.form.codigoPostal = '';

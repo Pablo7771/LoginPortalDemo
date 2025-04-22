@@ -18,7 +18,8 @@
                     <v-col cols="12" md="4" class="">
                         <!-- Lista de categorías -->
                         <v-list nav dense shaped class="rounded elevation-1 pa-2">
-                            <v-subheader style="color:black" class="text-h6 font-weight-bold">{{ $t('delivery.categories') }}</v-subheader>
+                            <v-subheader style="color:black" class="text-h6 font-weight-bold">{{ $t('delivery.categories')
+                            }}</v-subheader>
                             <v-divider class="mb-2" />
                             <div class="div-cat">
                                 <v-list-item v-for="cat in categories" :key="cat" @click="selectedCategory = cat" :class="{
@@ -67,12 +68,13 @@
                                             {{ $t('delivery.total') }}: € {{ cartTotal }}
                                         </div>
 
-                                        <v-btn color="success" block @click="checkout" :disabled="cart.length === 0">
-                                            {{ $t('delivery.confirmOrder') }}
-                                        </v-btn>
                                     </v-card-text>
                                 </div>
                             </v-expand-transition>
+
+                            <v-btn color="success" block @click="checkout" :disabled="cart.length === 0">
+                                {{ $t('delivery.confirmOrder') }}
+                            </v-btn>
                         </v-card>
                     </v-col>
 
@@ -86,12 +88,12 @@
                                     <v-col v-for="item in filteredMenu" :key="item.id" cols="12" sm="6" md="6"
                                         class="d-flex justify-center">
                                         <v-card class="hover-card" elevation="2" style="width: 100%;">
-                                            <v-img :src="item.image" height="250px" class="rounded-t" contain />
-                                            <v-card-title class="text-wrap text-truncate">
+                                            <v-img :src="item.image" height="275px" class="rounded-t" contain />
+                                            <v-card-title class="text-wrap text-truncate ">
                                                 {{ item.name }}
                                             </v-card-title>
-                                            <v-card-subtitle>€{{ item.price.toFixed(2) }}</v-card-subtitle>
-                                            <v-card-actions class="justify-center">
+                                            <v-card-subtitle class="pb-0">€{{ item.price.toFixed(2) }}</v-card-subtitle>
+                                            <v-card-actions class="justify-center pt-0" style="margin-top: -8px;">
                                                 <template v-if="getItemQty(item.id)">
                                                     <v-btn icon @click="changeQty(item, -1)">
                                                         <v-icon>mdi-minus</v-icon>
@@ -152,7 +154,7 @@ export default {
     created() {
 
         EventBus.$on('mensaje-cambiado', (nuevoMensaje) => {
-            
+
             this.categories = this.$t("delivery.categoryLabels");
             this.selectedCategory = this.$t("delivery.categoryLabels")[0];
             this.menu = this.refreshMenu();
@@ -210,29 +212,31 @@ export default {
             return cartItem ? cartItem.qty : 0;
         },
         checkout() {
-            // Aquí iría la lógica para el pago o procesamiento del pedido
-            alert(this.$t("delivery.orderConfirmed") + "\n" + JSON.stringify(this.cart, null, 2));
-
-            /*fetch(`${process.env.VUE_APP_API_URL}/registro_demo`, {
-                    method: 'POST',
-                    headers: {
-                        'Content-Type': 'application/json',
-                        'Authorization': 'Bearer eyJhbGciOiJIUzM4NCJ9.eyJleHAiOjQxMDI0NDEyMDAsInVzciI6ImVjb21fdXNlciJ9.6fLJ2VriBl82xM9suCTnaq_GBCrgfJSYi_-i0RKGsVkauinTWcXVkzoxbSpsNhcb'
-                    },
-                    body: JSON.stringify(payload),
+            
+            fetch(`${process.env.VUE_APP_API_URL}/demo_api`, {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${process.env.VUE_APP_JWT}`
+                },
+                body: JSON.stringify(
+                    {
+                        module: "delivery",
+                        cart: this.cart
+                    }
+                ),
+            })
+                .then(async response => {
+                    if (!response.ok) {
+                        const error = await response.text();
+                        throw new Error(error || this.$t('register.submitError'));
+                    }
+                    alert(this.$t('register.submitSuccess'));
                 })
-                    .then(async response => {
-                        if (!response.ok) {
-                            const error = await response.text();
-                            throw new Error(error || this.$t('register.submitError'));
-                        }
-                        alert(this.$t('register.submitSuccess'));
-                        this.$router.push('/');
-                    })
-                    .catch(err => {
-                        console.error(err);
-                        alert(this.$t('register.submitError'));
-                    });*/
+                .catch(err => {
+                    console.error(err);
+                    alert(this.$t('register.submitError'));
+                });
         }
     }
 };
