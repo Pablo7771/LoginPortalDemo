@@ -328,10 +328,11 @@ export default {
             fd.append("email", this.paciente.email);
             fd.append("telefono", this.paciente.telefono);
             fd.append("foto", this.paciente.fotoDni);
+            fd.append("module", "cita");
 
             this.loading = true;
 
-            const response = await fetch(`${API_URL}/demo_cita`, {
+            const response = await fetch(`${API_URL}/demo_api`, {
                 method: "POST",
                 headers: {
                     Authorization: `Bearer ${JWT}`,
