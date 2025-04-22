@@ -6,7 +6,7 @@
             <h2 class="text-h6 font-weight-bold mb-0">{{ $t('delivery.title') }}</h2>
 
             <!-- Botón de cierre en la barra -->
-            <v-btn icon small @click="$emit('cerrar')" color="white" >
+            <v-btn icon small @click="$emit('cerrar')" color="white">
                 <v-icon>mdi-close</v-icon>
             </v-btn>
         </div>
@@ -20,13 +20,14 @@
                         <v-list nav dense shaped class="rounded elevation-1 pa-2">
                             <v-subheader class="text-h6 font-weight-bold">{{ $t('delivery.categories') }}</v-subheader>
                             <v-divider class="mb-2" />
-                            <div class="d-flex">
+                            <div class="div-cat">
                                 <v-list-item v-for="cat in categories" :key="cat" @click="selectedCategory = cat" :class="{
                                     'bg-primary text-white': selectedCategory === cat,
                                     'hover:bg-grey lighten-4': selectedCategory !== cat
-                                }" style="border: 1px solid darkgray;" class="rounded transition-all duration-200">
+                                }" style="border: 1px solid lightgray;"
+                                    class="ma-1 rounded transition-all duration-200">
                                     <v-list-item-content>
-                                        <v-list-item-title >{{ cat }}</v-list-item-title>
+                                        <v-list-item-title>{{ cat }}</v-list-item-title>
                                     </v-list-item-content>
                                     <v-list-item-icon v-if="selectedCategory === cat">
                                         <v-icon>mdi-check-circle</v-icon>
@@ -34,28 +35,44 @@
                                 </v-list-item>
                             </div>
                         </v-list>
-
                         <v-card nav dense shaped class="rounded elevation-1 mt-1">
-                            <v-subheader class="text-h6 font-weight-bold">{{ $t('delivery.myOrder') }}</v-subheader>
-                            <v-divider class="mb-2 mr-4 ml-4" v-if="cart.length > 0"/>
-                            <v-card-text >
-                                <v-list dense style="max-height:35vh;overflow:auto;" v-if="cart.length > 0">
-                                    <v-list-item v-for="(item, index) in cart" :key="index"
-                                        class="d-flex justify-space-between">
-                                        <div>{{ item.name }} x{{ item.qty }}</div>
-                                        <div style="margin-left: auto;">€ {{ (item.price * item.qty).toFixed(0) }}</div>
-                                    </v-list-item>
-                                </v-list>
+                            <v-list-item @click="showOrder = !showOrder" class="px-4">
+                                <v-list-item-content>
+                                    <v-list-item-title class="text-h6 font-weight-bold">
+                                        {{ $t('delivery.myOrder') }}
+                                    </v-list-item-title>
+                                </v-list-item-content>
+                                <v-list-item-icon>
+                                    <v-icon>{{ showOrder ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+                                </v-list-item-icon>
+                            </v-list-item>
 
-                                <v-divider class="my-3" />
-                                <div class="text-right font-weight-bold mb-2">
-                                    {{ $t('delivery.total') }}: € {{ cartTotal }}
+                            <v-expand-transition>
+                                <div v-show="showOrder">
+                                    <v-divider class="mb-2 mx-4" v-if="cart.length > 0" />
+
+                                    <v-card-text>
+                                        <v-list dense style="max-height:35vh;overflow:auto;" v-if="cart.length > 0">
+                                            <v-list-item v-for="(item, index) in cart" :key="index"
+                                                class="d-flex justify-space-between">
+                                                <div>{{ item.name }} x{{ item.qty }}</div>
+                                                <div style="margin-left: auto;">€ {{ (item.price * item.qty).toFixed(0) }}
+                                                </div>
+                                            </v-list-item>
+                                        </v-list>
+
+                                        <v-divider class="my-3" />
+
+                                        <div class="text-right font-weight-bold mb-2">
+                                            {{ $t('delivery.total') }}: € {{ cartTotal }}
+                                        </div>
+
+                                        <v-btn color="success" block @click="checkout" :disabled="cart.length === 0">
+                                            {{ $t('delivery.confirmOrder') }}
+                                        </v-btn>
+                                    </v-card-text>
                                 </div>
-                                <v-btn color="success" block @click="checkout" :disabled="cart.length === 0" >
-                                    {{ $t('delivery.confirmOrder') }}
-                                </v-btn>
-
-                            </v-card-text>
+                            </v-expand-transition>
                         </v-card>
                     </v-col>
 
@@ -69,7 +86,7 @@
                                     <v-col v-for="item in filteredMenu" :key="item.id" cols="12" sm="6" md="6"
                                         class="d-flex justify-center">
                                         <v-card class="hover-card" elevation="2" style="width: 100%;">
-                                            <v-img :src="item.image" height="300px" class="rounded-t" contain />
+                                            <v-img :src="item.image" height="250px" class="rounded-t" contain />
                                             <v-card-title class="text-wrap text-truncate">
                                                 {{ item.name }}
                                             </v-card-title>
@@ -109,11 +126,15 @@
 
 <script>
 import { EventBus } from "./test";
+import { ref } from 'vue'
+
+const showOrder = ref(false);
 
 export default {
     name: "McStyleOrder",
     data() {
         return {
+            showOrder,
             selectedCategory: this.$t("delivery.categoryLabels")[0],
             categories: this.$t("delivery.categoryLabels"),
             menu: [
@@ -244,6 +265,18 @@ export default {
 </script>
   
 <style scoped>
+@media (max-width: 960px) {
+    .div-cat {
+        display: flex;
+    }
+    .rounded-t {
+        height: 150px;
+    }
+}
+
+.rounded-t {
+        height: 150px;
+    }
 .v-card {
     background-color: #fff;
     border-radius: 0px;
