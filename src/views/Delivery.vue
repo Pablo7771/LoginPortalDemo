@@ -130,13 +130,11 @@
 import { EventBus } from "../utils/eventBus";
 import { ref } from 'vue'
 
-const showOrder = ref(false);
-
 export default {
     name: "McStyleOrder",
     data() {
         return {
-            showOrder,
+            showOrder: true,
             selectedCategory: this.$t("delivery.categoryLabels")[0],
             categories: this.$t("delivery.categoryLabels"),
             menu: this.refreshMenu(),
@@ -154,11 +152,13 @@ export default {
     created() {
 
         EventBus.$on('mensaje-cambiado', (nuevoMensaje) => {
-
             this.categories = this.$t("delivery.categoryLabels");
             this.selectedCategory = this.$t("delivery.categoryLabels")[0];
             this.menu = this.refreshMenu();
         })
+    },
+    mounted() {
+        this.showOrder = window.innerWidth > 960;
     },
     methods: {
 
@@ -212,7 +212,7 @@ export default {
             return cartItem ? cartItem.qty : 0;
         },
         checkout() {
-            
+
             fetch(`${process.env.VUE_APP_API_URL}/demo_api`, {
                 method: 'POST',
                 headers: {
